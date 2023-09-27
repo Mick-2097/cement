@@ -1,0 +1,27 @@
+:root {
+  --red: #FF0000;
+  --green: #2DD23D;
+  --blue: #2BCBC1;
+
+  --beige: #FFF0CA;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+#app {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
