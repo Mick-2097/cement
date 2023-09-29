@@ -1,4 +1,5 @@
 <script setup>
+import Vbutton from '../components/Vbutton.vue';
 </script>
 
 <template>
@@ -9,20 +10,20 @@
             <img src="../assets/error.svg" alt="">
             <p>Неверные E-mail или пароль</p>
         </div>
-        <div class="login">
+        <div class="input-wrap">
             <label for="login">
                 Логин
             </label>
             <input type="text" name="login" id="login">
         </div>
-        <div class="password">
+        <div class="input-wrap">
             <label for="password">
                 Пароль
             </label>
             <input type="text" name="password" id="password">
         </div>
-        <button class="enter">Войти</button>
-        <div class="action">
+        <Vbutton buttonText="Войти"/>
+        <div class="actions">
             <a class="forgot">Забыли пароль?</a>
             <a class="register">Регистрация</a>
         </div>
@@ -35,6 +36,12 @@
         flex-direction: column;
         width: 350px;
         gap: 20px;
+        margin: auto;
+    }
+    .icon {
+        align-self: center;
+        height: 82px;
+        width: 82px;
     }
     .warning {
         background-color: var(--beige);
@@ -51,23 +58,17 @@
             color: var(--red);
         }
     }
-    .icon {
-        align-self: center;
-        height: 82px;
-        width: 82px;
-    }
     h1 {
         align-self: center;
         font-size: 24px;
         font-weight: 400;
     }
-    .login {
+    .input-wrap {
         height: 60px;
     }
     label {
         cursor: pointer;
         font-size: 13px;
-        
     }
     input {
         width: 100%;
@@ -79,17 +80,8 @@
         padding-left: 16px;
         font-size: 16px;
     }
-    .enter {
-        color: white;
-        font-size: 16px;
-        width: 100%;
-        height: 40px;
-        background-color: var(--blue);
-        border: var(--blue);
-        border-radius: 4px;
-        cursor: pointer;
-    }
-    .action {
+
+    .actions {
         display: flex;
         justify-content: space-between;
         font-size: 16px;

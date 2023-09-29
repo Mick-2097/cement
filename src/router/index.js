@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Test from '../views/Test.vue'
 import Login from '../views/Login.vue'
+import Register from '../views/Register.vue'
+import Projects from '../views/Projects.vue'
+import Create from '../views/Create.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,15 +11,15 @@ const router = createRouter({
     {
       path: '/',
       name: 'none',
-      redirect: '/home',
-      component: HomeView
+      redirect: '/login',
+      component: Login
     },
     {
-      path: '/home',
-      name: 'home',
-      component: HomeView,
+      path: '/test',
+      name: 'test',
+      component: Test,
       meta: {
-        title: 'Home'
+        title: 'Test page'
       }
     },
     {
@@ -25,6 +28,30 @@ const router = createRouter({
       component: Login,
       meta: {
         title: 'Login'
+      }
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register,
+      meta: {
+        title: 'Register'
+      }
+    },
+    {
+      path: '/projects',
+      name: 'projects',
+      component: Projects,
+      meta: {
+        title: 'Projects'
+      }
+    },
+    {
+      path: '/create',
+      name: 'create',
+      component: Create,
+      meta: {
+        title: 'Create new project'
       }
     }
   ]
