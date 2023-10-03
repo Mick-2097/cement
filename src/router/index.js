@@ -4,6 +4,7 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Projects from '../views/Projects.vue'
 import Create from '../views/Create.vue'
+import ProjectData from '../views/ProjectData.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -52,6 +53,14 @@ const router = createRouter({
       component: Create,
       meta: {
         title: 'Create new project'
+      }
+    },
+    {
+      path: '/projectdata',
+      name: 'projectdata',
+      component: ProjectData,
+      meta: {
+        title: 'project data'
       }
     }
   ]
