@@ -1,5 +1,5 @@
 <script setup>
-    import Vheader from '../components/Vheader.vue';
+    import Vheader from '../components/Vheader.vue'
 </script>
 
 <template>

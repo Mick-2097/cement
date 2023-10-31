@@ -86,7 +86,8 @@
         background: var(--bg);
     }
     .wrapper {
-        width: 1076px;
+        width: 100%;
+        max-width: 1076px;
         height: 80px;
         display: flex;
         align-items: center;
@@ -102,7 +103,8 @@
     }
     .card {
         display: flex;
-        width: 1076px;
+        width: 100%;
+        max-width: 1076px;
         margin-bottom: 40px;
         background: white;
         padding: 8px 16px;
@@ -119,6 +121,7 @@
         }
         > tbody tr {
             height: 40px;
+            /* text-wrap: wrap; */
         }
         > tbody tr:hover {
             background: #BEF6F2;

@@ -84,8 +84,6 @@
 </template>
 
 <style scoped>
-
-
 main {
     background: var(--bg);
     padding: 16px;
@@ -218,6 +216,10 @@ section {
         font-weight: 400;
         color: #999;
     }
+    > .card > h3:hover {
+        background: white;
+        cursor: default;
+    }
     > .card > select {
         width: 100%;
         height: 40px;
@@ -228,6 +230,7 @@ section {
     }
 }
 .file-label {
+    cursor: pointer;
     color: var(--blue);
     font-size: 20px;
     text-align: center;
@@ -242,5 +245,25 @@ section {
     min-height: fit-content;
     align-items: center;
     justify-content: center;
+}
+@media(max-width: 1024px) {
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .wrapper,
+    .layout,
+    section,
+    .inner-section {
+        padding: 8px;
+        flex-direction: column;
+        align-items: center;
+        max-width: 320px;
+    }
+    .image-display {
+        text-align: center;
+    }
 }
 </style>

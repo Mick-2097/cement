@@ -6,58 +6,77 @@
     <header>
         <div class="wrapper">
             <img class="icon-small" src="../assets/icon-small.png" alt="">
-            <p class="highlight">Все проекты</p>
-            <p class="route">/ </p> <!-- dynamic route -->
+            <div class="breadcrums">
+                <button class="breadcrumb">Все проекты</button> <!-- dynamic route for loop -->
+            </div>
         </div>
         <div class="wrapper">
-            <input type="search" name="" id="search-input" placeholder="Поиск...">
-            <img class="search-icon" src="../assets/search.svg" alt="">
-            <div class="user">
-                <img src="../assets/user.png" alt="">
-                <p>Сергей Конищев</p>
+            <div class="search-container">
+                <input type="search" name="" id="search-input" placeholder="Поиск...">
+                <img class="search-icon" src="../assets/search.svg" alt="">
             </div>
-            <div class="notifications">
-                <img src="../assets/bell.png" alt="">
+            <div class="container">
+                <div class="user">
+                    <img src="../assets/user.png" alt="">
+                    <p>Сергей Конищев</p>
+                </div>
+                <div class="notifications">
+                    <img src="../assets/bell.png" alt="">
+                </div>
+                <a class="querry">?</a>
             </div>
-            <a class="querry">?</a>
-
         </div>
     </header>
 </template>
 
 <style scoped>
     header {
-        height: 68px;
+        min-height: 68px;
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
     }
     .wrapper {
+        max-width: 50%;
         padding: 0 1rem;
         display: flex;
         align-items: center;
         gap: 12px;
     }
-    .highlight {
+    .breadcrumbs {
+        flex-wrap: wrap;
+    }
+    .breadcrumb {
+        border: none;
+        font-size: 16px;
         cursor: pointer;
     }
-    .route {
-        display: none; /* display as route changes */
+    .search-container {
+        position: relative;
+        max-width: 374px;
     }
     #search-input {
-        width: 374px;
+        width: 100%;
         height: 40px;
         border: 1px solid #999;
         border-radius: 4px;
-        transform: translateX(30px);
         padding: 0 30px 0 16px;
         font-size: 16px;
     }
     .search-icon {
+        position: absolute;
         z-index: 2;
-        transform: translateX(-10px);
+        right: 5px;
+        top: 10px;
+    }
+    .container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
     .user {
         display: flex;
+        flex-shrink: none;
         gap: 8px;
     }
     .notifications {
@@ -91,5 +110,42 @@
         border: 2px solid black;
         border-radius: 50%;
         cursor: pointer;
+    }
+
+    @media(max-width: 1024px) {
+        .user > img {
+            height: 20px;
+            align-self: center;
+        }
+        .querry {
+            flex-shrink: 0;
+        }
+    }
+    @media(max-width: 801px) {
+        header {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 0;
+            gap: 4px;
+        }
+        .wrapper {
+            width: 100%;
+            justify-content: center;
+        }
+        #search-input {
+            width: calc(100% - 20px);
+            margin: 0 8px;
+            transform: translateX(0);
+        }
+        .search-icon {
+            transform: translateX(-15px);
+        }
+        .querry {
+            flex-shrink: 0;
+        }
+        .wrapper:nth-of-type(2) {
+            flex-wrap: wrap;
+        }
     }
 </style>
