@@ -1,20 +1,10 @@
 <script setup>
 import Vbutton from '../components/Vbutton.vue'
-import Keycloak from 'keycloak-js'
-const keycloak = new Keycloak({
-    url: 'https://auth.dev.nlplay.ru/auth/',
-    // url: 'http://localhost:5173/login',
-    realm: 'proptech',
-    clientId: 'smc'
-})
-keycloak.init({
-    onLoad: 'login-required'
-})
-
-</script>
+ </script>
 
 <template>
     <main>
+      <router-link to="/projects">Go to projects</router-link>
         <img class="icon" src="../assets/main-icon.svg" alt="">
         <h1>Вход</h1>
         <div class="warning">

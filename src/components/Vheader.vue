@@ -1,4 +1,7 @@
 <script setup>
+import { authStore } from "@/stores/auth";
+
+const auth = authStore()
 
 </script>
 
@@ -18,7 +21,7 @@
             <div class="container">
                 <div class="user">
                     <img src="../assets/user.png" alt="">
-                    <p>Сергей Конищев</p>
+                    <p>{{ auth.user.family_name }} {{ auth.user.given_name }}</p>
                 </div>
                 <div class="notifications">
                     <img src="../assets/bell.png" alt="">

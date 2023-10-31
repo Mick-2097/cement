@@ -1,14 +1,31 @@
 <script setup>
     import Vheader from '../components/Vheader.vue'
     import Vbutton from '../components/Vbutton.vue'
-    const projectData = true
+    import { mainApi } from "@/api/main";
+    import {onMounted, ref} from "vue";
+
+    let projectData = ref(true)
+
+    let concretes = [];
+
+    const fetchProjects = async () => {
+      projectData.value = false;
+      const response = await mainApi.fetchData('GET', 'companies');
+      concretes = response.data.list
+      projectData.value = true
+    }
+
+    onMounted(() => {
+      fetchProjects()
+    })
+
 </script>
 
 <template>
     <Vheader/>
     <main>
         <div class="wrapper">
-            <h1>Список проектов</h1>
+            <h1 @click="fetchProjects()">Список проектов</h1>
             <Vbutton buttonText="Создать проект"/>
         </div>
         <!-- To be populated dynamically one card for each project -->
