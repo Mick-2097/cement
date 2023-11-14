@@ -1,26 +1,26 @@
 <script setup>
-import Vheader from "../components/Vheader.vue";
-import Vbutton from "../components/Vbutton.vue";
-import { mainApi } from "@/api/main";
-import { onMounted, ref } from "vue";
+import Vheader from "../components/Vheader.vue"
+import Vbutton from "../components/Vbutton.vue"
+import { mainApi } from "@/api/main"
+import { onMounted, ref } from "vue"
 
-let projectData = ref(true);
+let projectData = ref(true)
 
-let concretes = [];
+let concretes = []
 
 const fetchCompanies = async () => {
-  projectData.value = false;
-  const response = await mainApi.fetchData("GET", "companies");
-  concretes = response.data.list;
-  projectData.value = true;
+  projectData.value = false
+  const response = await mainApi.fetchData("GET", "companies")
+  concretes = response.data.list
+  projectData.value = true
 };
 const fetchProjects = async (companyID) => {
-  const response = await mainApi.fetchData("GET", `projects?company_id=${companyID}`);
-  console.log(response);
+  const response = await mainApi.fetchData("GET", `projects?company_id=${companyID}`)
+  console.log(response)
 };
 
 onMounted(() => {
-  fetchCompanies();
+  fetchCompanies()
 });
 </script>
 
