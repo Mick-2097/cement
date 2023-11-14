@@ -9,11 +9,12 @@ export const handleAuth = async () => {
     realm: 'proptech',
     clientId: 'smc',
   })
-
+  
   await keycloak.init({
     onLoad: 'login-required',
   });
-
+  
   auth.user = keycloak.tokenParsed
   auth.token = keycloak.token
+  console.log(auth.token)
 }
