@@ -1,5 +1,5 @@
-import Keycloak from "keycloak-js";
-import { authStore } from "@/stores/auth";
+import Keycloak from "keycloak-js"
+import { authStore } from "@/stores/auth"
 
 export const handleAuth = async () => {
   const auth = authStore()
@@ -12,9 +12,8 @@ export const handleAuth = async () => {
   
   await keycloak.init({
     onLoad: 'login-required',
-  });
+  })
   
   auth.user = keycloak.tokenParsed
   auth.token = keycloak.token
-  console.log(auth.token)
 }

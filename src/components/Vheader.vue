@@ -1,32 +1,49 @@
 <script setup>
-import { authStore } from "@/stores/auth";
+import { authStore } from "@/stores/auth"
 
 const auth = authStore()
+
+const showSearch = () => {
+    const bottomRow = document.querySelector('.bottom-row')
+    const searchIcon = document.querySelector('.search-icon')
+    if (window.innerWidth <= 800) {
+        searchIcon.style.display = 'none'
+        bottomRow.style.height = '68px'
+    }
+}
 
 </script>
 
 <template>
     <header>
-        <div class="wrapper">
-            <img class="icon-small" src="../assets/icon-small.png" alt="">
-            <div class="breadcrums">
-                <button class="breadcrumb">Все проекты</button> <!-- dynamic route for loop -->
+        <div class="top-row">
+            <div class="wrapper">
+                <img class="icon-small" src="../assets/icon-small.png" alt="">
+                <div class="breadcrumbs"><!-- dynamic route for loop -->
+                    <button class="breadcrumb">Все проекты</button>
+                </div>
+            </div>
+            <div class="wrapper">
+                <div class="search-container">
+                    <input type="search" name="" id="search-input" placeholder="Поиск...">
+                    <img @click="showSearch" class="search-icon" src="../assets/search.svg" alt="">
+                </div>
+                <div class="container">
+                    <div class="user">
+                        <img src="../assets/user.png" alt="">
+                        <p class="user-name">{{ auth.user.family_name }} {{ auth.user.given_name }}</p>
+                    </div>
+                    <div class="notifications">
+                        <img src="../assets/bell.png" alt="">
+                    </div>
+                    <a class="querry">?</a>
+                </div>
             </div>
         </div>
-        <div class="wrapper">
-            <div class="search-container">
-                <input type="search" name="" id="search-input" placeholder="Поиск...">
-                <img class="search-icon" src="../assets/search.svg" alt="">
-            </div>
-            <div class="container">
-                <div class="user">
-                    <img src="../assets/user.png" alt="">
-                    <p>{{ auth.user.family_name }} {{ auth.user.given_name }}</p>
-                </div>
-                <div class="notifications">
-                    <img src="../assets/bell.png" alt="">
-                </div>
-                <a class="querry">?</a>
+        <div class="bottom-row">
+            <div class="mobile-search-container">
+                <input type="search" name="" id="mobile-search-input" placeholder="Поиск...">
+                <img @click="showSearch" class="mobile-search-icon" src="../assets/search.svg" alt="">
             </div>
         </div>
     </header>
@@ -34,13 +51,29 @@ const auth = authStore()
 
 <style scoped>
     header {
+        flex-wrap: wrap;
+    }
+    .top-row {
+        background-color: white;
         min-height: 68px;
         display: flex;
         justify-content: space-between;
-        flex-wrap: wrap;
+    }
+    .top-row * {
+        z-index: 100;
+    }
+    .bottom-row {
+        height: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: -100;
+        transition: height 150ms linear;
+        overflow: hidden;
     }
     .wrapper {
-        max-width: 50%;
+        background-color: white;
+        width: 50%;
         padding: 0 1rem;
         display: flex;
         align-items: center;
@@ -55,8 +88,9 @@ const auth = authStore()
         cursor: pointer;
     }
     .search-container {
-        position: relative;
+        display: flex;
         max-width: 374px;
+        background-color: white;
     }
     #search-input {
         width: 100%;
@@ -66,16 +100,24 @@ const auth = authStore()
         padding: 0 30px 0 16px;
         font-size: 16px;
     }
+    #mobile-search-input {
+        height: 40px;
+        border: 1px solid #999;
+        border-radius: 4px;
+        padding: 0 30px 0 16px;
+        font-size: 16px;
+    }
     .search-icon {
-        position: absolute;
-        z-index: 2;
-        right: 5px;
-        top: 10px;
+        z-index: 100;
+        transform: translateX(-30px);
+    }
+    .mobile-search-icon {
+        transform: translateX(-30px) translateY(4px);
     }
     .container {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 14px;
     }
     .user {
         display: flex;
@@ -125,30 +167,24 @@ const auth = authStore()
         }
     }
     @media(max-width: 801px) {
-        header {
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 8px 0;
-            gap: 4px;
-        }
-        .wrapper {
-            width: 100%;
-            justify-content: center;
-        }
-        #search-input {
-            width: calc(100% - 20px);
-            margin: 0 8px;
-            transform: translateX(0);
-        }
-        .search-icon {
-            transform: translateX(-15px);
-        }
-        .querry {
-            flex-shrink: 0;
+        .top-row {
+            justify-content: space-between;
         }
         .wrapper:nth-of-type(2) {
-            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        .breadcrumbs {
+            display: none;
+        }
+        #search-input {
+            display: none;
+        }
+        .search-icon {
+            cursor: pointer;
+            transform: translateX(0px);
+        }
+        .user-name {
+            display: none;
         }
     }
 </style>

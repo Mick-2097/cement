@@ -6,37 +6,50 @@ import { onMounted, ref } from "vue"
 
 let projectData = ref(true)
 
-let concretes = []
+let companies = []
+let projects = []
+let screenSize = window.innerWidth
 
 const fetchCompanies = async () => {
   projectData.value = false
   const response = await mainApi.fetchData("GET", "companies")
-  concretes = response.data.list
-  projectData.value = true
-};
+  companies = response.data
+  fetchProjects(companies[0].id)
+}
 const fetchProjects = async (companyID) => {
   const response = await mainApi.fetchData("GET", `projects?company_id=${companyID}`)
-  console.log(response)
-};
+  projects = response.data.list
+  projectData.value = true
+}
 
 onMounted(() => {
   fetchCompanies()
-});
+})
 </script>
 
 <template>
   <Vheader />
   <main>
     <div class="wrapper">
-      <h1 @click="fetchProjects(4)">Список проектов</h1>
-      <Vbutton buttonText="Создать проект" />
+      <h1>Проекты</h1>
+      <a href="#">Оплаты</a>
+      <Vbutton :buttonText="screenSize < 801 ? 'Создать' : 'Создать проект'" />
     </div>
-    <!-- To be populated dynamically one card for each project -->
-    <div class="card">
-      <table v-show="projectData">
+    
+    <!-- If there is no data -->
+    <div v-show="!projectData" class="empty">
+      <p>У вас пока нет проектов.</p>
+      <p>Вы можете создать проект или Вас могут добавить в проект.</p>
+    </div>
+
+    <!-- If there is data -->
+    <div class="card" v-for="company in companies" :key="company.id">
+
+      <!-- large screen view -->
+      <table v-show="projectData" class="table-view">
         <thead>
           <tr>
-            <th><span>РосАтом, </span> организация</th>
+            <th><span>{{ company.name }}, </span> организация</th>
             <th></th>
             <th>Нет работ</th>
             <th>В работе</th>
@@ -44,63 +57,43 @@ onMounted(() => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Название проекта которое может быть длинное №9218</td>
+          <tr v-for="project in projects" :key="project.id">
+            <td>{{ project.name }}</td>
             <td class="date">02.03.2022 – 20.12.2023 (еще <span>312 д.</span>)</td>
             <td class="counter"><p class="grey">159</p></td>
             <td class="counter"><p class="grey-green">15</p></td>
             <td class="counter"><p class="green">49</p></td>
           </tr>
-          <tr>
-            <td>Название другого проекта покороче</td>
-            <td class="date">07.05.2023 – 01.11.2023 (еще <span>253 д.</span>)</td>
-            <td class="counter"><p class="grey">0</p></td>
-            <td class="counter"><p class="grey-green">3</p></td>
-            <td class="counter"><p class="green">31</p></td>
-          </tr>
-          <tr>
-            <td>Еще какой-то проект</td>
-            <td class="date">25.01.2024 – 14.10.2024 (старт <span>43 д.</span>)</td>
-            <td class="counter"><p class="grey">420</p></td>
-            <td class="counter"><p class="grey-green">0</p></td>
-            <td class="counter"><p class="green">0</p></td>
-          </tr>
         </tbody>
       </table>
-      <div v-show="!projectData" class="empty">
-        <p>У вас пока нет проектов.</p>
-        <p>Вы можете создать проект или Вас могут добавить в проект.</p>
-      </div>
+
+      <!-- Small screen view -->
+      <ul v-show="projectData" class="list-view">
+        <li>
+          <p class="name"><span>{{ company.name }}, </span> организация</p>
+          <p v-for="project in projects" :key="project.id">
+            {{ project.name }} 
+            <br><br>
+            <span class="date">02.03.2022 – 20.12.2023 (еще 312 д.) </span>
+            <br><br>
+            <div class="list-counters">
+              <div class="counter"><p class="grey">159</p></div>
+              <div class="counter"><p class="grey-green">15</p></div>
+              <div class="counter"><p class="green">49</p></div>
+            </div>
+          </p>
+
+        </li>
+      </ul>
+
     </div>
-    <div class="card" v-show="projectData">
-      <table>
-        <thead>
-          <tr>
-            <th><span>Автодор, </span> организация</th>
-            <th></th>
-            <th>Нет работ</th>
-            <th>В работе</th>
-            <th>Готово</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Назване третьего проекта в другой организации</td>
-            <td class="date">
-              07.05.2022 – 14.02.2023 (еще <span class="red">15 д.</span>)
-            </td>
-            <td class="counter"><p class="grey">159</p></td>
-            <td class="counter"><p class="grey-green">15</p></td>
-            <td class="counter"><p class="green">49</p></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+
   </main>
 </template>
 
 <style scoped>
 main {
+  padding: 0 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -114,10 +107,11 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  > button {
+  
+}
+button {
     width: 156px;
     font-weight: 700;
-  }
 }
 h1 {
   font-size: 36px;
@@ -133,7 +127,7 @@ h1 {
   border-radius: 10px;
   box-shadow: var(--shadow);
 }
-.card table {
+.table-view {
   width: 100%;
   text-align: left;
   height: fit-content;
@@ -143,20 +137,22 @@ h1 {
   }
   > tbody tr {
     height: 40px;
-    /* text-wrap: wrap; */
   }
   > tbody tr:hover {
     background: #bef6f2;
     cursor: pointer;
   }
 }
-.card table th span {
+.table-view th span {
   font-size: 20px;
   font-weight: 700;
 }
-.card table th {
+.table-view th {
   opacity: 0.7;
   font-weight: 400;
+}
+.list-view {
+  display: none;
 }
 .date {
   opacity: 0.7;
@@ -196,10 +192,64 @@ h1 {
   display: flex;
   flex-direction: column;
   width: 394px;
+  max-width: 90%;
   font-size: 20px;
   text-align: center;
   gap: 16px;
   opacity: 0.4;
   margin: 100px auto;
+}
+@media(max-width: 801px) {
+  h1 {
+    font-size: 20px;
+  }
+  .wrapper button {
+    width: fit-content;
+    padding: 0 1rem;
+  }
+  .table-view {
+    display: none;
+  }
+  .card {
+    padding: 8px 0;
+    border: 1px solid #D9D9D9;
+  }
+  .list-view {
+    display: contents;
+    list-style: none;
+    > li {
+      width: 100%;
+    }
+    > li .name span {
+      font-size: 20px;
+      font-weight: bolder;
+      color: black;
+    }
+    > li .name {
+      font-size: 20px;
+      color: #777;
+    }
+    > li p {
+      font-size: 14px;
+      padding: 8px 16px;
+      border-bottom: 1px solid #D9D9D9;
+    }
+    > li p:last-of-type {
+      border-bottom: none;
+    }
+  }
+  .list-counters {
+    display: flex;
+    gap: 10px;
+  }
+  .list-view li p.grey {
+    padding: 2px;
+  }
+  .list-view li p.grey-green {
+    padding: 2px;
+  }
+  .list-view li p.green {
+    padding: 2px;
+  }
 }
 </style>
