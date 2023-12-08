@@ -11,7 +11,7 @@
         </div>
         <div class="layout">
             <div class="left-menu">
-                <ul>
+                <ul class="pages">
                     <li>
                         <div class="spacer">
                             <img src="../assets/file.png" alt="">
@@ -37,14 +37,59 @@
                         Настройки проекта
                     </li>
                 </ul>
+
+                <!-- Elements -->
                 <div class="card">
-                    <h2>Структура проекта</h2>
-                    <h3 tabindex="0">+ Добавить элемент</h3>
+                    <!-- v-if="there are no elements" -->
+
+                    <!-- <div class="no-elements">
+                        <h2>Структура проекта</h2>
+                        <h3 tabindex="0">+ Добавить элемент</h3>
+                    </div> -->
+
+                    <!-- v-else list -->
+                    <div class="elements">
+                        <div class="heading">
+                            <h2>Все строения на карте</h2>
+                            <p>0/3</p>
+                        </div>
+                        <ul>
+                            <li tabindex="0">
+                                <img class="arrow" src="../assets/icons/Arrow.svg" alt="">
+                                <p>Строение 1</p>
+                                <p class="counter">4/8</p>
+                            </li>
+                            <li tabindex="0">
+                                <img class="arrow" src="../assets/icons/Arrow.svg" alt="">
+                                <p>Строение 2</p>
+                                <p class="counter">3/12</p>
+                            </li>
+                            <li tabindex="0">
+                                <img class="arrow" src="../assets/icons/Arrow.svg" alt="">
+                                <p>Строение 3</p>
+                                <p class="counter">0/3</p>
+                            </li>
+                            <li tabindex="0">
+                                <p>+ Добавить</p>
+                            </li>
+                            <div class="designations">
+                                <p>Обозначения</p>
+                                <div class="row">
+                                    <p class="no-work">Работы не ведутся</p>
+                                    <p class="hardens">Бетон застывает</p>
+                                    <p class="complete">Завершено</p>
+                                </div>
+                            </div>
+                        </ul>
+                    </div>
                 </div>
+                
             </div>
             <section>
                 <input class="building-name" type="text" placeholder="Строение 1">
                 <div class="inner-section">
+
+                    <!-- add element -->
                     <div class="center-menu">
                         <div class="card">
                             <h3>Родительский элемент</h3>
@@ -74,6 +119,8 @@
                             </label>
                         </div>
                     </div>
+
+
                     <div class="image-display">
                         <div class="if-empty">Чертежи или схемы пока не добавлены</div>
                     </div>
@@ -114,10 +161,11 @@ main {
     min-width: 300px;
     gap: 20px;
     
-    > ul {
+    > .pages {
         list-style: none;
         padding: 16px;
         background: white;
+        border: 1px solid #D9D9D9;
         border-radius: 10px;
         box-shadow: var(--shadow);
         
@@ -126,6 +174,10 @@ main {
             margin-bottom: 10px;
             gap: 8px;
             text-align: start;
+            cursor: pointer;
+        }
+        > li:hover {
+            background: var(--blue-focus);
         }
         > .spacer {
             width: 16px;
@@ -134,51 +186,149 @@ main {
 }
 .card {
     background: white;
+    border: 1px solid #D9D9D9;
     border-radius: 10px;
     box-shadow: var(--shadow);
     padding-bottom: 8px;
 
-    > h2 {
-        margin: 8px 0;
-        font-size: 18px;
-        text-align: center;
-        font-weight: 400;
-        color: #999;
-    }
+}
+.no-elements h2 {
+    margin: 8px 0;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 400;
+    color: #999;
+}
 
-    > h3 {
-        cursor: pointer;
-        font-weight: 700;
-        padding: 2px 0 4px 16px;
+.no-elements h3 {
+    cursor: pointer;
+    font-weight: 700;
+    padding: 2px 0 4px 16px;
+    position: relative;
+}
+
+.no-elements h3:focus::before {
+    position: absolute;
+    content: '';
+    width: 4px;
+    height: 28px;
+    top: 0;
+    right: -3px;
+    background: var(--blue);
+}
+
+.no-elements h3:focus::after {
+    position: absolute;
+    content: '';
+    border-top: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+    border-left: 14px solid var(--blue);
+    top: 0;
+    right: -30px;
+}
+
+.no-elements h3:hover,
+  h3:active,
+  h3:focus {
+    background: var(--blue-focus);
+}
+.elements {
+    > .heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: .5rem;
+        border-bottom: 1px solid #D9D9D9;
+        > h2 {
+            font-size: 16px;
+            font-weight: 400;
+        }
+        > p {
+            font-size: 10px;
+            padding: 4px;
+            border: 2px solid var(--green);
+            border-radius: 4px;
+        }
+    }
+    > ul {
+        list-style: none;
+    }
+    > ul li {
+        margin: 0.5rem 0;
+        padding: 0.5rem;
+        border-bottom: 1px solid #D9D9D9;
+        display: flex;
+        align-items: center;
+        font-size: 16px;
         position: relative;
     }
-
-    > h3:focus::before {
-        position: absolute;
-        content: '';
-        width: 4px;
-        height: 28px;
-        top: 0;
-        right: -3px;
-        background: var(--blue);
-    }
-
-    > h3:focus::after {
-        position: absolute;
-        content: '';
-        border-top: 14px solid transparent;
-        border-right: 14px solid transparent;
-        border-bottom: 14px solid transparent;
-        border-left: 14px solid var(--blue);
-        top: 0;
-        right: -30px;
-    }
-
-    > h3:hover,
-      h3:active,
-      h3:focus {
+    > ul li:hover,
+        ul li:focus {
         background: var(--blue-focus);
+        cursor: pointer;
     }
+    > ul li:focus img {
+        transform: rotate(0deg);
+    }
+    > ul li:last-of-type {
+        color: var(--blue);
+    }
+    > ul li img {
+        height: 18px;
+        transform: rotate(-90deg);
+        transition: transform 150ms linear;
+    }
+    > ul li .counter {
+        font-size: 10px;
+        margin-left: auto;
+    }
+    > ul li:focus::before {
+    position: absolute;
+    content: '';
+    width: 4px;
+    height: 36px;
+    top: 0;
+    right: -3px;
+    background: var(--blue);
+    }
+
+    > ul li:focus::after {
+        position: absolute;
+        content: '';
+        border-top: 18px solid transparent;
+        border-right: 18px solid transparent;
+        border-bottom: 18px solid transparent;
+        border-left: 18px solid var(--blue);
+        top: 0;
+        right: -38px;
+    }
+}
+.designations {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 10px;
+    padding: 0.5rem;
+    color: #777;
+}
+.row {
+    display: flex;
+    justify-content: space-between;
+    color: #333;
+    > p {
+        padding: 2px 4px;
+        border-radius: 4px;
+    }
+}
+.no-work {
+    background: #EEE;
+}
+.hardens {
+    border: 1px solid var(--green);
+}
+.complete {
+    background: var(--green);
 }
 
 section {

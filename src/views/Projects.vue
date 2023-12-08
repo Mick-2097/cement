@@ -31,15 +31,15 @@ onMounted(() => {
   <Vheader />
   <main>
     <div class="wrapper">
-      <h1>Проекты</h1>
-      <a href="#">Оплаты</a>
-      <Vbutton :buttonText="screenSize < 801 ? 'Создать' : 'Создать проект'" />
+      <h1>Projects</h1>
+      <a href="#">Pay</a>
+      <Vbutton :buttonText="screenSize < 801 ? 'Create' : 'Create project'" />
     </div>
     
     <!-- If there is no data -->
     <div v-show="!projectData" class="empty">
-      <p>У вас пока нет проектов.</p>
-      <p>Вы можете создать проект или Вас могут добавить в проект.</p>
+      <p>You don't have any projects yet.</p>
+      <p>You can create a project or you can be added to a project.</p>
     </div>
 
     <!-- If there is data -->
@@ -49,17 +49,17 @@ onMounted(() => {
       <table v-show="projectData" class="table-view">
         <thead>
           <tr>
-            <th><span>{{ company.name }}, </span> организация</th>
+            <th><span>{{ company.name }}, </span> organisation</th>
             <th></th>
-            <th>Нет работ</th>
-            <th>В работе</th>
-            <th>Готово</th>
+            <th>No work</th>
+            <th>Working</th>
+            <th>Complete</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="project in projects" :key="project.id">
             <td>{{ project.name }}</td>
-            <td class="date">02.03.2022 – 20.12.2023 (еще <span>312 д.</span>)</td>
+            <td class="date">02.03.2022 – 20.12.2023 (still <span>312 d.</span>)</td>
             <td class="counter"><p class="grey">159</p></td>
             <td class="counter"><p class="grey-green">15</p></td>
             <td class="counter"><p class="green">49</p></td>
@@ -70,11 +70,11 @@ onMounted(() => {
       <!-- Small screen view -->
       <ul v-show="projectData" class="list-view">
         <li>
-          <p class="name"><span>{{ company.name }}, </span> организация</p>
+          <p class="name"><span>{{ company.name }}, </span> organisation</p>
           <p v-for="project in projects" :key="project.id">
             {{ project.name }} 
             <br><br>
-            <span class="date">02.03.2022 – 20.12.2023 (еще 312 д.) </span>
+            <span class="date">02.03.2022 – 20.12.2023 (still 312 d.) </span>
             <br><br>
             <div class="list-counters">
               <div class="counter"><p class="grey">159</p></div>

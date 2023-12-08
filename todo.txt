@@ -1,0 +1,19 @@
+All new pages
+    - Дашборд застывающих захваток
+        - mobile and desktop                                        1 page
+    - Заполнение проекта
+        - finish second level (ask about implementation of modals)  1 page
+    - Просмотр объекта
+        - mobile and desktop                                        4 pages?
+    - Информация и документы
+        - mobile and desktop, modals                                2 pages
+    - Настройки проекта
+        - so far only desktop                                       4 pages
+    - Бетон в проекте
+        - so far only desktop                                       4 pages
+    - Отчеты
+        - so far only desktop                                       2 pages
+    - Профиль
+        - so far only desktop                                       2 pages
+    - Поиск
+        - mobile and desktop                                        2 pages

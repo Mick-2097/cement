@@ -15,34 +15,36 @@ const showSearch = () => {
 </script>
 
 <template>
-    <header>
-        <div class="top-row">
-            <div class="wrapper">
+    <header class="flex-wrap">
+        <div class="flex bg-white justify-between">
+            <div class="top-row flex bg-white w-1/2 py-0 px-4 justify-start items-center gap-3">
                 <img class="icon-small" src="../assets/icon-small.png" alt="">
-                <div class="breadcrumbs"><!-- dynamic route for loop -->
-                    <button class="breadcrumb">Все проекты</button>
+                <div class="flex-wrap"><!-- dynamic route for loop -->
+                    <button class="border-none text-base cursor-pointer">All projects</button>
                 </div>
             </div>
-            <div class="wrapper">
-                <div class="search-container">
-                    <input type="search" name="" id="search-input" placeholder="Поиск...">
-                    <img @click="showSearch" class="search-icon" src="../assets/search.svg" alt="">
+            <div class="flex bg-white w-1/2 py-0 px-4 items-center justify-end gap-3">
+                <div class="flex max-w-sm bg-white">
+                    <input class="w-full h-10 border rounded border-gray-400 pt-0 pr-8 pb-0 pl-4 text-base" type="search" name="" id="search-input" placeholder="Search...">
+                    <img @click="showSearch" class="z-50 -translate-x-8" src="../assets/search.svg" alt="">
                 </div>
-                <div class="container">
-                    <div class="user">
+                <div class="flex items-center gap-3.5">
+                    <div class="flex shrink-0 gap-2">
                         <img src="../assets/user.png" alt="">
                         <p class="user-name">{{ auth.user.family_name }} {{ auth.user.given_name }}</p>
                     </div>
                     <div class="notifications">
                         <img src="../assets/bell.png" alt="">
                     </div>
-                    <a class="querry">?</a>
+                    <a class="flex w-5 h-5 text-sm font-bold justify-center items-center border-2 border-black rounded-xl cursor-pointer">?</a>
                 </div>
             </div>
         </div>
         <div class="bottom-row">
             <div class="mobile-search-container">
-                <input type="search" name="" id="mobile-search-input" placeholder="Поиск...">
+                <input type="search" name="" 
+                class="h-10 border border-gray-400 rounded pt-0 pr-8 pb-0 pl-4 text-base"
+                id="mobile-search-input" placeholder="Search...">
                 <img @click="showSearch" class="mobile-search-icon" src="../assets/search.svg" alt="">
             </div>
         </div>
@@ -50,14 +52,9 @@ const showSearch = () => {
 </template>
 
 <style scoped>
-    header {
-        flex-wrap: wrap;
-    }
+
     .top-row {
-        background-color: white;
         min-height: 68px;
-        display: flex;
-        justify-content: space-between;
     }
     .top-row * {
         z-index: 100;
@@ -71,35 +68,7 @@ const showSearch = () => {
         transition: height 150ms linear;
         overflow: hidden;
     }
-    .wrapper {
-        background-color: white;
-        width: 50%;
-        padding: 0 1rem;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-    .breadcrumbs {
-        flex-wrap: wrap;
-    }
-    .breadcrumb {
-        border: none;
-        font-size: 16px;
-        cursor: pointer;
-    }
-    .search-container {
-        display: flex;
-        max-width: 374px;
-        background-color: white;
-    }
-    #search-input {
-        width: 100%;
-        height: 40px;
-        border: 1px solid #999;
-        border-radius: 4px;
-        padding: 0 30px 0 16px;
-        font-size: 16px;
-    }
+
     #mobile-search-input {
         height: 40px;
         border: 1px solid #999;
@@ -107,23 +76,11 @@ const showSearch = () => {
         padding: 0 30px 0 16px;
         font-size: 16px;
     }
-    .search-icon {
-        z-index: 100;
-        transform: translateX(-30px);
-    }
+
     .mobile-search-icon {
         transform: translateX(-30px) translateY(4px);
     }
-    .container {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-    }
-    .user {
-        display: flex;
-        flex-shrink: none;
-        gap: 8px;
-    }
+
     .notifications {
         position: relative;
         cursor: pointer;
@@ -143,18 +100,6 @@ const showSearch = () => {
         color: white;
         background-color: var(--red);
         border-radius: 50%;
-    }
-    .querry {
-        font-size: 14px;
-        font-weight: 700;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 20px;
-        height: 20px;
-        border: 2px solid black;
-        border-radius: 50%;
-        cursor: pointer;
     }
 
     @media(max-width: 1024px) {
