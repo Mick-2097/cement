@@ -6,27 +6,31 @@ import Vbutton from '../components/Vbutton.vue'
     <main>
       <router-link to="/projects">Go to projects</router-link>
         <img class="icon" src="../assets/main-icon.svg" alt="">
-        <h1>Вход</h1>
+        <h1>Login</h1>
         <div class="warning">
             <img src="../assets/error.svg" alt="">
-            <p>Неверные E-mail или пароль</p>
+            <p>Incorrect email or password</p>
         </div>
         <div class="input-wrap">
             <label for="login">
-                Логин
+                Login
             </label>
             <input type="text" name="login" id="login">
         </div>
         <div class="input-wrap">
             <label for="password">
-                Пароль
+                Password
             </label>
             <input type="text" name="password" id="password">
         </div>
         <Vbutton buttonText="Войти"/>
         <div class="actions">
-            <a class="forgot">Забыли пароль?</a>
-            <a class="register">Регистрация</a>
+            <a class="forgot">
+                Forgot password?
+            </a>
+            <RouterLink to="/register">
+                Registration
+            </RouterLink>
         </div>
     </main>
 </template>
@@ -86,9 +90,10 @@ import Vbutton from '../components/Vbutton.vue'
         display: flex;
         justify-content: space-between;
         font-size: 16px;
-    }
-    a:hover {
-        cursor: pointer;
-        color: var(--blue);
+        
+        a:hover {
+            cursor: pointer;
+            color: var(--blue);
+        }
     }
 </style>

@@ -6,30 +6,30 @@ import Vheader from '../components/Vheader.vue'
 
 <template>
     <Vheader/>
-    <main>
+    <main class="flex flex-col items-center w-full">
         <div class="wrapper">
-            <h1>Создание нового проекта</h1>
+            <h1>Create a new project</h1>
         </div>
         <div class="card">
             <div class="spacer">
-                <label for="organisation">Организация</label>
-                <input type="text" id="organisation" placeholder="Введите или выберите название организации">
+                <label for="organisation">Organisation</label>
+                <input type="text" id="organisation" placeholder="Enter or select your organization name">
             </div>
             <div class="spacer">
-                <label for="name">Название проекта</label>
+                <label for="name">Project name</label>
                 <input type="text" id="name">
             </div>
             <div class="spacer">
-                <label for="start">Дата старта</label>
-                <input type="text" id="start" placeholder="Можно оставить пустым, если пока нет">
+                <label for="start">Start date</label>
+                <input type="text" id="start" placeholder="You can leave it blank">
             </div>
             <div class="spacer">
-                <label for="end-date">Дата завершения</label>
-                <input type="text" id="end-date" placeholder="Можно оставить пустым, если пока нет">
+                <label for="end-date">Completion date</label>
+                <input type="text" id="end-date" placeholder="You can leave it blank">
             </div>
             <div class="buttons">
-                <Vbutton buttonText="Создать проект"/>
-                <VbuttonOutline buttonText="Не создавать"/>
+                <Vbutton buttonText="Create a project"/>
+                <VbuttonOutline buttonText="Don't create"/>
             </div>
         </div>
     </main>
@@ -37,9 +37,6 @@ import Vheader from '../components/Vheader.vue'
 
 <style scoped>
     main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         min-height: calc(100vh - 98px);
         background: var(--bg);
     }

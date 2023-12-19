@@ -1,25 +1,29 @@
 <script setup>
-    import Vbutton from '../components/Vbutton.vue';
+    import { RouterLink } from 'vue-router';
+import Vbutton from '../components/Vbutton.vue';
 </script>
 
 <template>
     <main>
         <img class="icon" src="../assets/main-icon.svg" alt="">
-        <h1>Регистрация</h1>
+        <h1>Registration</h1>
         <div class="input-wrap">
             <label for="email">E-mail</label>
             <input type="text" name="email">
         </div>
         <div class="input-wrap">
-            <label for="password">Пароль</label>
+            <label for="password">Password</label>
             <input type="text" name="password">
         </div>
         <Vbutton buttonText="Создать аккаунт"/>
-        <p class="action">Уже есть аккаунт?
+        <div class="actions">
+            <RouterLink to="/login">
+                Already have an account?
+            </RouterLink>
             <a href="">
-                Войти
+                Enter
             </a>
-        </p>
+        </div>
     </main>
 </template>
 
@@ -58,7 +62,14 @@
         padding-left: 16px;
         font-size: 16px;
     }
-    .action {
-        text-align: center;
+    .actions {
+        display: flex;
+        justify-content: space-between;
+        font-size: 16px;
+        
+        a:hover {
+            cursor: pointer;
+            color: var(--blue);
+        }
     }
 </style>

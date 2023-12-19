@@ -6,8 +6,8 @@
     <Vheader/>
     <main>
         <div class="wrapper">
-            <h1>Проект №3478793-48</h1>
-            <p>07.05.2023 – 01.11.2023 (еще 253 д.)</p>
+            <h1>Project №3478793-48</h1>
+            <p>07.05.2023 – 01.11.2023 (still 253 d.)</p>
         </div>
         <div class="layout">
             <div class="left-menu">
@@ -16,25 +16,25 @@
                         <div class="spacer">
                             <img src="../assets/file.png" alt="">
                         </div>
-                        Информация и документы
+                        Information & documents
                     </li>
                     <li>
                         <div class="spacer">
                             <img src="../assets/filesearch.png" alt="">
                         </div>
-                        Отчеты
+                        Reports
                     </li>
                     <li>
                         <div class="spacer">
                             <img src="../assets/truck.png" alt="">
                         </div>
-                        Бетонная смесь
+                        Concrete mix
                     </li>
                     <li>
                         <div class="spacer">
                             <img src="../assets/cog.png" alt="">
                         </div>
-                        Настройки проекта
+                        Project settings
                     </li>
                 </ul>
 
@@ -43,41 +43,41 @@
                     <!-- v-if="there are no elements" -->
 
                     <!-- <div class="no-elements">
-                        <h2>Структура проекта</h2>
-                        <h3 tabindex="0">+ Добавить элемент</h3>
+                        <h2>Project structure</h2>
+                        <h3 tabindex="0">+ Add element</h3>
                     </div> -->
 
                     <!-- v-else list -->
                     <div class="elements">
                         <div class="heading">
-                            <h2>Все строения на карте</h2>
+                            <h2>All buildings on the map</h2>
                             <p>0/3</p>
                         </div>
                         <ul>
                             <li tabindex="0">
                                 <img class="arrow" src="../assets/icons/Arrow.svg" alt="">
-                                <p>Строение 1</p>
+                                <p>Building 1</p>
                                 <p class="counter">4/8</p>
                             </li>
                             <li tabindex="0">
                                 <img class="arrow" src="../assets/icons/Arrow.svg" alt="">
-                                <p>Строение 2</p>
+                                <p>Building 2</p>
                                 <p class="counter">3/12</p>
                             </li>
                             <li tabindex="0">
                                 <img class="arrow" src="../assets/icons/Arrow.svg" alt="">
-                                <p>Строение 3</p>
+                                <p>Building 3</p>
                                 <p class="counter">0/3</p>
                             </li>
                             <li tabindex="0">
-                                <p>+ Добавить</p>
+                                <p>+ Add</p>
                             </li>
                             <div class="designations">
-                                <p>Обозначения</p>
+                                <p>Designations</p>
                                 <div class="row">
-                                    <p class="no-work">Работы не ведутся</p>
-                                    <p class="hardens">Бетон застывает</p>
-                                    <p class="complete">Завершено</p>
+                                    <p class="no-work">No work is being carried out</p>
+                                    <p class="hardens">Concrete hardens</p>
+                                    <p class="complete">Completed</p>
                                 </div>
                             </div>
                         </ul>
@@ -86,35 +86,36 @@
                 
             </div>
             <section>
-                <input class="building-name" type="text" placeholder="Строение 1">
+                <input class="building-name" type="text" placeholder="Building 1">
                 <div class="inner-section">
 
                     <!-- add element -->
                     <div class="center-menu">
                         <div class="card">
-                            <h3>Родительский элемент</h3>
+                            <h3>Parent element</h3>
                             <select name="" id="">
-                                <option value="нет">нет</option>
+                                <option value="нет">no</option>
                             </select>
                         </div>
                         <div class="card">
-                            <h3>Чертежи и схемы</h3>
+                            <h3>Drawings and diagrams</h3>
                             <hr>
-                            <label class="file-label">+ Добавить (jpg, png)
+                            <label class="file-label">+ Add (jpg, png)
                                 <input class="file-input" type="file" name="" id="">
                             </label>
                         </div>
                         <div class="card">
-                            <h3>Дочерние элементы</h3>
+                            <h3>Child elements</h3>
                             <hr>
-                            <label class="file-label" for="">+ Добавить
+                            <label class="file-label" for="">+ Add
                                 <!-- what type of input?? -->
                             </label>
                         </div>
                         <div class="card">
-                            <h3>Точки мониторинга</h3>
+                            <h3>Monitoring points
+</h3>
                             <hr>
-                            <label class="file-label" for="">+ Добавить
+                            <label class="file-label" for="">+ Add
                                 <!-- what type of input?? -->
                             </label>
                         </div>
@@ -122,7 +123,8 @@
 
 
                     <div class="image-display">
-                        <div class="if-empty">Чертежи или схемы пока не добавлены</div>
+                        <div class="if-empty">No drawings or diagrams have been added yet
+</div>
                     </div>
                 </div>
             </section>
@@ -314,9 +316,13 @@ main {
 }
 .row {
     display: flex;
+    gap: 8px;
     justify-content: space-between;
     color: #333;
     > p {
+        text-align: center;
+        text-wrap: balance;
+        align-self: center;
         padding: 2px 4px;
         border-radius: 4px;
     }
