@@ -4,10 +4,10 @@ import Vbutton from '../components/Vbutton.vue';
 </script>
 
 <template>
-    <main>
-        <img class="icon" src="../assets/main-icon.svg" alt="">
-        <h1>Registration</h1>
-        <div class="input-wrap">
+    <main class="flex flex-col w-[350px] gap-5 m-auto">
+        <img class="self-center h-[82px] w-[82px]" src="../assets/main-icon.svg" alt="">
+        <h1 class="self-center text-2xl font-normal">Registration</h1>
+        <div class="cursor-pointer text-[13px]">
             <label for="email">E-mail</label>
             <input type="text" name="email">
         </div>
@@ -15,8 +15,8 @@ import Vbutton from '../components/Vbutton.vue';
             <label for="password">Password</label>
             <input type="text" name="password">
         </div>
-        <Vbutton buttonText="Создать аккаунт"/>
-        <div class="actions">
+        <Vbutton buttonText="Create an account"/>
+        <div class="flex justify-between text-base">
             <RouterLink to="/login">
                 Already have an account?
             </RouterLink>
@@ -28,26 +28,6 @@ import Vbutton from '../components/Vbutton.vue';
 </template>
 
 <style scoped>
-    main {
-        display: flex;
-        flex-direction: column;
-        width: 350px;
-        gap: 20px;
-        margin: auto;
-    }
-    .icon {
-        align-self: center;
-        height: 82px;
-        width: 82px;
-    }
-    h1 {
-        align-self: center;
-        font-size: 24px;
-        font-weight: 400;
-    }
-    .input-wrap {
-        height: 60px;
-    }
     label {
         cursor: pointer;
         font-size: 13px;
@@ -62,14 +42,8 @@ import Vbutton from '../components/Vbutton.vue';
         padding-left: 16px;
         font-size: 16px;
     }
-    .actions {
-        display: flex;
-        justify-content: space-between;
-        font-size: 16px;
-        
-        a:hover {
-            cursor: pointer;
-            color: var(--blue);
-        }
+    a:hover {
+        cursor: pointer;
+        color: var(--blue);
     }
 </style>

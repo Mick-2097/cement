@@ -29,9 +29,9 @@ onMounted(() => {
 
 <template>
   <Vheader />
-  <main>
-    <div class="wrapper">
-      <h1>Projects</h1>
+  <main class="p-4 flex flex-col items-center min-h-[calc(100vh-68px)] bg-[var(--bg)]">
+    <div class="wrapper w-full max-w-[1076px] h-[80px] flex items-center justify-between">
+      <h1 class="text-4xl text-normal">Projects</h1>
       <a href="#">Pay</a>
       <Vbutton :buttonText="screenSize < 801 ? 'Create' : 'Create project'" />
     </div>
@@ -43,10 +43,10 @@ onMounted(() => {
     </div>
 
     <!-- If there is data -->
-    <div class="card" v-for="company in companies" :key="company.id">
+    <div class="card flex w-full max-w-[1076px] mb-[40px] bg-white py-2 px-4 rounded-xl" v-for="company in companies" :key="company.id">
 
       <!-- large screen view -->
-      <table v-show="projectData" class="table-view">
+      <table v-show="projectData && screenSize > 800" class="table-view w-full text-left h-fit border-collapse">
         <thead>
           <tr>
             <th><span>{{ company.name }}, </span> organisation</th>
@@ -68,13 +68,13 @@ onMounted(() => {
       </table>
 
       <!-- Small screen view -->
-      <ul v-show="projectData" class="list-view">
+      <ul v-show="projectData && screenSize < 801" class="p-4">
         <li>
           <p class="name"><span>{{ company.name }}, </span> organisation</p>
           <p v-for="project in projects" :key="project.id">
             {{ project.name }} 
             <br><br>
-            <span class="date">02.03.2022 – 20.12.2023 (still 312 d.) </span>
+            <span class="opacity-70">02.03.2022 – 20.12.2023 (still 312 d.) </span>
             <br><br>
             <div class="list-counters">
               <div class="counter"><p class="grey">159</p></div>
@@ -92,70 +92,30 @@ onMounted(() => {
 </template>
 
 <style scoped>
-main {
-  padding: 0 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: calc(100vh - 68px);
-  background: var(--bg);
-}
-.wrapper {
-  width: 100%;
-  max-width: 1076px;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  
-}
 button {
     width: 156px;
     font-weight: 700;
 }
-h1 {
-  font-size: 36px;
-  font-weight: 400;
-}
 .card {
-  display: flex;
-  width: 100%;
-  max-width: 1076px;
-  margin-bottom: 40px;
-  background: white;
-  padding: 8px 16px;
-  border-radius: 10px;
   box-shadow: var(--shadow);
 }
-.table-view {
-  width: 100%;
-  text-align: left;
-  height: fit-content;
-  border-collapse: collapse;
-  > thead tr {
+thead tr {
     height: 60px;
-  }
-  > tbody tr {
+}
+tbody tr {
     height: 40px;
-  }
-  > tbody tr:hover {
+}
+tbody tr:hover {
     background: #bef6f2;
     cursor: pointer;
-  }
 }
-.table-view th span {
+th span {
   font-size: 20px;
   font-weight: 700;
 }
-.table-view th {
+th {
   opacity: 0.7;
   font-weight: 400;
-}
-.list-view {
-  display: none;
-}
-.date {
-  opacity: 0.7;
 }
 .red {
   color: var(--red); /* If the number is less than 21 highlight red with vue */

@@ -4,14 +4,14 @@
 
 <template>
     <Vheader/>
-    <main>
-        <div class="wrapper">
-            <h1>Project №3478793-48</h1>
-            <p>07.05.2023 – 01.11.2023 (still 253 d.)</p>
+    <main class="bg-[var(--bg)] p-4 min-h-[calc(100vh-68px)]">
+        <div class="flex items-center justify-between mb-4">
+            <h1 class="text-xl text-normal">Project №3478793-48</h1>
+            <p class="opacity-70">07.05.2023 – 01.11.2023 (still 253 d.)</p>
         </div>
-        <div class="layout">
-            <div class="left-menu">
-                <ul class="pages">
+        <div class="flex gap-[30px]">
+            <div class="left-menu flex flex-col min-w-[300px] gap-5">
+                <ul class="pages list-none p-4 bg-white border border-solid border-[#D9D9D9] rounded-xl shadow-[var(--shadow)]">
                     <li>
                         <div class="spacer">
                             <img src="../assets/file.png" alt="">
@@ -39,6 +39,9 @@
                 </ul>
 
                 <!-- Elements -->
+
+                <!-- add element -->
+
                 <div class="card">
                     <!-- v-if="there are no elements" -->
 
@@ -49,9 +52,9 @@
 
                     <!-- v-else list -->
                     <div class="elements">
-                        <div class="heading">
-                            <h2>All buildings on the map</h2>
-                            <p>0/3</p>
+                        <div class="flex items-center justify-between p-2 border-b border-[#D9D9d9]">
+                            <h2 class="text-base text-normal">All buildings on the map</h2>
+                            <p class="text-[10px] p-1 border-2 border-[var(--green)] rounded">0/3</p>
                         </div>
                         <ul>
                             <li tabindex="0">
@@ -72,12 +75,12 @@
                             <li tabindex="0">
                                 <p>+ Add</p>
                             </li>
-                            <div class="designations">
+                            <div class="flex flex-col gap-2 text-[10px] p-2 text-[#777]">
                                 <p>Designations</p>
-                                <div class="row">
-                                    <p class="no-work">No work is being carried out</p>
-                                    <p class="hardens">Concrete hardens</p>
-                                    <p class="complete">Completed</p>
+                                <div class="row flex gap-4 justify-center text-[#333]">
+                                    <p class="no-work" title="No work is being carried out">No work</p>
+                                    <p class="hardens" title="Concrete hardens">Hardens</p>
+                                    <p class="complete" title="Complete">Complete</p>
                                 </div>
                             </div>
                         </ul>
@@ -85,16 +88,17 @@
                 </div>
                 
             </div>
-            <section>
-                <input class="building-name" type="text" placeholder="Building 1">
-                <div class="inner-section">
+            <section class="gap-4 w-full">
 
-                    <!-- add element -->
-                    <div class="center-menu">
+                <input class="h-14 w-full bg-[var(--bg)] mr-4 border border-solid border-[#999] rounded-md text-2xl px-2" type="text" placeholder="Building 1">
+
+                <div class="flex gap-4 mt-4">
+
+                    <div class="center-menu min-w-[300px] flex flex-col gap-5">
                         <div class="card">
                             <h3>Parent element</h3>
                             <select name="" id="">
-                                <option value="нет">no</option>
+                                <option value="no">no</option>
                             </select>
                         </div>
                         <div class="card">
@@ -112,8 +116,7 @@
                             </label>
                         </div>
                         <div class="card">
-                            <h3>Monitoring points
-</h3>
+                            <h3>Monitoring points</h3>
                             <hr>
                             <label class="file-label" for="">+ Add
                                 <!-- what type of input?? -->
@@ -121,10 +124,9 @@
                         </div>
                     </div>
 
-
                     <div class="image-display">
                         <div class="if-empty">No drawings or diagrams have been added yet
-</div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -133,57 +135,22 @@
 </template>
 
 <style scoped>
-main {
-    background: var(--bg);
-    padding: 16px;
-    min-height: calc(100vh - 96px);
-}
-.wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
 
-    > h1 {
-        font-size: 24px;
-        font-weight: 400;
-    }
-
-    > p {
-        opacity: .7;
-    }
-}
-.layout {
-    display: flex;
-    gap: 30px;
-}
-.left-menu {
-    display: flex;
-    flex-direction: column;
-    min-width: 300px;
-    gap: 20px;
+.pages {
+    box-shadow: var(--shadow);
     
-    > .pages {
-        list-style: none;
-        padding: 16px;
-        background: white;
-        border: 1px solid #D9D9D9;
-        border-radius: 10px;
-        box-shadow: var(--shadow);
-        
-        > li {
-            display: flex;
-            margin-bottom: 10px;
-            gap: 8px;
-            text-align: start;
-            cursor: pointer;
-        }
-        > li:hover {
-            background: var(--blue-focus);
-        }
-        > .spacer {
-            width: 16px;
-        }
+    > li {
+        display: flex;
+        margin-bottom: 10px;
+        gap: 8px;
+        text-align: start;
+        cursor: pointer;
+    }
+    > li:hover {
+        background: var(--blue-focus);
+    }
+    > .spacer {
+        width: 16px;
     }
 }
 .card {
@@ -192,8 +159,9 @@ main {
     border-radius: 10px;
     box-shadow: var(--shadow);
     padding-bottom: 8px;
-
 }
+/* //////////////////////// */
+    /* To be continued */
 .no-elements h2 {
     margin: 8px 0;
     font-size: 18px;
@@ -235,24 +203,9 @@ main {
   h3:focus {
     background: var(--blue-focus);
 }
+/* //////////////////////// */
+
 .elements {
-    > .heading {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: .5rem;
-        border-bottom: 1px solid #D9D9D9;
-        > h2 {
-            font-size: 16px;
-            font-weight: 400;
-        }
-        > p {
-            font-size: 10px;
-            padding: 4px;
-            border: 2px solid var(--green);
-            border-radius: 4px;
-        }
-    }
     > ul {
         list-style: none;
     }
@@ -286,15 +239,14 @@ main {
         margin-left: auto;
     }
     > ul li:focus::before {
-    position: absolute;
-    content: '';
-    width: 4px;
-    height: 36px;
-    top: 0;
-    right: -3px;
-    background: var(--blue);
+        position: absolute;
+        content: '';
+        width: 4px;
+        height: 36px;
+        top: 0;
+        right: -3px;
+        background: var(--blue);
     }
-
     > ul li:focus::after {
         position: absolute;
         content: '';
@@ -306,23 +258,10 @@ main {
         right: -38px;
     }
 }
-.designations {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    font-size: 10px;
-    padding: 0.5rem;
-    color: #777;
-}
 .row {
-    display: flex;
-    gap: 8px;
-    justify-content: space-between;
-    color: #333;
     > p {
+        cursor: default;
         text-align: center;
-        text-wrap: balance;
-        align-self: center;
         padding: 2px 4px;
         border-radius: 4px;
     }
@@ -336,31 +275,7 @@ main {
 .complete {
     background: var(--green);
 }
-
-section {
-    gap: 16px;
-    width: 100%;
-}
-.building-name {
-    height: 56px;
-    width: 100%;
-    background: var(--bg);
-    margin: 0 0 16px 0;
-    border: 1px solid #999;
-    border-radius: 6px;
-    font-size: 24px;
-    padding: 0 8px;
-}
-.inner-section {
-    display: flex;
-    gap: 16px;
-    margin: 16px 0 0;
-}
 .center-menu {
-    min-width: 300px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
     > .card {
         display: flex;
         flex-direction: column;
