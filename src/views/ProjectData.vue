@@ -1,5 +1,7 @@
 <script setup>
     import Vheader from '../components/Vheader.vue'
+    import { paramStore } from '../stores/params'
+    const params = paramStore()
 </script>
 
 <template>
@@ -7,82 +9,76 @@
     <main class="bg-[var(--bg)] p-4 min-h-[calc(100vh-68px)]">
         <div class="flex items-center justify-between mb-4">
             <h1 class="text-xl text-normal">Project №3478793-48</h1>
-            <p class="opacity-70">07.05.2023 – 01.11.2023 (still 253 d.)</p>
+            <!-- <p class="opacity-70">07.05.2023 – 01.11.2023 (still 253 d.)</p> -->
         </div>
         <div class="flex gap-[30px]">
             <div class="left-menu flex flex-col min-w-[300px] gap-5">
-                <ul class="pages list-none p-4 bg-white border border-solid border-[#D9D9D9] rounded-xl shadow-[var(--shadow)]">
-                    <li>
-                        <div class="spacer">
+
+                <!-- pages list card -->
+                <ul class="list-none p-4 bg-white border border-solid border-[#D9D9D9] rounded-xl shadow-lg">
+                    <li class="flex mb-[10px] gap-2 text-start cursor-pointer hover:bg-[var(--blue-focus)]">
+                        <div class="w-4">
                             <img src="../assets/file.png" alt="">
                         </div>
                         Information & documents
                     </li>
-                    <li>
-                        <div class="spacer">
+                    <li class="flex mb-[10px] gap-2 text-start cursor-pointer hover:bg-[var(--blue-focus)]">
+                        <div class="w-4">
                             <img src="../assets/filesearch.png" alt="">
                         </div>
                         Reports
                     </li>
-                    <li>
-                        <div class="spacer">
+                    <li class="flex mb-[10px] gap-2 text-start cursor-pointer hover:bg-[var(--blue-focus)]">
+                        <div class="w-4">
                             <img src="../assets/truck.png" alt="">
                         </div>
                         Concrete mix
                     </li>
-                    <li>
-                        <div class="spacer">
+                    <li class="flex mb-[10px] gap-2 text-start cursor-pointer hover:bg-[var(--blue-focus)]">
+                        <div class="w-4">
                             <img src="../assets/cog.png" alt="">
                         </div>
                         Project settings
                     </li>
                 </ul>
 
-                <!-- Elements -->
+                <!-- building list card (tree) -->
+                <div class="bg-white border border-[#D9D9D9] rounded-xl shadow-lg pb-2">
 
-                <!-- add element -->
-
-                <div class="card">
-                    <!-- v-if="there are no elements" -->
-
-                    <!-- <div class="no-elements">
-                        <h2>Project structure</h2>
-                        <h3 tabindex="0">+ Add element</h3>
-                    </div> -->
-
-                    <!-- v-else list -->
                     <div class="elements">
                         <div class="flex items-center justify-between p-2 border-b border-[#D9D9d9]">
-                            <h2 class="text-base text-normal">All buildings on the map</h2>
-                            <p class="text-[10px] p-1 border-2 border-[var(--green)] rounded">0/3</p>
+                            <h2 class="text-base text-normal cursor-default">All buildings on the map</h2>
+                            <!-- <p class="text-[10px] p-1 border-2 border-[var(--green)] rounded">0/3</p> -->
                         </div>
-                        <ul>
-                            <li tabindex="0">
+                        <ul class="list-none">
+                            <li tabindex="0" class="my-2 p-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)]">
                                 <img class="arrow" src="../assets/icons/Arrow.svg" alt="">
                                 <p>Building 1</p>
-                                <p class="counter">4/8</p>
+                                <!-- <p class="counter">4/8</p> -->
                             </li>
-                            <li tabindex="0">
+                            <li tabindex="0" class="my-2 p-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)]">
                                 <img class="arrow" src="../assets/icons/Arrow.svg" alt="">
                                 <p>Building 2</p>
-                                <p class="counter">3/12</p>
+                                <!-- <p class="counter">3/12</p> -->
                             </li>
-                            <li tabindex="0">
+                            <li tabindex="0" class="my-2 p-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)]">
                                 <img class="arrow" src="../assets/icons/Arrow.svg" alt="">
                                 <p>Building 3</p>
-                                <p class="counter">0/3</p>
+                                <!-- <p class="counter">0/3</p> -->
                             </li>
-                            <li tabindex="0">
+                            <li class="my-2 p-2 flex items-center text-base cursor-pointer text-[var(--blue)] hover:text-black hover:bg-[var(--blue-focus)]" tabindex="0">
                                 <p>+ Add</p>
                             </li>
-                            <div class="flex flex-col gap-2 text-[10px] p-2 text-[#777]">
+
+                            <!-- <div class="flex flex-col gap-2 text-[10px] p-2 text-[#777]">
                                 <p>Designations</p>
                                 <div class="row flex gap-4 justify-center text-[#333]">
                                     <p class="no-work" title="No work is being carried out">No work</p>
                                     <p class="hardens" title="Concrete hardens">Hardens</p>
                                     <p class="complete" title="Complete">Complete</p>
                                 </div>
-                            </div>
+                            </div> -->
+
                         </ul>
                     </div>
                 </div>
@@ -135,24 +131,6 @@
 </template>
 
 <style scoped>
-
-.pages {
-    box-shadow: var(--shadow);
-    
-    > li {
-        display: flex;
-        margin-bottom: 10px;
-        gap: 8px;
-        text-align: start;
-        cursor: pointer;
-    }
-    > li:hover {
-        background: var(--blue-focus);
-    }
-    > .spacer {
-        width: 16px;
-    }
-}
 .card {
     background: white;
     border: 1px solid #D9D9D9;
@@ -160,74 +138,9 @@
     box-shadow: var(--shadow);
     padding-bottom: 8px;
 }
-/* //////////////////////// */
-    /* To be continued */
-.no-elements h2 {
-    margin: 8px 0;
-    font-size: 18px;
-    text-align: center;
-    font-weight: 400;
-    color: #999;
-}
-
-.no-elements h3 {
-    cursor: pointer;
-    font-weight: 700;
-    padding: 2px 0 4px 16px;
-    position: relative;
-}
-
-.no-elements h3:focus::before {
-    position: absolute;
-    content: '';
-    width: 4px;
-    height: 28px;
-    top: 0;
-    right: -3px;
-    background: var(--blue);
-}
-
-.no-elements h3:focus::after {
-    position: absolute;
-    content: '';
-    border-top: 14px solid transparent;
-    border-right: 14px solid transparent;
-    border-bottom: 14px solid transparent;
-    border-left: 14px solid var(--blue);
-    top: 0;
-    right: -30px;
-}
-
-.no-elements h3:hover,
-  h3:active,
-  h3:focus {
-    background: var(--blue-focus);
-}
-/* //////////////////////// */
-
 .elements {
-    > ul {
-        list-style: none;
-    }
-    > ul li {
-        margin: 0.5rem 0;
-        padding: 0.5rem;
-        border-bottom: 1px solid #D9D9D9;
-        display: flex;
-        align-items: center;
-        font-size: 16px;
-        position: relative;
-    }
-    > ul li:hover,
-        ul li:focus {
-        background: var(--blue-focus);
-        cursor: pointer;
-    }
     > ul li:focus img {
         transform: rotate(0deg);
-    }
-    > ul li:last-of-type {
-        color: var(--blue);
     }
     > ul li img {
         height: 18px;
@@ -242,7 +155,7 @@
         position: absolute;
         content: '';
         width: 4px;
-        height: 36px;
+        height: 40px;
         top: 0;
         right: -3px;
         background: var(--blue);
@@ -250,12 +163,12 @@
     > ul li:focus::after {
         position: absolute;
         content: '';
-        border-top: 18px solid transparent;
-        border-right: 18px solid transparent;
-        border-bottom: 18px solid transparent;
-        border-left: 18px solid var(--blue);
+        border-top: 20px solid transparent;
+        border-right: 20px solid transparent;
+        border-bottom: 20px solid transparent;
+        border-left: 20px solid var(--blue);
         top: 0;
-        right: -38px;
+        right: -42px;
     }
 }
 .row {

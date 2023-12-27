@@ -2,6 +2,8 @@
 import Vbutton from '../components/Vbutton.vue'
 import VbuttonOutline from '../components/VbuttonOutline.vue'
 import Vheader from '../components/Vheader.vue'
+import { paramStore } from '../stores/params'
+const params = paramStore()
 </script>
 
 <template>
@@ -13,20 +15,29 @@ import Vheader from '../components/Vheader.vue'
         <div class="card bg-white rounded-xl p-4 w-[1078px] max-w-[90%]">
             <div class="flex w-full items-center mb-2.5 flex-wrap">
                 <label for="organisation">Organisation</label>
-                <input type="text" id="organisation" placeholder="Enter or select your organization name">
+                <input 
+                    type="text"
+                    id="organisation"
+                    :value="params.companyName"
+                    :placeholder="params.companyName ? '' : 'Enter or select your organization name'"
+                />
             </div>
             <div class="flex w-full items-center mb-2.5 flex-wrap">
                 <label for="name">Project name</label>
-                <input type="text" id="name">
+                <input 
+                    type="text" 
+                    id="name"
+                    :value="params.projectName ? params.projectName : ''"
+                />
             </div>
-            <div class="flex w-full items-center mb-2.5 flex-wrap">
+            <!-- <div class="flex w-full items-center mb-2.5 flex-wrap">
                 <label for="start">Start date</label>
                 <input type="text" id="start" placeholder="You can leave it blank">
             </div>
             <div class="flex w-full items-center mb-2.5 flex-wrap">
                 <label for="end-date">Completion date</label>
                 <input type="text" id="end-date" placeholder="You can leave it blank">
-            </div>
+            </div> -->
             <div class="flex pt-2 w-full justify-center gap-2">
                 <Vbutton buttonText="Create project"/>
                 <VbuttonOutline buttonText="Don't create"/>

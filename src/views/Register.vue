@@ -1,6 +1,6 @@
 <script setup>
-    import { RouterLink } from 'vue-router';
-import Vbutton from '../components/Vbutton.vue';
+    import { RouterLink } from 'vue-router'
+    import Vbutton from '../components/Vbutton.vue'
 </script>
 
 <template>

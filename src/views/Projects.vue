@@ -2,7 +2,10 @@
 import Vheader from "../components/Vheader.vue"
 import Vbutton from "../components/Vbutton.vue"
 import { mainApi } from "@/api/main"
-import { onMounted, ref } from "vue"
+import { onMounted, ref, onUpdated } from "vue"
+import { RouterLink } from "vue-router"
+import { paramStore } from '../stores/params'
+const params = paramStore() 
 
 let projectData = ref(true)
 
@@ -25,6 +28,12 @@ const fetchProjects = async (companyID) => {
 onMounted(() => {
   fetchCompanies()
 })
+
+const setParams = (company, name) => {
+  params.companyName = company
+  params.projectName = name
+}
+
 </script>
 
 <template>
@@ -32,8 +41,12 @@ onMounted(() => {
   <main class="p-4 flex flex-col items-center min-h-[calc(100vh-68px)] bg-[var(--bg)]">
     <div class="wrapper w-full max-w-[1076px] h-[80px] flex items-center justify-between">
       <h1 class="text-4xl text-normal">Projects</h1>
-      <a href="#">Pay</a>
-      <Vbutton :buttonText="screenSize < 801 ? 'Create' : 'Create project'" />
+      <!-- <a href="#">Pay</a> -->
+      
+      <RouterLink to="/create" @click="setParams('', '')">
+        <Vbutton :buttonText="screenSize < 801 ? 'Create' : 'Create project'" />
+      </RouterLink>
+
     </div>
     
     <!-- If there is no data -->
@@ -43,32 +56,45 @@ onMounted(() => {
     </div>
 
     <!-- If there is data -->
-    <div class="card flex w-full max-w-[1076px] mb-[40px] bg-white py-2 px-4 rounded-xl" v-for="company in companies" :key="company.id">
+    <div v-show="projectData" class="card flex w-full max-w-[1076px] mb-[40px] bg-white py-2 px-4 rounded-xl" v-for="company in companies" :key="company.id">
 
       <!-- large screen view -->
-      <table v-show="projectData && screenSize > 800" class="table-view w-full text-left h-fit border-collapse">
+      <table class="table-view w-full text-left h-fit border-collapse">
         <thead>
           <tr>
             <th><span>{{ company.name }}, </span> organisation</th>
-            <th></th>
+            <!-- <th></th>
             <th>No work</th>
             <th>Working</th>
-            <th>Complete</th>
+            <th>Complete</th> -->
           </tr>
         </thead>
         <tbody>
+          <tr v-if="screenSize < 800"></tr>
           <tr v-for="project in projects" :key="project.id">
-            <td>{{ project.name }}</td>
-            <td class="date">02.03.2022 – 20.12.2023 (still <span>312 d.</span>)</td>
+            <td class="px-2">
+              <RouterLink to="/projectdata" @click="setParams(company.name, project.name)">
+                <p class="min-w-[50%] h-full flex items-center">{{ project.name }}</p>
+              </RouterLink>
+            </td>
+            <td class="flex justify-end items-center h-full pr-2">
+
+              <RouterLink to="/create" @click="setParams(company.name, project.name)" class="flex shrink-0 my-2">
+                <img class="align-center pl-4" src="../assets/edit.svg" alt="" title="edit">
+              </RouterLink>
+              
+            </td>
+
+            <!-- <td class="date">02.03.2022 – 20.12.2023 (still <span>312 d.</span>)</td>
             <td class="counter"><p class="grey">159</p></td>
             <td class="counter"><p class="grey-green">15</p></td>
-            <td class="counter"><p class="green">49</p></td>
+            <td class="counter"><p class="green">49</p></td> -->
           </tr>
         </tbody>
       </table>
 
       <!-- Small screen view -->
-      <ul v-show="projectData && screenSize < 801" class="p-4">
+      <!-- <ul v-show="projectData && screenSize < 801" class="p-4">
         <li>
           <p class="name"><span>{{ company.name }}, </span> organisation</p>
           <p v-for="project in projects" :key="project.id">
@@ -84,7 +110,7 @@ onMounted(() => {
           </p>
 
         </li>
-      </ul>
+      </ul> -->
 
     </div>
 
@@ -159,7 +185,7 @@ th {
   opacity: 0.4;
   margin: 100px auto;
 }
-@media(max-width: 801px) {
+/* @media(max-width: 801px) {
   h1 {
     font-size: 20px;
   }
@@ -211,5 +237,5 @@ th {
   .list-view li p.green {
     padding: 2px;
   }
-}
+} */
 </style>

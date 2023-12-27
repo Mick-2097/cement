@@ -60,7 +60,7 @@ const router = createRouter({
       name: 'projectdata',
       component: ProjectData,
       meta: {
-        title: 'project data'
+        title: 'Project data'
       }
     }
   ]

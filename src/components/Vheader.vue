@@ -1,14 +1,16 @@
 <script setup>
 import { ref } from "vue"
-import { authStore } from "@/stores/auth"
-
+import { authStore } from "@/stores/auth"    
+import { paramStore } from '../stores/params'
+    
 const auth = authStore()
+const params = paramStore()
 const isSmallScreen = ref(window.innerWidth <= 800)
 const isShowSearch = ref(false)
 let showSearch = () => {
     isShowSearch.value = !isShowSearch.value
-    console.log(isShowSearch.value)
 }
+let getPath = window.location.pathname
 
 </script>
 
@@ -17,8 +19,18 @@ let showSearch = () => {
         <div class="top-row flex bg-white justify-between">
             <div class="left-side flex bg-white max-w-1/2 py-0 px-4 justify-start items-center gap-3">
                 <img class="icon-small" src="../assets/icon-small.png" alt="">
-                <div class="flex-wrap"><!-- dynamic route for loop -->
-                    <button class="border-none text-base cursor-pointer">All projects</button>
+                <div class="flex flex-wrap">
+
+                    <RouterLink to="/projects" class="flex-grow">
+                        <button 
+                            @click="params.projectName = ''" 
+                            class="border-none text-base"
+                            :class="getPath === '/projectdata' ? ['text-[var(--blue)]', 'cursor-pointer'] : ['cursor-default']">
+                            {{ getPath === '/projects' ? 'All projects' : 'Project' }} &nbsp;
+                        </button>
+                    </RouterLink>
+                    <p v-if="params.projectName !== ''" class="text-base flex-grow"> / {{ params.projectName }}</p>
+
                 </div>
             </div>
             <div class="right-side flex bg-white max-w-1/2 py-0 px-4 items-center justify-end gap-3">

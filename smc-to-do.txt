@@ -1,0 +1,20 @@
+1) Projects page remove dates and counters
+https://smc.dev.nlplay.ru/company/5/project/7/element/12/main           
+                                                                        xxx
+
+2) Create project (select company) and input project name only (remove dates)
+https://smc.dev.nlplay.ru/company/5/project/7/element/12/main (+button) 
+                                                                        xxx
+
+3) Remove all payment shit                                              
+                                                                        xxx
+
+4) Add create and edit button for building objects similar to what we have for buildings and implement the logic (check the old implementation) https://smc.dev.nlplay.ru/company/5/project/7/element/12/main (+button)
+                                                                        implement crud function
+                                                                        
+5) Implement the tree
+https://smc.dev.nlplay.ru/company/5/project/7/element/12/ (create and update)
+
+
+6) For Area (Захватки в работе) use this page:
+https://smc.dev.nlplay.ru/company/5/project/7/element/12/monitoring
