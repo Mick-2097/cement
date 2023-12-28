@@ -50,35 +50,114 @@
                             <h2 class="text-base text-normal cursor-default mx-auto">All buildings on the map</h2>
                             <!-- <p class="text-[10px] p-1 border-2 border-[var(--green)] rounded">0/3</p> -->
                         </div>
+
+                        <!--
+                                 ^
+                                ^^^
+                               ^^^^^
+                              ^^^^^^^
+                                 | 
+                        -->
+                        <!-- buildings tree -->
                         <ul class="list-none">
-                            <li tabindex="0" class="my-2 p-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)]">
-                                <img class="arrow" src="../assets/icons/Arrow.svg" alt="">
-                                <p>Building 1</p>
-                                <!-- <p class="counter">4/8</p> -->
+                            <li tabindex="0" class="px-2">
+                                <details>
+                                    <summary class="pl-4 py-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none">
+                                        Building 1
+                                    </summary>
+                                    <ul class="pl-4">
+                                        <li>
+                                            <details>
+                                                <summary class="pl-4 py-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none">wall a</summary>
+                                                    <ul class="pl-6">
+                                                        <li>this</li>
+                                                        <li>is</li>
+                                                        <li>pretty</li>
+                                                        <li>cool</li>
+                                                    </ul>
+                                            </details>
+                                            <details>
+                                                <summary class="pl-4 py-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none">wall b</summary>
+                                                    <ul class="pl-6">
+                                                        <li>this</li>
+                                                        <li>is</li>
+                                                        <li>pretty</li>
+                                                        <li>cool</li>
+                                                    </ul>
+                                            </details>
+                                            <details>
+                                                <summary class="pl-4 py-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none">wall c</summary>
+                                                    <ul class="pl-6">
+                                                        <li>this</li>
+                                                        <li>is</li>
+                                                        <li>pretty</li>
+                                                        <li>cool</li>
+                                                    </ul>
+                                            </details>
+                                        </li>
+                                    </ul>
+                                </details>
                             </li>
-                            <li tabindex="0" class="my-2 p-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)]">
-                                <img class="arrow" src="../assets/icons/Arrow.svg" alt="">
-                                <p>Building 2</p>
-                                <!-- <p class="counter">3/12</p> -->
+                            <li tabindex="0" class="px-2">
+                                <details>
+                                    <summary class="pl-4 py-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none">
+                                        Building 2
+                                    </summary>
+                                    <ul class="pl-4">
+                                        <li>
+                                            <details>
+                                                <summary class="pl-4 py-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none">wall a</summary>
+                                                    <ul class="pl-8">
+                                                        <li>this</li>
+                                                        <li>is</li>
+                                                        <li>pretty</li>
+                                                        <li>cool</li>
+                                                    </ul>
+                                            </details>
+                                        </li>
+                                    </ul>
+                                </details>
                             </li>
-                            <li tabindex="0" class="my-2 p-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)]">
-                                <img class="arrow" src="../assets/icons/Arrow.svg" alt="">
-                                <p>Building 3</p>
-                                <!-- <p class="counter">0/3</p> -->
+                            <li tabindex="0" class="px-2">
+                                <details>
+                                    <summary class="pl-4 py-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none">
+                                        Building 3
+                                    </summary>
+                                    <ul class="pl-4">
+                                        <li>
+                                            <details>
+                                                <summary class="pl-4 py-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none">wall a</summary>
+                                                    <ul class="pl-6">
+                                                        <li>this</li>
+                                                        <li>is</li>
+                                                        <li>pretty</li>
+                                                        <li>cool</li>
+                                                    </ul>
+                                            </details>
+                                        </li>
+                                    </ul>
+                                </details>
                             </li>
-                            <li class="my-2 p-2 flex items-center text-base cursor-pointer text-[var(--blue)] hover:text-black hover:bg-[var(--blue-focus)]" tabindex="0">
-                                <p>+ Add</p>
+                            <li tabindex="0" class="px-2">
+                                <details>
+                                    <summary class="pl-4 py-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none">
+                                        Building 4
+                                    </summary>
+                                    <ul class="pl-4">
+                                        <li>
+                                            <details>
+                                                <summary class="pl-4 py-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none">wall a</summary>
+                                                    <ul class="pl-6">
+                                                        <li>this</li>
+                                                        <li>is</li>
+                                                        <li>pretty</li>
+                                                        <li>cool</li>
+                                                    </ul>
+                                            </details>
+                                        </li>
+                                    </ul>
+                                </details>
                             </li>
-
-                            <!-- <div class="flex flex-col gap-2 text-[10px] p-2 text-[#777]">
-                                <p>Designations</p>
-                                <div class="row flex gap-4 justify-center text-[#333]">
-                                    <p class="no-work" title="No work is being carried out">No work</p>
-                                    <p class="hardens" title="Concrete hardens">Hardens</p>
-                                    <p class="complete" title="Complete">Complete</p>
-                                </div>
-                            </div> -->
-
                         </ul>
                     </div>
                 </div>
@@ -97,9 +176,9 @@
                         <div class="flex flex-col py-2 px-4 bg-white rounded-xl shadow-xl">
                             <h3 class="pb-2 text-center text-[#999]">Parent element</h3>
 
-                            <!-- Which options? -->
                             <select class="w-full h-10 rounded text-base text-[#999] px-2" name="" id="">
                                 <option value="no">no</option>
+                                <option value="yes">yes</option>
                             </select>
 
                         </div>
@@ -139,39 +218,21 @@
 </template>
 
 <style scoped>
-.elements {
-    > ul li:focus img {
-        transform: rotate(0deg);
-    }
-    > ul li img {
-        height: 18px;
-        transform: rotate(-90deg);
-        transition: transform 150ms linear;
-    }
-    > ul li .counter {
-        font-size: 10px;
-        margin-left: auto;
-    }
-    > ul li:focus::before {
-        position: absolute;
-        content: '';
-        width: 4px;
-        height: 40px;
-        top: 0;
-        right: -3px;
-        background: var(--blue);
-    }
-    > ul li:focus::after {
-        position: absolute;
-        content: '';
-        border-top: 20px solid transparent;
-        border-right: 20px solid transparent;
-        border-bottom: 20px solid transparent;
-        border-left: 20px solid var(--blue);
-        top: 0;
-        right: -42px;
-    }
+summary {
+    position: relative;
 }
-
-
+summary::before {
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    left: -2px;
+    top: 10px;
+    content: url('../assets/icons/Arrow-sm.svg');
+    transform-origin: center center;
+    transform: rotate(-90deg);
+    transition: all 150ms linear;
+}
+details[open] > summary::before {
+    transform: rotate(0deg);
+}
 </style>
