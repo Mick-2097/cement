@@ -52,11 +52,12 @@
                         </div>
 
                         <!--
-                                 ^
-                                ^^^
-                               ^^^^^
-                              ^^^^^^^
-                                 | 
+                                  ^
+                                 ^^^
+                                ^^^^^
+                               ^^^^^^^
+                              ^^^^^^^^^
+                                 |||
                         -->
                         <!-- buildings tree -->
                         <ul class="list-none">
@@ -159,9 +160,10 @@
                                 </details>
                             </li>
                         </ul>
+
+
                     </div>
                 </div>
-                
             </div>
 
             <section class="gap-4 w-full flex flex-col">
