@@ -6,13 +6,13 @@
 
 <template>
     <Vheader/>
-    <main class="bg-[var(--bg)] p-4 min-h-[calc(100vh-68px)]">
-        <div class="flex items-center justify-between mb-4">
-            <h1 class="text-xl text-normal">Project №3478793-48</h1>
+    <main class="bg-[var(--bg)] p-4 min-h-[calc(100vh-68px)] lg:flex-col lg:justify-center lg:items-center">
+        <div class="flex justify-between mb-4">
+            <h1 class="text-xl text-normal">{{ params.projectName }}</h1>
             <!-- <p class="opacity-70">07.05.2023 – 01.11.2023 (still 253 d.)</p> -->
         </div>
-        <div class="flex gap-[30px]">
-            <div class="left-menu flex flex-col min-w-[300px] gap-5">
+        <div class="flex flex-col gap-[30px] md:flex-row">
+            <div class="left-menu flex flex-col gap-5 sm:min-w-[300px]">
 
                 <!-- pages list card -->
                 <ul class="list-none p-4 bg-white border border-solid border-[#D9D9D9] rounded-xl shadow-lg">
@@ -46,8 +46,8 @@
                 <div class="bg-white border border-[#D9D9D9] rounded-xl shadow-lg pb-2">
 
                     <div class="elements">
-                        <div class="flex items-center justify-between p-2 border-b border-[#D9D9d9]">
-                            <h2 class="text-base text-normal cursor-default">All buildings on the map</h2>
+                        <div class="flex p-2 border-b border-[#D9D9d9]">
+                            <h2 class="text-base text-normal cursor-default mx-auto">All buildings on the map</h2>
                             <!-- <p class="text-[10px] p-1 border-2 border-[var(--green)] rounded">0/3</p> -->
                         </div>
                         <ul class="list-none">
@@ -84,43 +84,51 @@
                 </div>
                 
             </div>
-            <section class="gap-4 w-full">
+
+            <section class="gap-4 w-full flex flex-col">
 
                 <input class="h-14 w-full bg-[var(--bg)] mr-4 border border-solid border-[#999] rounded-md text-2xl px-2" type="text" placeholder="Building 1">
 
-                <div class="flex gap-4 mt-4">
+                <!-- Center menu and diagram area -->
+                <div class="flex gap-5 mt-4 flex flex-col lg:flex-row">
 
-                    <div class="center-menu min-w-[300px] flex flex-col gap-5">
-                        <div class="card">
-                            <h3>Parent element</h3>
-                            <select name="" id="">
+                    <!-- Center menu -->
+                    <div class="center-menu md:min-w-[300px] flex flex-col gap-5">
+                        <div class="flex flex-col py-2 px-4 bg-white rounded-xl shadow-xl">
+                            <h3 class="pb-2 text-center text-[#999]">Parent element</h3>
+
+                            <!-- Which options? -->
+                            <select class="w-full h-10 rounded text-base text-[#999] px-2" name="" id="">
                                 <option value="no">no</option>
                             </select>
+
                         </div>
-                        <div class="card">
-                            <h3>Drawings and diagrams</h3>
+                        <div class="flex flex-col py-2 px-4 bg-white rounded-xl shadow-xl">
+                            <h3 class="pb-2 text-center text-[#999]">Drawings and diagrams</h3>
                             <hr>
-                            <label class="file-label">+ Add (jpg, png)
-                                <input class="file-input" type="file" name="" id="">
+                            <label class="cursor-pointer text-[var(--blue)] text-xl text-center pt-2">+ Add (jpg, png)
+                                <input class="hidden" type="file" name="" id="">
                             </label>
                         </div>
-                        <div class="card">
-                            <h3>Child elements</h3>
+                        <div class="flex flex-col py-2 px-4 bg-white rounded-xl shadow-xl">
+                            <h3 class="pb-2 text-center text-[#999]">Child elements</h3>
                             <hr>
-                            <label class="file-label" for="">+ Add
+                            <label class="cursor-pointer text-[var(--blue)] text-xl text-center pt-2" for="">+ Add
                                 <!-- what type of input?? -->
                             </label>
                         </div>
-                        <div class="card">
-                            <h3>Monitoring points</h3>
+                        <div class="flex flex-col py-2 px-4 bg-white rounded-xl shadow-xl">
+                            <h3 class="pb-2 text-center text-[#999]">Monitoring points</h3>
                             <hr>
-                            <label class="file-label" for="">+ Add
+                            <label class="cursor-pointer text-[var(--blue)] text-xl text-center pt-2" for="">+ Add
                                 <!-- what type of input?? -->
                             </label>
                         </div>
                     </div>
 
-                    <div class="image-display">
+                    <!-- Diagram area -->
+                    <!-- Implement v-show/if-else for no diagram and diagram image -->
+                    <div class="flex w-full min-h-fit items-center justify-center mt-10 lg:mt-0">
                         <div class="if-empty">No drawings or diagrams have been added yet
                         </div>
                     </div>
@@ -131,13 +139,6 @@
 </template>
 
 <style scoped>
-.card {
-    background: white;
-    border: 1px solid #D9D9D9;
-    border-radius: 10px;
-    box-shadow: var(--shadow);
-    padding-bottom: 8px;
-}
 .elements {
     > ul li:focus img {
         transform: rotate(0deg);
@@ -171,83 +172,6 @@
         right: -42px;
     }
 }
-.row {
-    > p {
-        cursor: default;
-        text-align: center;
-        padding: 2px 4px;
-        border-radius: 4px;
-    }
-}
-.no-work {
-    background: #EEE;
-}
-.hardens {
-    border: 1px solid var(--green);
-}
-.complete {
-    background: var(--green);
-}
-.center-menu {
-    > .card {
-        display: flex;
-        flex-direction: column;
-        padding: 8px 16px;
-    }
-    > .card > h3 {
-        padding: 0 0 8px;
-        text-align: center;
-        font-weight: 400;
-        color: #999;
-    }
-    > .card > h3:hover {
-        background: white;
-        cursor: default;
-    }
-    > .card > select {
-        width: 100%;
-        height: 40px;
-        border-radius: 6px;
-        font-size: 16px;
-        color: #999;
-        padding: 0 8px;
-    }
-}
-.file-label {
-    cursor: pointer;
-    color: var(--blue);
-    font-size: 20px;
-    text-align: center;
-    padding: 8px 0 0;
-}
-.file-input {
-    display: none;
-}
-.image-display {
-    display: flex;
-    width: 100%;
-    min-height: fit-content;
-    align-items: center;
-    justify-content: center;
-}
-@media(max-width: 1024px) {
-    main {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    .wrapper,
-    .layout,
-    section,
-    .inner-section {
-        padding: 8px;
-        flex-direction: column;
-        align-items: center;
-        max-width: 320px;
-    }
-    .image-display {
-        text-align: center;
-    }
-}
+
+
 </style>

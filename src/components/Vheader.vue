@@ -26,7 +26,7 @@ let getPath = window.location.pathname
                             @click="params.projectName = ''" 
                             class="border-none text-base"
                             :class="getPath === '/projectdata' ? ['text-[var(--blue)]', 'cursor-pointer'] : ['cursor-default']">
-                            {{ getPath === '/projects' ? 'All projects' : 'Project' }} &nbsp;
+                            {{ getPath === '/projects' ? 'All projects' : 'Projects' }} &nbsp;
                         </button>
                     </RouterLink>
                     <p v-if="params.projectName !== ''" class="text-base flex-grow"> / {{ params.projectName }}</p>
