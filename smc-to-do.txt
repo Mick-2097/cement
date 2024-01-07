@@ -18,3 +18,6 @@ https://smc.dev.nlplay.ru/company/5/project/7/element/12/ (create and update)
 
 6) For Area (Захватки в работе) use this page:
 https://smc.dev.nlplay.ru/company/5/project/7/element/12/monitoring
+
+Create page, make organization a dropdown
+id, name

@@ -1,22 +1,13 @@
 <script setup>
-    const props = defineProps({
-        buttonText: String
-    })
+const props = defineProps({
+    buttonText: String
+})
 </script>
 
 <template>
-    <button>{{ buttonText }}</button>
+    <button class="text-white text-base font-bold min-w-[120px] px-3 h-10 bg-[var(--blue)] rounded cursor-pointer">
+        {{ buttonText }}
+    </button>
 </template>
 
-<style scoped>
-    button {
-        color: white;
-        font-size: 16px;
-        width: 100%;
-        height: 40px;
-        background-color: var(--blue);
-        border: var(--blue);
-        border-radius: 4px;
-        cursor: pointer;
-    }
-</style>
+<style scoped></style>
