@@ -1,20 +1,20 @@
 <script setup>
-import Vheader from "../components/Vheader.vue"
-import Vbutton from "../components/Vbutton.vue"
-import VModalEdit from "../components/VModalEdit.vue"
-import { mainApi } from "../api/main"
-import { onMounted, ref } from "vue"
+import { paramStore } from "../stores/params.js"
 import { RouterLink } from "vue-router"
-import { authStore } from '../stores/auth'
-
+import { onMounted, ref } from "vue"
+import { authStore } from "../stores/auth.js"
+import { mainApi } from "../api/main.js"
+import Vheader from "../components/Vheader.vue"
+import VSpinner from "../components/VSpinner.vue"
+import Vbutton from "../components/Vbutton.vue"
+import VEditProject from '../components/VModalEditProject.vue'
 const auth = authStore()
+const params = paramStore()
 // console.log(auth.token)
 
 const projectData = ref(false)
 
-let screenSize = ref(window.innerWidth)
-
-const companies = ref([])
+const screenSize = ref(window.innerWidth)
 
 const fetchCompanies = async () => {
   const response = await mainApi.fetchData("GET", "companies")
@@ -23,7 +23,7 @@ const fetchCompanies = async () => {
     response.data[i].projects = await fetchProjects(response.data[i].id)
   }
 
-  companies.value = response.data
+  params.companies.value = response.data
   projectData.value = true
 }
 
@@ -52,8 +52,10 @@ onMounted(() => {
 
     </div>
 
+    <VSpinner v-if="!projectData" />
+
     <!-- If there is no data -->
-    <div v-show="!projectData"
+    <div v-show="projectData && params.companies.length === 0"
       class="flex flex-col w-[394px] max-w-[90%] text-xl text-center gap-4 opacity-40 my-[100px] mx-auto">
       <p>You don't have any projects yet.</p>
       <p>You can create a project or you can be added to a project.</p>
@@ -61,7 +63,7 @@ onMounted(() => {
 
     <!-- If there is data -->
     <div v-show="projectData" class="shadow-lg flex w-full max-w-[1076px] mb-[40px] bg-white py-2 px-4 rounded-xl"
-      v-for="company in companies" :key="company.id">
+      v-for="company in params.companies.value" :key="company.id">
 
       <table class="table-view w-full text-left h-fit border-collapse">
         <thead>
@@ -94,9 +96,10 @@ onMounted(() => {
             </td>
             <td class="flex justify-end items-center h-full pr-2">
 
-              <RouterLink to="/create" class="flex shrink-0 my-2">
-                <img class="align-center pl-4" src="../assets/edit.svg" alt="edit icon" title="edit">
-              </RouterLink>
+              <div class="flex shrink-0 my-2">
+                <img @click="params.isEdit = true" class="align-center pl-4" src="../assets/edit.svg" alt="edit icon"
+                  title="edit">
+              </div>
 
             </td>
 
@@ -121,7 +124,7 @@ onMounted(() => {
     </div>
 
   </main>
-  <!-- <VModalEdit /> -->
+  <VEditProject v-show="params.isEdit" />
 </template>
 
 <style scoped>

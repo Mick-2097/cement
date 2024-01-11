@@ -1,33 +1,43 @@
 <script setup>
 import { useRoute } from 'vue-router'
-import { mainApi } from "../api/main"
 import { onMounted, ref } from 'vue'
+import { paramStore } from '../stores/params'
+import { requestStore } from '../stores/request'
 import Vheader from '../components/Vheader.vue'
 import VBranch from '../components/VBranch.vue'
+import VSpinner from '../components/VSpinner.vue'
+import VAddObject from '../components/VModalAddObject.vue'
+import VAddBuilding from '../components/VModalAddBuilding.vue'
 
+const params = paramStore()
+const request = requestStore()
 const { pid, name } = defineProps(['pid', 'name'])
 const route = useRoute()
-const buildingObjects = ref([])
-const dataReady = ref(false)
 
-const fetchObjects = async () => {
-    const response = await mainApi.fetchData("GET", `building_objects?project_id=${route.params.pid}`)
-
-    for (let i = 0; i < response.data.list.length; i++) {
-        response.data.list[i].buildings = await fetchBuildings(response.data.list[i].id)
-    }
-
-    buildingObjects.value = response.data.list
-    dataReady.value = true
+const selectObject = (index, name, id) => {
+    params.buildingSelected = false
+    params.childSelected = false
+    params.objectSelected = true
+    params.selected.index = index
+    params.selected.name = name
+    params.selected.id = id
+    request.fetchAreas(id)
 }
-
-const fetchBuildings = async (objectID) => {
-    const response = await mainApi.fetchData('GET', `buildings?building_object_id=${objectID}&is_full=true`)
-    return response.data
+const selectBuilding = (index, name, id) => {
+    params.objectSelected = false
+    params.childSelected = false
+    params.buildingSelected = true
+    params.selected.index = index
+    params.selected.name = name
+    params.selected.id = id
+    request.fetchSpots(id)
 }
-
 onMounted(() => {
-    fetchObjects()
+    request.fetchObjects()
+    params.selected = {
+        name: '',
+        is: ''
+    }
 })
 </script>
 
@@ -43,12 +53,12 @@ onMounted(() => {
 
                 <!-- pages list card -->
                 <ul class="list-none p-4 bg-white border border-solid border-[#D9D9D9] rounded-xl shadow-lg">
-                    <li class="flex mb-[10px] gap-2 text-start cursor-pointer hover:bg-[var(--blue-focus)] items-center">
+                    <!-- <li class="flex mb-[10px] gap-2 text-start cursor-pointer hover:bg-[var(--blue-focus)] items-center">
                         <div class="w-4 h-full">
                             <img src="../assets/file.png" alt="">
                         </div>
                         Information & documents
-                    </li>
+                    </li> -->
                     <li class="flex mb-[10px] gap-2 text-start cursor-pointer hover:bg-[var(--blue-focus)] items-center">
                         <div class="w-4">
                             <img src="../assets/filesearch.png" alt="">
@@ -59,31 +69,41 @@ onMounted(() => {
                         <div class="w-4">
                             <img src="../assets/truck.png" alt="">
                         </div>
-                        Concrete mix
+                        Concrete composition
                     </li>
-                    <li class="flex mb-[10px] gap-2 text-start cursor-pointer hover:bg-[var(--blue-focus)] items-center">
+                    <!-- <li class="flex mb-[10px] gap-2 text-start cursor-pointer hover:bg-[var(--blue-focus)] items-center">
                         <div class="w-4">
                             <img src="../assets/cog.png" alt="">
                         </div>
                         Project settings
-                    </li>
+                    </li> -->
                 </ul>
 
                 <!-- building tree card -->
-                <div class="bg-white border border-[#D9D9D9] rounded-xl shadow-lg pb-2 overflow-x-scroll">
+                <div class="bg-white border border-[#D9D9D9] rounded-xl shadow-lg pb-2 overflow-x-auto">
 
-                    <div class="elements">
+                    <!-- buildings tree -->
+                    <div class="flex flex-col">
                         <div class="flex p-2 border-b border-[#D9D9d9]">
                             <h2 class="text-base text-normal cursor-default mx-auto">All buildings on the map</h2>
                         </div>
-                        <!-- buildings tree -->
+
+                        <VSpinner v-if="!params.dataReady" class="self-center" />
+
                         <!-- OBJECT -->
-                        <ul v-for="object in buildingObjects" :key="object.id" class="list-none">
+                        <ul v-else v-for="(object, index) in params.buildingObjects.value" :key="object.id"
+                            class="list-none">
                             <li tabindex="0" class="px-2">
                                 <details>
-                                    <summary :class="!object.buildings.length ? `no-content` : ``"
-                                        class="relative pl-4 py-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none before:absolute before:h-[18px] before:w-[18px] before:-left-[2px] before:top-[10px] before:-rotate-90 before:transition-all before:duration-150">
+                                    <summary @click="selectObject(index, object.name, object.id)"
+                                        :class="!object.buildings.length ? `no-content` : ``"
+                                        class="relative pl-4 py-2 flex text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none before:absolute before:h-[18px] before:w-[18px] before:-left-[2px] before:top-[10px] before:-rotate-90 before:transition-all before:duration-150 justify-between">
                                         {{ object.name }}
+                                        <div class="flex gap-1 items-center">
+                                            <img src="../assets/icons/trash.svg" alt="delete">
+                                            <img src="../assets/edit.svg" alt="edit">
+                                            <img class="h-5" src="../assets/icons/add.png" alt="add child">
+                                        </div>
                                     </summary>
 
                                     <!-- BUILDING -->
@@ -91,9 +111,16 @@ onMounted(() => {
                                         :key="building.id" class="pl-4">
                                         <li>
                                             <details>
-                                                <summary :class="building.isLeaf ? `no-content` : ``"
-                                                    class="relative pl-4 py-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none before:absolute before:h-[18px] before:w-[18px] before:-left-[2px] before:top-[10px] before:-rotate-90 before:transition-all before:duration-150">
+                                                <summary @click="selectBuilding(index, building.name, building.id)"
+                                                    :class="building.isLeaf ? `no-content` : ``"
+                                                    class="relative pl-2 py-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none before:absolute before:h-[18px] before:w-[18px] before:-left-[8px] before:top-[10px] before:-rotate-90 before:transition-all before:duration-150 justify-between">
                                                     {{ building.name }}
+                                                    <div class="flex gap-1">
+                                                        <img src="../assets/icons/trash.svg" alt="delete">
+                                                        <img src="../assets/edit.svg" alt="edit">
+                                                        <img src="../assets/icons/sensor.png" alt="add sensor">
+                                                        <img src="../assets/icons/add.png" alt="add child">
+                                                    </div>
                                                 </summary>
 
                                                 <!-- CHILDREN -->
@@ -103,28 +130,84 @@ onMounted(() => {
                                     </ul>
                                 </details>
                             </li>
-
                         </ul>
-                        <p @click="console.log('pooface')"
-                            class="flex text-[var(--blue)] pl-2 pt-2 text-xl border-t cursor-pointer" tabindex="0">+
+                        <p @click="params.addObject = true"
+                            class="flex text-[var(--blue)] pl-2 pt-2 text-xl border-t cursor-pointer" tabindex="0">
+                            +
                             Add
                         </p>
-                        <!-- End of tree -->
                     </div>
                 </div>
             </div>
 
+            <!-- Hero section -->
             <section class="gap-4 w-full flex flex-col">
 
-                <input class="h-14 w-full bg-[var(--bg)] mr-4 border border-solid border-[#999] rounded-md text-2xl px-2"
-                    type="text" placeholder="Building 1">
+                <!-- Selected element -->
+                <div class="flex pr-4 gap-20">
+                    <h1 class="text-2xl font-semibold">{{ params.selected.name }} {{ params.selected.id }}</h1>
+
+                    <!-- Actions -->
+                    <div v-if="params.selected.name !== ''" class="flex gap-1">
+                        <!-- Delete -->
+                        <img @click="request.deleteElement" class="cursor-pointer" src="../assets/icons/trash.svg"
+                            alt="delete" title="delete">
+                        <!-- Edit -->
+                        <img class="cursor-pointer" src="../assets/edit.svg" alt="edit" title="edit">
+                        <!-- Add monitoring spot -->
+                        <img v-if="!params.objectSelected" class="cursor-pointer w-4 h-4 self-center"
+                            src="../assets/icons/sensor.png" alt="add monitoring spot" title="add monitoring spot">
+                        <!-- Add child -->
+                        <img @click="params.addChild = true" class="cursor-pointer w-4 h-4 self-center"
+                            src="../assets/icons/add.png" alt="add child" title="add child">
+                    </div>
+                </div>
 
                 <!-- Center menu and diagram area -->
                 <div class="flex gap-5 mt-4 flex flex-col lg:flex-row">
 
                     <!-- Center menu -->
-                    <div class="center-menu md:min-w-[300px] flex flex-col gap-5">
-                        <div class="flex flex-col py-2 px-4 bg-white rounded-xl shadow-xl">
+                    <div class="md:min-w-[300px] flex flex-col gap-5">
+
+                        <!-- Show areas -->
+                        <div v-show="params.objectSelected" class="flex flex-col py-2 bg-white rounded-xl shadow-xl">
+                            <h3 class="py-2 w-full text-center opacity-60">
+                                Areas
+                            </h3>
+
+                            <VSpinner v-if="params.objectSelected && !params.areasReady" />
+                            <div v-else class="">
+                                <p v-if="!params.areas.length" class="text-center py-8">- Empty -</p>
+                                <ul v-for="area in params.areas"
+                                    class="list-none border-t border-t-black border-opacity-20 p-4">
+                                    <li>
+                                        <p>{{ area.name }}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Show monitoring spots -->
+                        <div v-show="params.buildingSelected" class="flex flex-col py-2 bg-white rounded-xl shadow-xl">
+                            <h3 class="py-2 w-full text-center opacity-60">
+                                Monitoring spots
+                            </h3>
+
+                            <VSpinner v-if="params.buildingSelected && !params.spotsReady" />
+                            <div v-else>
+                                <p v-if="!params.spots.length" class="text-center py-8">- Empty -</p>
+                                <ul v-for="spot in params.spots"
+                                    class="list-none border-t border-t-black border-opacity-20 p-4">
+                                    <li>
+                                        <p class="underline underline-offset-4">{{ spot.name }}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Center menu of figma design -->
+
+                        <!-- <div class="flex flex-col py-2 px-4 bg-white rounded-xl shadow-xl">
                             <h3 class="pb-2 text-center text-[#999]">Parent element</h3>
 
                             <select class="w-full h-10 rounded text-base text-[#999] px-2" name="" id="">
@@ -151,18 +234,21 @@ onMounted(() => {
                             <hr>
                             <label class="cursor-pointer text-[var(--blue)] text-xl text-center pt-2" for="">+ Add
                             </label>
-                        </div>
+                        </div> -->
+
                     </div>
 
                     <!-- Diagram area -->
                     <div class="flex w-full min-h-fit items-center justify-center mt-10 lg:mt-0">
-                        <div class="if-empty">No drawings or diagrams have been added yet
+                        <div class="if-empty">No drawings or diagrams added yet
                         </div>
                     </div>
                 </div>
             </section>
         </div>
     </main>
+    <VAddObject v-show="params.addObject" />
+    <VAddBuilding v-show="params.addChild" />
 </template>
 
 <style scoped>

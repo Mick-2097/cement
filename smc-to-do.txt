@@ -21,3 +21,18 @@ https://smc.dev.nlplay.ru/company/5/project/7/element/12/monitoring
 
 Create page, make organization a dropdown
 id, name
+
+
+make organisation a dropdown                
+                                            xxx
+
+add spinner                                 
+                                            xxx
+
+tree menu add buttons/icons - edit selected, add child, add monitoring spot, delete
+
+center menu - show areas
+
+
+add building to building object
+buildings?building_object_id=57&building_type_id=5&name=test&description=testing%20adding%20building
