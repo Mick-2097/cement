@@ -5,7 +5,6 @@
   --blue-focus: #BEF6F2;
   --bg: #F2F7FF;
   --beige: #FFF0CA;
-  --shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.05), 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
 }
 
 * {
@@ -20,8 +19,4 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-}
-
-::-webkit-scrollbar {
-  display: none;
 }
