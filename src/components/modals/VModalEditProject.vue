@@ -1,13 +1,13 @@
 <script setup>
-import { paramStore } from '../stores/params'
-import Vbutton from './Vbutton.vue'
+import { paramStore } from '../../stores/params'
+import Vbutton from '../Vbutton.vue'
 const params = paramStore()
 </script>
 
 <template>
     <main class="fixed w-screen h-screen bg-black bg-opacity-80">
         <section class="flex flex-col w-72 h-96 sm:w-96 sm:h-96 bg-white rounded-xl m-auto mt-[20vh] p-4">
-            <img @click="params.isEdit = false" class="self-end cursor-pointer" src="../assets/icons/close.svg" />
+            <img @click="params.isEdit = false" class="self-end cursor-pointer" src="../../assets/icons/close.svg" />
             <div class="flex flex-col my-6">
                 <label class="cursor-pointer w-[200px] min-w-fit my-[10px] text-xl " for="organisation">
                     Organisation

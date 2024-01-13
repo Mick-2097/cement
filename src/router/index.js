@@ -56,7 +56,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/project/:pid/:name',
+      path: '/project/:project_id',
       name: 'projectdata',
       component: ProjectData,
       props: true,

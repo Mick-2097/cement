@@ -7,6 +7,7 @@ import { paramStore } from "../stores/params"
 const params = paramStore()
 const route = useRoute()
 const auth = authStore()
+const props = defineProps(['name'])
 
 const isSmallScreen = ref(window.innerWidth <= 800)
 const isShowSearch = ref(false)
@@ -30,7 +31,7 @@ let showSearch = () => {
                         </button>
                     </RouterLink>
                     <p v-if="route.path !== '/projects' && route.path !== '/create'" class="text-base flex-grow">
-                        / {{ route.params.name }}
+                        / {{ name }}
                     </p>
                     <p v-if="route.path === '/create'" class="text-base flex-grow">
                         / &nbsp; Create

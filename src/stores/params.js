@@ -9,6 +9,7 @@ export const paramStore = defineStore('params', () => {
   const projectID = ref('')
   const projectName = ref('')
   const buildingObjects = ref([])
+  const projectData = ref(false)
   const dataReady = ref(false)
   const areasReady = ref(false)
   const spotsReady = ref(false)
@@ -21,7 +22,8 @@ export const paramStore = defineStore('params', () => {
   const selected = ref({
     index: '',
     name: '',
-    id: ''
+    id: '',
+    parentID: ''
   })
 
   return {
@@ -31,6 +33,7 @@ export const paramStore = defineStore('params', () => {
     companyName,
     projectID,
     projectName,
+    projectData,
     dataReady,
     areasReady,
     spotsReady,

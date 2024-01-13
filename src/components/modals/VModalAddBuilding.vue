@@ -1,9 +1,9 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { mainApi } from '../api/main'
-import { paramStore } from '../stores/params'
-import { requestStore } from '../stores/request'
-import Vbutton from './Vbutton.vue'
+import { mainApi } from '../../api/main'
+import { paramStore } from '../../stores/params'
+import { requestStore } from '../../stores/request'
+import Vbutton from '../Vbutton.vue'
 
 const params = paramStore()
 const request = requestStore()
@@ -24,17 +24,21 @@ onMounted(() => {
 })
 
 const addBuilding = async () => {
-    const response = await mainApi.fetchData('POST', `buildings?building_object_id=${params.selected.id}&building_type_id=${newBuilding.value.type}&name=${newBuilding.value.name}&description=${newBuilding.value.description}`)
-    request.fetchObjects()
-    params.addChild = false
-    // params.buildingObjects.value[params.selected.index].buildings.push(newBuilding.value)
+    if (params.objectSelected) {
+        const response = await mainApi.fetchData('POST', `buildings?building_object_id=${params.selected.id}&building_type_id=${newBuilding.value.type}&name=${newBuilding.value.name}&description=${newBuilding.value.description}`)
+        params.buildingObjects.value[params.selected.index].buildings.push(response.data)
+        params.addChild = false
+    }
+    if (params.objectSelected) {
+
+    }
 }
 </script>
 
 <template>
     <main class="fixed w-screen h-screen bg-black bg-opacity-80">
         <section class="flex flex-col w-72 sm:w-96 bg-white rounded-xl m-auto mt-[20vh] p-4">
-            <img @click="params.addChild = false" class="self-end cursor-pointer" src="../assets/icons/close.svg" />
+            <img @click="params.addChild = false" class="self-end cursor-pointer" src="../../assets/icons/close.svg" />
             <label class="cursor-pointer mt-4 mb-3" for="building-type">
                 Building type
             </label>
