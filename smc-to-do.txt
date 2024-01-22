@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 1) Projects page remove dates and counters
 https://smc.dev.nlplay.ru/company/5/project/7/element/12/main           
                                                                         xxx
@@ -21,3 +22,5 @@ https://smc.dev.nlplay.ru/company/5/project/7/element/12/monitoring
 
 Create page, make organization a dropdown
 id, name
+=======
+>>>>>>> Stashed changes

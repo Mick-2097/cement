@@ -5,6 +5,10 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const auth = authStore()
+<<<<<<< Updated upstream
+=======
+const passed = defineProps(['name', 'props'])
+>>>>>>> Stashed changes
 
 const isSmallScreen = ref(window.innerWidth <= 800)
 const isShowSearch = ref(false)
@@ -20,15 +24,24 @@ let showSearch = () => {
             <div class="left-side flex bg-white max-w-1/2 py-0 px-4 justify-start items-center gap-3">
                 <img class="icon-small" src="../assets/icon-small.png" alt="">
                 <div class="flex flex-wrap">
+<<<<<<< Updated upstream
 
                     <RouterLink to="/projects" class="flex-grow">
+=======
+                    <RouterLink to="/projects" class="flex-grow"
+                        @click="passed.props.selected = {}, passed.props.isCreate = false">
+>>>>>>> Stashed changes
                         <button class="border-none text-base"
-                            :class="route.path !== '/projects' ? ['text-[var(--blue)]', 'cursor-pointer'] : ['cursor-default']">
+                            :class="route.path !== '/projects' || passed.props.isCreate ? ['text-[var(--blue)]', 'cursor-pointer'] : ['cursor-default']">
                             {{ route.path !== '/projects' ? 'Projects' : 'All projects' }} &nbsp;
                         </button>
                     </RouterLink>
                     <p v-if="route.path !== '/projects' && route.path !== '/create'" class="text-base flex-grow">
+<<<<<<< Updated upstream
                         / {{ route.params.name }}
+=======
+                        / {{ passed.name }}
+>>>>>>> Stashed changes
                     </p>
                     <p v-if="route.path === '/create'" class="text-base flex-grow">
                         / &nbsp; Create

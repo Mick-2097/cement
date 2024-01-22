@@ -1,10 +1,12 @@
 <script setup>
+import { mainApi } from '../api/main'
 import { useRoute } from 'vue-router'
 import { mainApi } from "../api/main"
 import { onMounted, ref } from 'vue'
 import Vheader from '../components/Vheader.vue'
 import VBranch from '../components/VBranch.vue'
 
+<<<<<<< Updated upstream
 const { pid, name } = defineProps(['pid', 'name'])
 const route = useRoute()
 const buildingObjects = ref([])
@@ -28,6 +30,34 @@ const fetchBuildings = async (objectID) => {
 
 onMounted(() => {
     fetchObjects()
+=======
+const route = useRoute()
+const project = ref({})
+const props = ref({
+    buildingObjects: [],
+    objectSelected: false,
+    buildingSelected: false,
+    selected: {
+        index: '',
+        name: '',
+        id: '',
+        isLeaf: false
+    },
+    dataReady: false,
+    areasReady: false,
+    spotsReady: false,
+    areas: [],
+    spots: [],
+    addObject: false,
+    addBuilding: false
+})
+const fetchProject = async (projectID) => {
+    const response = await mainApi.fetchData("GET", `projects/${projectID}`)
+    return response.data
+}
+onMounted(async () => {
+    project.value = await fetchProject(route.params.project_id)
+>>>>>>> Stashed changes
 })
 </script>
 
@@ -39,6 +69,7 @@ onMounted(() => {
             <!-- <p class="opacity-70">07.05.2023 – 01.11.2023 (still 253 d.)</p> -->
         </div>
         <div class="flex flex-col gap-[30px] md:flex-row">
+<<<<<<< Updated upstream
             <div class="left-menu flex flex-col gap-5 sm:min-w-[300px]">
 
                 <!-- pages list card -->
@@ -113,11 +144,24 @@ onMounted(() => {
                     </div>
                 </div>
             </div>
+=======
+            <VSideMenu :props="props" />
+>>>>>>> Stashed changes
 
             <section class="gap-4 w-full flex flex-col">
 
+<<<<<<< Updated upstream
                 <input class="h-14 w-full bg-[var(--bg)] mr-4 border border-solid border-[#999] rounded-md text-2xl px-2"
                     type="text" placeholder="Building 1">
+=======
+                <!-- Selected element -->
+                <div class="flex pr-4 gap-20">
+                    <h1 class="text-2xl font-semibold">{{ props.selected.name }} {{ props.selected.id }}</h1>
+
+                    <!-- Actions -->
+                    <VActions :props="props" />
+                </div>
+>>>>>>> Stashed changes
 
                 <!-- Center menu and diagram area -->
                 <div class="flex gap-5 mt-4 flex flex-col lg:flex-row">
@@ -127,6 +171,7 @@ onMounted(() => {
                         <div class="flex flex-col py-2 px-4 bg-white rounded-xl shadow-xl">
                             <h3 class="pb-2 text-center text-[#999]">Parent element</h3>
 
+<<<<<<< Updated upstream
                             <select class="w-full h-10 rounded text-base text-[#999] px-2" name="" id="">
                                 <option value="no">no</option>
                                 <option value="yes">yes</option>
@@ -152,6 +197,13 @@ onMounted(() => {
                             <label class="cursor-pointer text-[var(--blue)] text-xl text-center pt-2" for="">+ Add
                             </label>
                         </div>
+=======
+                        <!-- Show areas -->
+                        <VAreas :props="props" />
+
+                        <!-- Show monitoring spots -->
+                        <VSpots :props="props" />
+>>>>>>> Stashed changes
                     </div>
 
                     <!-- Diagram area -->
@@ -163,6 +215,11 @@ onMounted(() => {
             </section>
         </div>
     </main>
+<<<<<<< Updated upstream
+=======
+    <VAddObject v-show="props.addObject" :props="props" />
+    <VAddBuilding v-show="props.addBuilding" :props="props" />
+>>>>>>> Stashed changes
 </template>
 
 <style scoped>
