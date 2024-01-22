@@ -1,29 +1,12 @@
 <script setup>
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-import { mainApi } from "../api/main"
-import { onMounted, ref } from "vue"
->>>>>>> Stashed changes
 import Vheader from "../components/Vheader.vue"
 import Vbutton from "../components/Vbutton.vue"
-<<<<<<< Updated upstream
 import VModalEdit from "../components/VModalEdit.vue"
 import { mainApi } from "../api/main"
 import { onMounted, ref } from "vue"
-=======
-import { requestStore } from '../stores/request'
-import { paramStore } from "../stores/params.js"
->>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
 import { RouterLink } from "vue-router"
-import { onMounted, ref } from "vue"
-import Vheader from "../components/Vheader.vue"
-import VSpinner from "../components/VSpinner.vue"
-import Vbutton from "../components/Vbutton.vue"
-import VProjectList from '../components/projects/VProjectList.vue'
-import VEditProject from '../components/modals/VModalEditProject.vue'
+import { authStore } from '../stores/auth'
 
-<<<<<<< HEAD
 const auth = authStore()
 // console.log(auth.token)
 
@@ -48,90 +31,35 @@ const fetchProjects = async (companyID) => {
   const response = await mainApi.fetchData("GET", `projects?company_id=${companyID}`)
   return response.data.list
 }
-=======
-import VProjectList from '../components/projects/VProjectList.vue'
-import VEditProject from '../components/modals/VModalEditProject.vue'
-import VCreateProject from "../components/projects/VCreateProject.vue"
-
-const screenSize = ref(window.innerWidth)
->>>>>>> Stashed changes
-
-const props = ref({
-  companies: {},
-  dataReady: false,
-  isEdit: false,
-  isCreate: false
-})
-
-const fetchProjects = async (companyID) => {
-  const response = await mainApi.fetchData("GET", `projects?company_id=${companyID}`)
-  return response.data.list
-}
-
-const fetchCompanies = async () => {
-  const response = await mainApi.fetchData("GET", "companies")
-
-  for (let i = 0; i < response.data.length; i++) {
-    response.data[i].projects = await fetchProjects(response.data[i].id)
-  }
-  props.value.companies = response.data
-  props.value.dataReady = true
-}
-
-=======
-const request = requestStore()
-const params = paramStore()
-const screenSize = ref(window.innerWidth)
->>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
 
 onMounted(() => {
-  request.fetchCompanies()
+  fetchCompanies()
 })
 </script>
 
 <template>
-  <Vheader :props="props" />
-  <VCreateProject v-if="props.isCreate" :props="props" />
-  <main v-else class="p-4 flex flex-col items-center min-h-[calc(100vh-68px)] bg-[var(--bg)]">
+  <Vheader />
+  <main class="p-4 flex flex-col items-center min-h-[calc(100vh-68px)] bg-[var(--bg)]">
     <div class="wrapper w-full max-w-[1076px] h-[80px] flex items-center justify-between">
-
       <div class="flex flex-col sm:flex-row sm:gap-20">
         <h1 class="text-2xl sm:text-4xl sm:text-normal">Projects</h1>
-        <!-- <a class="text-2xl text-[var(--blue)] sm:text-4xl sm:text-normal" href="#">Pay</a> -->
+        <a class="hidden text-2xl text-[var(--blue)] sm:text-4xl sm:text-normal" href="#">Pay</a>
       </div>
-<<<<<<< HEAD
-<<<<<<< Updated upstream
 
-=======
->>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
       <RouterLink to="/create">
         <Vbutton :buttonText="screenSize < 801 ? 'Create' : 'Create project'" />
       </RouterLink>
+
     </div>
-    <VSpinner v-if="!params.projectData" />
 
     <!-- If there is no data -->
-<<<<<<< HEAD
     <div v-show="!projectData"
-=======
-      <Vbutton @click="props.isCreate = true" :buttonText="screenSize < 801 ? 'Create' : 'Create project'" />
-    </div>
-    <VSpinner v-if="!props.dataReady" />
-
-    <!-- If there is no data -->
-    <div v-show="dataReady && companies.length === 0"
->>>>>>> Stashed changes
-=======
-    <div v-show="params.projectData && params.companies.length === 0"
->>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
       class="flex flex-col w-[394px] max-w-[90%] text-xl text-center gap-4 opacity-40 my-[100px] mx-auto">
       <p>You don't have any projects yet.</p>
       <p>You can create a project or you can be added to a project.</p>
     </div>
 
     <!-- If there is data -->
-<<<<<<< HEAD
-<<<<<<< Updated upstream
     <div v-show="projectData" class="shadow-lg flex w-full max-w-[1076px] mb-[40px] bg-white py-2 px-4 rounded-xl"
       v-for="company in companies" :key="company.id">
 
@@ -194,16 +122,12 @@ onMounted(() => {
 
   </main>
   <!-- <VModalEdit /> -->
-=======
-    <VProjectList :props="props" />
-  </main>
-  <VEditProject v-show="props.isEdit" :props="props" />
->>>>>>> Stashed changes
-=======
-    <VProjectList />
-  </main>
-  <VEditProject v-show="params.isEdit" />
->>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
 </template>
 
-<style scoped></style>
+<style scoped>
+.red {
+  color: var(--red);
+  /* If the number is less than 21 highlight red with vue */
+  font-weight: 700;
+}
+</style>

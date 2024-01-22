@@ -2,18 +2,9 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const paramStore = defineStore('params', () => {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-  const areas = ref([])
-  const spots = ref({})
-  const companies = ref({})
->>>>>>> Stashed changes
-=======
   const areas = ref({})
   const spots = ref({})
   const companies = ref({})
->>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
   const companyName = ref('')
   const projectID = ref('')
   const projectName = ref('')

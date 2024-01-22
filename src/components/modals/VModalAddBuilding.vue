@@ -31,33 +31,18 @@ onMounted(() => {
 })
 
 const addBuilding = async () => {
-<<<<<<< HEAD
     const response = await mainApi.fetchData('POST', `buildings?parent_id=${params.selected.id}&building_type_id=${newBuilding.value.type}&name=${newBuilding.value.name}&description=${newBuilding.value.description}`)
     passed.props.buildingObjects[passed.props.selected.index].buildings.push(response.data)
     passed.props.addChild = false
     console.log(passed.props.buildingObjects)
-=======
-    if (params.objectSelected) {
-        const response = await mainApi.fetchData('POST', `buildings?building_object_id=${params.selected.id}&building_type_id=${newBuilding.value.type}&name=${newBuilding.value.name}&description=${newBuilding.value.description}`)
-        params.buildingObjects.value[params.selected.index].buildings.push(response.data)
-        params.addChild = false
-    }
-    if (params.objectSelected) {
-
-    }
->>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
 }
 </script>
 
 <template>
     <main class="fixed w-screen h-screen bg-black bg-opacity-80">
         <section class="flex flex-col w-72 sm:w-96 bg-white rounded-xl m-auto mt-[20vh] p-4">
-<<<<<<< HEAD
             <img @click="passed.props.addBuilding = false" class="self-end cursor-pointer"
                 src="../../assets/icons/close.svg" />
-=======
-            <img @click="params.addChild = false" class="self-end cursor-pointer" src="../../assets/icons/close.svg" />
->>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
             <label class="cursor-pointer mt-4 mb-3" for="building-type">
                 Building type
             </label>

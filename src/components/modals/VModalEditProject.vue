@@ -1,22 +1,12 @@
 <script setup>
-<<<<<<< HEAD
 import Vbutton from '../Vbutton.vue'
 const passed = defineProps(['props'])
-=======
-import { paramStore } from '../../stores/params'
-import Vbutton from '../Vbutton.vue'
-const params = paramStore()
->>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
 </script>
 
 <template>
     <main class="fixed w-screen h-screen bg-black bg-opacity-80">
         <section class="flex flex-col w-72 h-96 sm:w-96 sm:h-96 bg-white rounded-xl m-auto mt-[20vh] p-4">
-<<<<<<< HEAD
             <img @click="passed.props.isEdit = false" class="self-end cursor-pointer" src="../../assets/icons/close.svg" />
-=======
-            <img @click="params.isEdit = false" class="self-end cursor-pointer" src="../../assets/icons/close.svg" />
->>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
             <div class="flex flex-col my-6">
                 <label class="cursor-pointer w-[200px] min-w-fit my-[10px] text-xl " for="organisation">
                     Organisation
@@ -24,11 +14,7 @@ const params = paramStore()
                 <select name="organisation"
                     class="border border-solid border-black rounded border-opacity-40 h-10 min-w-[calc(100%-200px)] text-center">
                     <option disabled selected value> -- select organisation -- </option>
-<<<<<<< HEAD
                     <option v-for="company in passed.props.companies" :key="company.id" class="h-10 text-left">{{
-=======
-                    <option v-for="company in params.companies.value" :key="company.id" class="h-10 text-left">{{
->>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
                         company.name }}
                     </option>
                 </select>
