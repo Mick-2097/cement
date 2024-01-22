@@ -1,4 +1,5 @@
 <script setup>
+<<<<<<< HEAD
 import VBranch from './VBranch.vue'
 import VSpinner from '../VSpinner.vue'
 import { onMounted } from 'vue'
@@ -39,6 +40,24 @@ onMounted(async () => {
     fetchObjects(route.params.project_id)
 })
 
+=======
+import { paramStore } from '../../stores/params'
+import { requestStore } from '../../stores/request'
+import VBranch from './VBranch.vue'
+import VSpinner from '../VSpinner.vue'
+const params = paramStore()
+const request = requestStore()
+
+const selectObject = (index, name, id) => {
+    params.buildingSelected = false
+    params.childSelected = false
+    params.objectSelected = true
+    params.selected.index = index
+    params.selected.name = name
+    params.selected.id = id
+    request.fetchAreas(id)
+}
+>>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
 </script>
 
 <template>
@@ -80,13 +99,20 @@ onMounted(async () => {
                 <div class="flex p-2 border-b border-[#D9D9d9]">
                     <h2 class="text-base text-normal cursor-default mx-auto">All buildings on the map</h2>
                 </div>
+<<<<<<< HEAD
                 <VSpinner v-if="!passed.props.dataReady" class="self-center" />
 
                 <ul v-else v-for="(object, index) in passed.props.buildingObjects.value" :key="object.id" class="list-none">
+=======
+                <VSpinner v-if="!params.dataReady" class="self-center" />
+
+                <ul v-else v-for="(object, index) in params.buildingObjects.value" :key="object.id" class="list-none">
+>>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
                     <li tabindex="0">
                         <details class="flex w-full">
                             <summary @click="selectObject(index, object.name, object.id)"
                                 :class="!object.buildings.length ? `no-content` : ``"
+<<<<<<< HEAD
                                 class="relative pl-6 py-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none before:absolute before:h-[18px] before:w-[18px] before:left-[4px] before:top-[10px] before:-rotate-90 before:transition-all before:duration-150 justify-between text-nowrap">
                                 {{ object.name }}
                             </summary>
@@ -95,6 +121,16 @@ onMounted(async () => {
                     </li>
                 </ul>
                 <p @click="passed.props.addObject = true"
+=======
+                                class="relative pl-4 py-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none before:absolute before:h-[18px] before:w-[18px] before:-left-[2px] before:top-[10px] before:-rotate-90 before:transition-all before:duration-150 justify-between text-nowrap">
+                                {{ object.name }}
+                            </summary>
+                            <VBranch :buildings="object.buildings" />
+                        </details>
+                    </li>
+                </ul>
+                <p @click="params.addObject = true"
+>>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
                     class="flex text-[var(--blue)] pl-2 pt-2 text-xl border-t cursor-pointer" tabindex="0">
                     +
                     Add

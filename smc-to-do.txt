@@ -1,15 +1,19 @@
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 1) Projects page remove dates and counters
 https://smc.dev.nlplay.ru/company/5/project/7/element/12/main           
                                                                         xxx
+=======
+add object or building-
+    How do I add a new object to the list if it is not stored locally?
+>>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
 
-2) Create project (select company) and input project name only (remove dates)
-https://smc.dev.nlplay.ru/company/5/project/7/element/12/main (+button) 
-                                                                        xxx
+non-props errors-
+    These are the errors I couldn't fix earlier, I asked chat gpt why the errors occured and that's why I passed the props like I did.
 
-3) Remove all payment shit                                              
-                                                                        xxx
+Yesterday when I looked at swagger there was a way to add a building by giving parent_id only, today when I look it wants building object id aswell.
 
+<<<<<<< HEAD
 4) Add create and edit button for building objects similar to what we have for buildings and implement the logic (check the old implementation) https://smc.dev.nlplay.ru/company/5/project/7/element/12/main (+button)
                                                                         implement crud function
                                                                         
@@ -24,3 +28,5 @@ Create page, make organization a dropdown
 id, name
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282

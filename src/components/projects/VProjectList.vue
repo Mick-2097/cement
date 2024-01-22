@@ -1,13 +1,25 @@
 <script setup>
+<<<<<<< HEAD
 
 const passed = defineProps(['props'])
+=======
+import { requestStore } from '../../stores/request'
+import { paramStore } from '../../stores/params'
+const request = requestStore()
+const params = paramStore()
+>>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
 
 </script>
 
 <template>
+<<<<<<< HEAD
     <div v-show="passed.props.dataReady"
         class="shadow-lg flex w-full max-w-[1076px] mb-[40px] bg-white py-2 px-4 rounded-xl"
         v-for="company in passed.props.companies" :key="company.id">
+=======
+    <div v-show="params.projectData" class="shadow-lg flex w-full max-w-[1076px] mb-[40px] bg-white py-2 px-4 rounded-xl"
+        v-for="company in params.companies.value" :key="company.id">
+>>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
 
         <table class="table-view w-full text-left h-fit border-collapse">
             <thead>
@@ -42,7 +54,11 @@ const passed = defineProps(['props'])
                     <td class="flex justify-end items-center h-full pr-2">
 
                         <div class="flex shrink-0 my-2">
+<<<<<<< HEAD
                             <img @click="passed.props.isEdit = true" class="align-center pl-4" src="../../assets/edit.svg"
+=======
+                            <img @click="params.isEdit = true" class="align-center pl-4" src="../../assets/edit.svg"
+>>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
                                 alt="edit icon" title="edit">
                         </div>
 

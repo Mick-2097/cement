@@ -1,17 +1,28 @@
 <script setup>
 import { mainApi } from '../api/main'
 import { useRoute } from 'vue-router'
-import { mainApi } from "../api/main"
 import { onMounted, ref } from 'vue'
+import { paramStore } from '../stores/params'
+import { requestStore } from '../stores/request'
 import Vheader from '../components/Vheader.vue'
-import VBranch from '../components/VBranch.vue'
+import VSideMenu from '../components/projectData/VSideMenu.vue'
+import VAreas from '../components/projectData/VAreas.vue'
+import VAddObject from '../components/modals/VModalAddObject.vue'
+import VAddBuilding from '../components/modals/VModalAddBuilding.vue'
+import VActions from '../components/projectData/VActions.vue'
+import VSpots from '../components/projectData/VSpots.vue'
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 const { pid, name } = defineProps(['pid', 'name'])
+=======
+const params = paramStore()
+const request = requestStore()
+>>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
 const route = useRoute()
-const buildingObjects = ref([])
-const dataReady = ref(false)
+const project = ref({})
 
+<<<<<<< HEAD
 const fetchObjects = async () => {
     const response = await mainApi.fetchData("GET", `building_objects?project_id=${route.params.pid}`)
 
@@ -58,17 +69,23 @@ const fetchProject = async (projectID) => {
 onMounted(async () => {
     project.value = await fetchProject(route.params.project_id)
 >>>>>>> Stashed changes
+=======
+onMounted(async () => {
+    project.value = await request.fetchProject(route.params.project_id)
+    request.fetchObjects(route.params.project_id)
+>>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
 })
 </script>
 
 <template>
-    <Vheader :pid="pid" :name="name" />
+    <Vheader :name="project.name" />
     <main class="bg-[var(--bg)] p-4 min-h-[calc(100vh-68px)] lg:flex-col lg:justify-center lg:items-center">
         <div class="flex justify-between mb-4">
-            <h1 class="text-xl text-normal">{{ route.params.name }}</h1>
+            <h1 class="text-xl text-normal">{{ project.name }}</h1>
             <!-- <p class="opacity-70">07.05.2023 – 01.11.2023 (still 253 d.)</p> -->
         </div>
         <div class="flex flex-col gap-[30px] md:flex-row">
+<<<<<<< HEAD
 <<<<<<< Updated upstream
             <div class="left-menu flex flex-col gap-5 sm:min-w-[300px]">
 
@@ -147,9 +164,14 @@ onMounted(async () => {
 =======
             <VSideMenu :props="props" />
 >>>>>>> Stashed changes
+=======
+            <VSideMenu />
+>>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
 
+            <!-- Hero section -->
             <section class="gap-4 w-full flex flex-col">
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
                 <input class="h-14 w-full bg-[var(--bg)] mr-4 border border-solid border-[#999] rounded-md text-2xl px-2"
                     type="text" placeholder="Building 1">
@@ -162,15 +184,23 @@ onMounted(async () => {
                     <VActions :props="props" />
                 </div>
 >>>>>>> Stashed changes
+=======
+                <!-- Selected element -->
+                <div class="flex pr-4 gap-20">
+                    <h1 class="text-2xl font-semibold">{{ params.selected.name }} {{ params.selected.id }}</h1>
+
+                    <!-- Actions -->
+                    <VActions />
+                </div>
+>>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
 
                 <!-- Center menu and diagram area -->
                 <div class="flex gap-5 mt-4 flex flex-col lg:flex-row">
 
                     <!-- Center menu -->
-                    <div class="center-menu md:min-w-[300px] flex flex-col gap-5">
-                        <div class="flex flex-col py-2 px-4 bg-white rounded-xl shadow-xl">
-                            <h3 class="pb-2 text-center text-[#999]">Parent element</h3>
+                    <div class="md:min-w-[300px] flex flex-col gap-5">
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
                             <select class="w-full h-10 rounded text-base text-[#999] px-2" name="" id="">
                                 <option value="no">no</option>
@@ -204,22 +234,34 @@ onMounted(async () => {
                         <!-- Show monitoring spots -->
                         <VSpots :props="props" />
 >>>>>>> Stashed changes
+=======
+                        <!-- Show areas -->
+                        <VAreas />
+
+                        <!-- Show monitoring spots -->
+                        <VSpots />
+>>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
                     </div>
 
                     <!-- Diagram area -->
                     <div class="flex w-full min-h-fit items-center justify-center mt-10 lg:mt-0">
-                        <div class="if-empty">No drawings or diagrams have been added yet
+                        <div class="if-empty">No drawings or diagrams added yet
                         </div>
                     </div>
                 </div>
             </section>
         </div>
     </main>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
     <VAddObject v-show="props.addObject" :props="props" />
     <VAddBuilding v-show="props.addBuilding" :props="props" />
 >>>>>>> Stashed changes
+=======
+    <VAddObject v-show="params.addObject" />
+    <VAddBuilding v-show="params.addChild" />
+>>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
 </template>
 
 <style scoped>
