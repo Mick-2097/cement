@@ -1,16 +1,23 @@
 <script setup>
+import { mainApi } from '../../api/main'
 
 const passed = defineProps(['props'])
 
 const deleteBuilding = async (id) => {
-    const response = await mainApi.fetchData('DELETE', `buildings/${id}`)
-    passed.props.buildingObjects.value[passed.props.selected.index].buildings
-        = passed.props.buildingObjects.value[passed.props.selected.index].buildings
-            .filter(object => object.id !== passed.props.selected.id)
-    passed.props.selected.index = ''
-    passed.props.selected.name = ''
-    passed.props.selected.id = ''
-    passed.props.buildingSelected = false
+
+    if (passed.props.selected.isLeaf) {
+
+        const response = await mainApi.fetchData('DELETE', `buildings/${id}`)
+
+        passed.props.buildingObjects.value[passed.props.selected.index].buildings
+            = passed.props.buildingObjects.value[passed.props.selected.index].buildings
+                .filter(object => object.id !== passed.props.selected.id)
+
+        passed.props.selected.index = ''
+        passed.props.selected.name = ''
+        passed.props.selected.id = ''
+        passed.props.buildingSelected = false
+    }
 }
 
 </script>

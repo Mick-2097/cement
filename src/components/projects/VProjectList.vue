@@ -1,13 +1,26 @@
 <script setup>
+import { mainApi } from '../../api/main';
+
 
 const passed = defineProps(['props'])
+
+const openProjectEdit = (companyIndex, projectIndex, projectID) => {
+    passed.props.companyIndex = companyIndex
+    passed.props.projectIndex = projectIndex
+    passed.props.projectID = projectID
+    passed.props.isEdit = true
+}
+const deleteProject = async (companyIndex, projectID) => {
+    const response = await mainApi.fetchData('DELETE', `projects/${projectID}`)
+    passed.props.companies[companyIndex].projects = passed.props.companies[companyIndex].projects.filter(project => project.id !== projectID)
+}
 
 </script>
 
 <template>
     <div v-show="passed.props.dataReady"
         class="shadow-lg flex w-full max-w-[1076px] mb-[40px] bg-white py-2 px-4 rounded-xl"
-        v-for="company in passed.props.companies" :key="company.id">
+        v-for="(company, companyIndex) in passed.props.companies" :key="company.id">
 
         <table class="table-view w-full text-left h-fit border-collapse">
             <thead>
@@ -30,20 +43,21 @@ const passed = defineProps(['props'])
             </thead>
             <tbody>
                 <tr class="sm:hidden block h-5"></tr>
-                <tr v-for="project in company.projects" :key="project.id" class="h-10 hover:bg-[#bef6f2] cursor-pointer">
+                <tr v-for="(project, projectIndex) in company.projects" :key="project.id"
+                    class="h-10 hover:bg-[#bef6f2] cursor-pointer">
                     <td class="px-2">
-
                         <RouterLink :to="`/project/${project.id}`">
-                            <p class="min-w-[50%] h-full flex items-center">{{
-                                project.name }}</p>
+                            <p class="min-w-[50%] h-full flex items-center">{{ project.name }} {{ project.id }}</p>
                         </RouterLink>
 
                     </td>
                     <td class="flex justify-end items-center h-full pr-2">
 
-                        <div class="flex shrink-0 my-2">
-                            <img @click="passed.props.isEdit = true" class="align-center pl-4" src="../../assets/edit.svg"
-                                alt="edit icon" title="edit">
+                        <div class="flex shrink-0 my-2 gap-2">
+                            <img @click="openProjectEdit(companyIndex, projectIndex, project.id)" class="align-center pl-4"
+                                src="../../assets/edit.svg" alt="edit" title="edit">
+                            <img @click="deleteProject(companyIndex, project.id)" class="cursor-pointer"
+                                src="../../assets/icons/trash.svg" alt="delete" title="delete">
                         </div>
 
                     </td>

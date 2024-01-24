@@ -3,7 +3,6 @@ import Test from '../views/Test.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Projects from '../views/Projects.vue'
-import Create from '../views/Create.vue'
 import ProjectData from '../views/ProjectData.vue'
 
 const router = createRouter({
@@ -45,14 +44,6 @@ const router = createRouter({
       component: Projects,
       meta: {
         title: 'Projects'
-      }
-    },
-    {
-      path: '/create',
-      name: 'create',
-      component: Create,
-      meta: {
-        title: 'Create new project'
       }
     },
     {

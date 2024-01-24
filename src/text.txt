@@ -1,0 +1,3 @@
+https://api.smc.dev.nlplay.ru/api//projects/25?name=rename%20test
+
+https://api.smc.dev.nlplay.ru/api/projects/25?name=rename%20test

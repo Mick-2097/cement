@@ -1,19 +1,9 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { mainApi } from '../../api/main'
-import { paramStore } from '../../stores/params'
-<<<<<<< HEAD
 import Vbutton from '../Vbutton.vue'
 
-const params = paramStore()
 const passed = defineProps(['props'])
-=======
-import { requestStore } from '../../stores/request'
-import Vbutton from '../Vbutton.vue'
-
-const params = paramStore()
-const request = requestStore()
->>>>>>> 0f5daa417645b1a86fb4e849131d4d3713402282
 const buildingTypes = ref([])
 const newBuilding = ref({
     type: '',
@@ -31,10 +21,11 @@ onMounted(() => {
 })
 
 const addBuilding = async () => {
-    const response = await mainApi.fetchData('POST', `buildings?parent_id=${params.selected.id}&building_type_id=${newBuilding.value.type}&name=${newBuilding.value.name}&description=${newBuilding.value.description}`)
-    passed.props.buildingObjects[passed.props.selected.index].buildings.push(response.data)
+
+    const response = await mainApi.fetchData('POST', `buildings?parent_id=${passed.props.selected.id}&building_type_id=${newBuilding.value.type}&name=${newBuilding.value.name}&description=${newBuilding.value.description}`)
+    passed.props.buildingObjects.value[passed.props.selected.index].buildings.push(response.data)
     passed.props.addChild = false
-    console.log(passed.props.buildingObjects)
+
 }
 </script>
 
@@ -43,6 +34,7 @@ const addBuilding = async () => {
         <section class="flex flex-col w-72 sm:w-96 bg-white rounded-xl m-auto mt-[20vh] p-4">
             <img @click="passed.props.addBuilding = false" class="self-end cursor-pointer"
                 src="../../assets/icons/close.svg" />
+            <h2 class="text-xl font-bold text-center">Add building</h2>
             <label class="cursor-pointer mt-4 mb-3" for="building-type">
                 Building type
             </label>
