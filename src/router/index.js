@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Test from '../views/Test.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Projects from '../views/Projects.vue'
@@ -13,14 +12,6 @@ const router = createRouter({
       name: 'none',
       redirect: '/projects',
       component: Projects
-    },
-    {
-      path: '/test',
-      name: 'test',
-      component: Test,
-      meta: {
-        title: 'Test page'
-      }
     },
     {
       path: '/login',
@@ -50,7 +41,6 @@ const router = createRouter({
       path: '/project/:project_id',
       name: 'projectdata',
       component: ProjectData,
-      props: true,
       meta: {
         title: 'Project data'
       }

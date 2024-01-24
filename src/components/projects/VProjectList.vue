@@ -1,6 +1,5 @@
 <script setup>
-import { mainApi } from '../../api/main';
-
+import { mainApi } from '../../api/main'
 
 const passed = defineProps(['props'])
 
@@ -11,10 +10,9 @@ const openProjectEdit = (companyIndex, projectIndex, projectID) => {
     passed.props.isEdit = true
 }
 const deleteProject = async (companyIndex, projectID) => {
-    const response = await mainApi.fetchData('DELETE', `projects/${projectID}`)
+    await mainApi.fetchData('DELETE', `projects/${projectID}`)
     passed.props.companies[companyIndex].projects = passed.props.companies[companyIndex].projects.filter(project => project.id !== projectID)
 }
-
 </script>
 
 <template>

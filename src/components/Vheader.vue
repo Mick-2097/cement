@@ -16,7 +16,7 @@ let showSearch = () => {
 </script>
 
 <template>
-    <header class="flex-wrap max-w-full">
+    <header class="flex-wrap max-w-full pr-3">
         <div class="top-row flex bg-white justify-between">
             <div class="left-side flex bg-white max-w-1/2 py-0 px-4 justify-start items-center gap-3">
                 <img class="icon-small" src="../assets/icon-small.png" alt="">

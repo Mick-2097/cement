@@ -52,7 +52,7 @@ onMounted(() => {
 
 <template>
   <Vheader :props="props" />
-  <main v-if="!props.isCreate" class="p-4 flex flex-col items-center min-h-[calc(100vh-68px)] bg-[var(--bg)]">
+  <main v-if="!props.isCreate" class="p-4 pr-8 flex flex-col items-center min-h-[calc(100vh-68px)] bg-[var(--bg)]">
     <div class="wrapper w-full max-w-[1076px] h-[80px] flex items-center justify-between">
       <div class="flex flex-col sm:flex-row sm:gap-20">
         <h1 class="text-2xl sm:text-4xl sm:text-normal">Projects</h1>

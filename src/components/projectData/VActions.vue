@@ -7,7 +7,7 @@ const deleteBuilding = async (id) => {
 
     if (passed.props.selected.isLeaf) {
 
-        const response = await mainApi.fetchData('DELETE', `buildings/${id}`)
+        await mainApi.fetchData('DELETE', `buildings/${id}`)
 
         passed.props.buildingObjects.value[passed.props.selected.index].buildings
             = passed.props.buildingObjects.value[passed.props.selected.index].buildings
@@ -18,6 +18,7 @@ const deleteBuilding = async (id) => {
         passed.props.selected.id = ''
         passed.props.buildingSelected = false
     }
+    // include else containing logic to inform user
 }
 
 </script>

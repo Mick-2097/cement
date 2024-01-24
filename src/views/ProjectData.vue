@@ -40,7 +40,7 @@ onMounted(async () => {
 </script>
 <template>
     <Vheader :props="project" />
-    <main class="bg-[var(--bg)] p-4 min-h-[calc(100vh-68px)] lg:flex-col lg:justify-center lg:items-center">
+    <main class="pr-8 bg-[var(--bg)] p-4 min-h-[calc(100vh-68px)] lg:flex-col lg:justify-center lg:items-center">
         <div class="flex justify-between mb-4">
             <h1 class="text-xl text-normal">{{ project.name }}</h1>
             <!-- <p class="opacity-70">07.05.2023 – 01.11.2023 (still 253 d.)</p> -->
