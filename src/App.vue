@@ -1,9 +1,16 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
+import Vheader from './components/Vheader.vue'
+
 </script>
 
 <template>
-  <RouterView />
+  <Vheader />
+  <RouterView v-slot="{ Component }">
+    <transition name="fade" mode="out-in">
+      <component :is="Component" />
+    </transition>
+  </RouterView>
 </template>
 
 <style scoped></style>

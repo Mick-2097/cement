@@ -1,23 +1,21 @@
 <script setup>
-    const props = defineProps({
-        buttonText: String
-    })
+const props = defineProps({
+    buttonText: String,
+    textColor: {
+        type: String,
+        default: 'text-[var(--blue)]'
+    },
+    borderColor: {
+        type: String,
+        default: 'border-[var(--blue)]'
+    }
+})
 </script>
 
 <template>
-    <button>{{ buttonText }}</button>
+    <button :class="[textColor, borderColor]"
+        class="cursor-pointer font-base font-bold h-10 bg-transparent border border-2 rounded min-w-[120px]">{{
+            buttonText }}</button>
 </template>
 
-<style scoped>
-    button {
-        color: var(--blue);
-        font-size: 16px;
-        font-weight: 700;
-        width: 100%;
-        height: 40px;
-        background-color: transparent;
-        border: 2px solid var(--blue);
-        border-radius: 4px;
-        cursor: pointer;
-    }
-</style>
+<style scoped></style>

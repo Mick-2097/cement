@@ -1,3 +1,4 @@
-https://api.smc.dev.nlplay.ru/api//projects/25?name=rename%20test
 
-https://api.smc.dev.nlplay.ru/api/projects/25?name=rename%20test
+There are edge cases where a user can create a situation that causes the building object to be incorrect when adding a building. I understand it may be my logic that is flawed.
+    Possible solution, is for each building to carry it's corresponding building object index.
+

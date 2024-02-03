@@ -1,6 +1,6 @@
 <script setup>
 import Vbutton from '../components/Vbutton.vue'
- </script>
+</script>
 
 <template>
     <main class="flex flex-col gap-5 m-auto w-[350px]">
@@ -14,15 +14,15 @@ import Vbutton from '../components/Vbutton.vue'
             <label for="login">
                 Login
             </label>
-            <input type="text" name="login" id="login">
+            <input type="text" id="login">
         </div>
         <div class="input-wrap">
             <label for="password">
                 Password
             </label>
-            <input type="text" name="password" id="password">
+            <input type="text" id="password">
         </div>
-        <Vbutton buttonText="Enter"/>
+        <Vbutton buttonText="Enter" />
         <div class="flex justify-between text-base">
             <a class="forgot">
                 Forgot password?
@@ -35,25 +35,26 @@ import Vbutton from '../components/Vbutton.vue'
 </template>
 
 <style scoped>
-    label {
-        cursor: pointer;
-        font-size: 13px;
-    }
-    input {
-        width: 100%;
-        height: 40px;
-        outline: none;
-        border: 1px solid black;
-        border-radius: 4px;
-        opacity: 0.4;
-        padding-left: 16px;
-        font-size: 16px;
-    }
+label {
+    cursor: pointer;
+    font-size: 13px;
+}
 
-    .actions {
-        a:hover {
-            cursor: pointer;
-            color: var(--blue);
-        }
+input {
+    width: 100%;
+    height: 40px;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 4px;
+    opacity: 0.4;
+    padding-left: 16px;
+    font-size: 16px;
+}
+
+.actions {
+    a:hover {
+        cursor: pointer;
+        color: var(--blue);
     }
+}
 </style>

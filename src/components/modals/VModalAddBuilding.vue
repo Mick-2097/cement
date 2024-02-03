@@ -1,39 +1,34 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import { mainApi } from '../../api/main'
 import Vbutton from '../Vbutton.vue'
 
-const passed = defineProps(['props'])
+const route = useRoute()
+const emits = defineEmits(['close', 'newBuilding'])
 const buildingTypes = ref([])
 const newBuilding = ref({
-    type: '',
+    building_object_id: route.params.building_object_id,
+    object_type_id: '',
     name: '',
-    description: '',
-    isLeaf: false
+    description: ''
 })
 
 const fetchTypes = async () => {
-    const response = await mainApi.fetchData('GET', 'building_types')
+    const response = await mainApi.get('building_types')
     buildingTypes.value = response.data.list
 }
 onMounted(() => {
     fetchTypes()
 })
 
-const addBuilding = async () => {
 
-    const response = await mainApi.fetchData('POST', `buildings?parent_id=${passed.props.selected.id}&building_type_id=${newBuilding.value.type}&name=${newBuilding.value.name}&description=${newBuilding.value.description}`)
-    passed.props.buildingObjects.value[passed.props.selected.index].buildings.push(response.data)
-    passed.props.addChild = false
-
-}
 </script>
 
 <template>
-    <main class="fixed w-screen h-screen bg-black bg-opacity-80">
+    <main class="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-80 z-10">
         <section class="flex flex-col w-72 sm:w-96 bg-white rounded-xl m-auto mt-[20vh] p-4">
-            <img @click="passed.props.addBuilding = false" class="self-end cursor-pointer"
-                src="../../assets/icons/close.svg" />
+            <img @click="emits('close')" class="self-end cursor-pointer" src="../../assets/icons/close.svg" />
             <h2 class="text-xl font-bold text-center">Add building</h2>
             <label class="cursor-pointer mt-4 mb-3" for="building-type">
                 Building type
@@ -48,12 +43,12 @@ const addBuilding = async () => {
             <label class="cursor-pointer mt-4" for="name">Name</label>
             <input v-model="newBuilding.name"
                 class="border border-black border-opacity-50 rounded mt-2 h-10 px-2 focus:outline-none focus:border-[var(--blue)] focus:border-2"
-                type="text" id="name">
+                type="text" id="name" autocomplete="off">
             <label class="cursor-pointer mt-4" for="description">Description</label>
             <input v-model="newBuilding.description"
                 class="border border-black border-opacity-50 rounded mt-2 h-10 px-2 focus:outline-none focus:border-[var(--blue)] focus:border-2"
-                type="text" id="description">
-            <Vbutton @click="addBuilding" class="self-center my-8" buttonText="save" />
+                type="text" id="description" autocomplete="off">
+            <Vbutton @click="emits('newBuilding', newBuilding)" class="self-center my-8" buttonText="save" />
         </section>
     </main>
 </template>

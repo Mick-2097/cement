@@ -1,0 +1,39 @@
+<script setup>
+import { mainApi } from '../../api/main'
+import { ref } from 'vue'
+import Vbutton from '../Vbutton.vue'
+const passed = defineProps(['props'])
+const emits = defineEmits(['close'])
+const currentObject = ref({
+    id: '',
+    name: '',
+    description: ''
+})
+const closeModal = () => {
+    emits('close')
+}
+const editObject = async (name, description) => {
+
+}
+</script>
+
+<template>
+    <main class="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-80 z-10">
+        <section class="flex flex-col w-72 sm:w-96 bg-white rounded-xl m-auto mt-[10%] p-4 gap-2">
+            <img @click="closeModal" class="self-end cursor-pointer text-base" src="../../assets/icons/close.svg" />
+
+            <h2 class="text-xl font-bold text-center">Edit building object</h2>
+            <label for="object-name" class="cursor-pointer">Name</label>
+            <input v-model="currentObject.name" type="text" id="object-name"
+                class="border border-black border-opacity-50 rounded mt-2 h-10 px-2 focus:outline-none focus:border-[var(--blue)] focus:border-2">
+
+            <label for="object-descriptiion" class="cursor-pointer">Descriptiion</label>
+            <input v-model="currentObject.description" type="text" id="object-descriptiion"
+                class="border border-black border-opacity-50 rounded mt-2 h-10 px-2 focus:outline-none focus:border-[var(--blue)] focus:border-2">
+
+            <Vbutton buttonText="save" class="w-1/2 self-center mt-4" />
+        </section>
+    </main>
+</template>
+
+<style scoped></style>

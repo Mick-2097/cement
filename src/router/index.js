@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Login from '../views/Login.vue'
-import Register from '../views/Register.vue'
+
 import Projects from '../views/Projects.vue'
+import Create from '../views/CreateProject.vue'
 import ProjectData from '../views/ProjectData.vue'
 
 const router = createRouter({
@@ -14,22 +14,6 @@ const router = createRouter({
       component: Projects
     },
     {
-      path: '/login',
-      name: 'login',
-      component: Login,
-      meta: {
-        title: 'Login'
-      }
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: Register,
-      meta: {
-        title: 'Register'
-      }
-    },
-    {
       path: '/projects',
       name: 'projects',
       component: Projects,
@@ -38,8 +22,32 @@ const router = createRouter({
       }
     },
     {
-      path: '/project/:project_id',
+      path: '/create',
+      name: 'create',
+      component: Create,
+      meta: {
+        title: 'Create project'
+      }
+    },
+    {
+      path: '/projects/:project_id',
       name: 'projectdata',
+      component: ProjectData,
+      meta: {
+        title: 'Project data'
+      }
+    },
+    {
+      path: '/projects/:project_id/building_objects/:building_object_id',
+      name: 'projectdata.object',
+      component: ProjectData,
+      meta: {
+        title: 'Project data'
+      }
+    },
+    {
+      path: '/projects/:project_id/building_objects/:building_object_id/buildings/:building_id',
+      name: 'projectdata.building',
       component: ProjectData,
       meta: {
         title: 'Project data'

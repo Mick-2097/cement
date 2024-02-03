@@ -17,21 +17,21 @@
     <div class="flex flex-col py-2 px-4 bg-white rounded-xl shadow-xl">
         <h3 class="pb-2 text-center text-[#999]">Drawings and diagrams</h3>
         <hr>
-        <label class="cursor-pointer text-[var(--blue)] text-xl text-center pt-2">+ Add (jpg, png)
-            <input class="hidden" type="file" name="" id="">
+        <label for="add-image" class="cursor-pointer text-[var(--blue)] text-xl text-center pt-2">+ Add (jpg, png)
+            <input class="hidden" type="file" id="add-image">
         </label>
     </div>
     <div class="flex flex-col py-2 px-4 bg-white rounded-xl shadow-xl">
         <h3 class="pb-2 text-center text-[#999]">Child elements</h3>
         <hr>
-        <label class="cursor-pointer text-[var(--blue)] text-xl text-center pt-2" for="">+ Add
-        </label>
+        <!-- <label class="cursor-pointer text-[var(--blue)] text-xl text-center pt-2" for="">+ Add
+        </label> -->
     </div>
     <div class="flex flex-col py-2 px-4 bg-white rounded-xl shadow-xl">
         <h3 class="pb-2 text-center text-[#999]">Monitoring points</h3>
         <hr>
-        <label class="cursor-pointer text-[var(--blue)] text-xl text-center pt-2" for="">+ Add
-        </label>
+        <!-- <label class="cursor-pointer text-[var(--blue)] text-xl text-center pt-2" for="">+ Add
+        </label> -->
     </div>
 </template>
 

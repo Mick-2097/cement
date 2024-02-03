@@ -3,7 +3,6 @@ import { ref } from "vue"
 import { authStore } from "@/stores/auth"
 import { useRoute } from 'vue-router'
 
-const passed = defineProps(['props', 'project'])
 const route = useRoute()
 const auth = authStore()
 
@@ -22,15 +21,13 @@ let showSearch = () => {
                 <img class="icon-small" src="../assets/icon-small.png" alt="">
                 <div class="flex flex-wrap">
 
-                    <RouterLink to="/projects" class="flex-grow">
-                        <button @click="passed.props.isCreate = false" class="border-none text-base"
-                            :class="route.path !== '/projects' || passed.props.isCreate ? ['text-[var(--blue)]', 'cursor-pointer'] : ['cursor-default']">
+                    <RouterLink :to="{ name: 'projects' }" class="flex-grow">
+                        <button class="border-none text-base"
+                            :class="route.path !== '/projects' ? ['text-[var(--blue)]', 'cursor-pointer'] : ['cursor-default']">
                             {{ route.path !== '/projects' ? 'Projects' : 'All projects' }} &nbsp;
                         </button>
                     </RouterLink>
-                    <p v-if="route.path !== '/projects'" class="text-base flex-grow">
-                        / {{ passed.props.name }}
-                    </p>
+                    <p v-if="route.path !== '/projects'" class="text-base flex-grow"></p>
 
                 </div>
             </div>
@@ -45,7 +42,7 @@ let showSearch = () => {
                 <div class="flex items-center gap-3.5">
                     <div class="user flex shrink-0 gap-2">
                         <img src="../assets/user.png" alt="">
-                        <p class="user-name">{{ auth.user.family_name }} {{ auth.user.given_name }}</p>
+                        <p class="user-name">{{ auth.user.name }}</p>
                     </div>
                     <div class="notifications relative cursor-pointer">
                         <img src="../assets/bell.png" alt="">

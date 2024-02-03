@@ -1,26 +1,54 @@
 <script setup>
+import { ref, onMounted } from 'vue'
 import { mainApi } from '../../api/main'
+import VSpinner from '../VSpinner.vue'
+import VModalEditProject from '../modals/VModalEditProject.vue'
+import VAreYouSure from '../modals/VAreYouSure.vue'
 
-const passed = defineProps(['props'])
+const companies = ref([])
+const dataReady = ref(false)
+const isEdit = ref(false)
+const deleteAttempt = ref(false)
+const indices = ref({
+    projectIndex: 0,
+    companyIndex: 0,
+    projectId: 0
+})
 
-const openProjectEdit = (companyIndex, projectIndex, projectID) => {
-    passed.props.companyIndex = companyIndex
-    passed.props.projectIndex = projectIndex
-    passed.props.projectID = projectID
-    passed.props.isEdit = true
+const fetchProjects = async (companyID) => {
+    const response = await mainApi.fetchData("GET", `projects?company_id=${companyID}`)
+    return response.data.list
 }
-const deleteProject = async (companyIndex, projectID) => {
-    await mainApi.fetchData('DELETE', `projects/${projectID}`)
-    passed.props.companies[companyIndex].projects = passed.props.companies[companyIndex].projects.filter(project => project.id !== projectID)
+const openEditModal = (companyIndex, projectIndex) => {
+    indices.value.companyIndex = companyIndex
+    indices.value.projectIndex = projectIndex
+    isEdit.value = true
 }
+const deleteProject = async (companyIndex, projectId) => {
+    deleteAttempt.value = false
+    await mainApi.fetchData('DELETE', `projects/${projectId}`)
+    companies.value[companyIndex].projects = companies.value[companyIndex].projects.filter(project => project.id !== projectId)
+}
+const areYouSure = (companyIndex, projectId) => {
+    indices.value.companyIndex = companyIndex
+    indices.value.projectId = projectId
+    deleteAttempt.value = true
+}
+onMounted(async () => {
+    const response = await mainApi.fetchData("GET", "companies")
+    for (let i = 0; i < response.data.length; i++) {
+        response.data[i].projects = await fetchProjects(response.data[i].id)
+    }
+    companies.value = response.data
+    dataReady.value = true
+})
 </script>
 
 <template>
-    <div v-show="passed.props.dataReady"
-        class="shadow-lg flex w-full max-w-[1076px] mb-[40px] bg-white py-2 px-4 rounded-xl"
-        v-for="(company, companyIndex) in passed.props.companies" :key="company.id">
-
-        <table class="table-view w-full text-left h-fit border-collapse">
+    <VSpinner v-show="!dataReady" />
+    <main v-show="dataReady" class="shadow-lg flex w-full max-w-[1076px] mb-[40px] bg-white py-2 px-4 rounded-xl"
+        v-for="(company, companyIndex) in companies" :key="company.id">
+        <table class="w-full text-left h-fit border-collapse">
             <thead>
                 <tr class="h-[60px]">
                     <th class="opacity-70">
@@ -29,14 +57,6 @@ const deleteProject = async (companyIndex, projectID) => {
                         </span>
                         organisation
                     </th>
-
-                    <!-- Hidden -->
-                    <th class="hidden"></th>
-                    <th class="hidden">No work</th>
-                    <th class="hidden">Working</th>
-                    <th class="hidden">Complete</th>
-                    <!-- Hidden -->
-
                 </tr>
             </thead>
             <tbody>
@@ -44,22 +64,20 @@ const deleteProject = async (companyIndex, projectID) => {
                 <tr v-for="(project, projectIndex) in company.projects" :key="project.id"
                     class="h-10 hover:bg-[#bef6f2] cursor-pointer">
                     <td class="px-2">
-                        <RouterLink :to="`/project/${project.id}`">
-                            <p class="min-w-[50%] h-full flex items-center">{{ project.name }} {{ project.id }}</p>
+                        <RouterLink :to="{ name: 'projectdata', params: { project_id: project.id } }">
+                            <p class="min-w-[50%] h-full flex items-center">
+                                {{ project.name }}
+                            </p>
                         </RouterLink>
-
                     </td>
                     <td class="flex justify-end items-center h-full pr-2">
-
                         <div class="flex shrink-0 my-2 gap-2">
-                            <img @click="openProjectEdit(companyIndex, projectIndex, project.id)" class="align-center pl-4"
+                            <img @click="openEditModal(companyIndex, projectIndex, project.id)" class="align-center pl-4"
                                 src="../../assets/edit.svg" alt="edit" title="edit">
-                            <img @click="deleteProject(companyIndex, project.id)" class="cursor-pointer"
+                            <img @click="areYouSure(companyIndex, project.id)" class="cursor-pointer"
                                 src="../../assets/icons/trash.svg" alt="delete" title="delete">
                         </div>
-
                     </td>
-
                     <!-- Hidden -->
                     <td class="hidden date">02.03.2022 – 20.12.2023 (still <span>312 d.</span>)</td>
                     <td class="hidden text-center">
@@ -75,12 +93,19 @@ const deleteProject = async (companyIndex, projectID) => {
                         <p class="hidden w-fit py-0.5 px-1 font-bold text-white bg-[var(--green)] rounded m-auto">49</p>
                     </td>
                     <!-- Hidden -->
-
                 </tr>
             </tbody>
         </table>
-
+    </main>
+    <!-- If there is no data -->
+    <div v-if="!companies.length && dataReady"
+        class="flex flex-col w-[394px] max-w-[90%] text-xl text-center gap-4 opacity-40 my-[100px] mx-auto">
+        <p>You don't have any projects yet.</p>
+        <p>You can create a project or you can be added to a project.</p>
     </div>
+    <VModalEditProject @close="isEdit = false" v-if="isEdit" :isEdit="isEdit" :indices="indices" :companies="companies" />
+    <VAreYouSure v-if="deleteAttempt" @cancel="deleteAttempt = false"
+        @delete="deleteProject(indices.companyIndex, indices.projectId)" />
 </template>
 
 <style scoped></style>
