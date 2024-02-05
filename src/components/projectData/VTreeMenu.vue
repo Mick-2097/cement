@@ -2,12 +2,13 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { mainApi } from '../../api/main'
+import { crumbStore } from '../../stores/crumbStore'
 import VSpinner from '../VSpinner.vue'
 import VBranch from './VBranch.vue'
 import VModalAddObject from '../modals/VModalAddObject.vue'
 
+const crumbs = crumbStore()
 const props = defineProps(['buildingsArray'])
-const emits = defineEmits(['selected'])
 
 const route = useRoute()
 const router = useRouter()
@@ -15,17 +16,13 @@ const buildingObjects = ref(props.buildingsArray)
 const addObject = ref(false)
 const objectsReady = ref(false)
 
-const grabSelected = (selectedName, selectedId, selectedType, isLeaf) => {
-    emits('selected', selectedName, selectedId, selectedType, isLeaf)
-}
 const selectObject = (name, id) => {
     router.push({
-        name: 'projectdata.object',
+        name: 'objectdata',
         params: {
             building_object_id: id
         }
     })
-    emits('selected', name, id, 'object', true)
 }
 const fetchBuildings = async (objectID) => {
     const response = await mainApi.fetchData('GET', `buildings`, {
@@ -51,12 +48,12 @@ const vFocus = {
             let details = summary.parentElement
             while (details.tagName !== 'DIV') {
                 if (details.tagName === 'DETAILS') {
+                    crumbs.breadCrumbs.value = details.innerText.split("\n")
                     details.open = true
                 }
                 details = details.parentElement
             }
             summary.focus()
-            emits('selected', binding.value[0], binding.value[1], 'building', true)
         }
     }
 }
@@ -83,9 +80,9 @@ onMounted(async () => {
                             :class="!object.buildings.length ? `no-content` : ``"
                             class="relative pl-6 py-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none before:absolute before:h-[18px] before:w-[18px] before:left-[4px] before:top-[10px] before:-rotate-90 before:transition-all before:duration-150 justify-between text-nowrap"
                             v-focus="[object.name, object.id]">
-                            {{ object.name }} {{ object.id }}
+                            {{ object.name }}
                         </summary>
-                        <VBranch @selected="grabSelected" :objectID="object.id" :buildings="object.buildings" />
+                        <VBranch :buildings="object.buildings" />
                     </details>
                 </li>
             </ul>

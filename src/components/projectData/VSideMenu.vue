@@ -5,15 +5,10 @@ import VTreeMenu from './VTreeMenu.vue'
 const props = defineProps(['buildingsArray'])
 const buildingObjects = ref(props.buildingsArray)
 
-const emits = defineEmits(['selected'])
-
-const grabSelected = (selectedName, selectedId, selectedType, isLeaf) => {
-    emits('selected', selectedName, selectedId, selectedType, isLeaf)
-}
 </script>
 
 <template>
-    <div class="left-menu flex flex-col gap-5 sm:min-w-[300px]">
+    <div class="flex flex-col p-4 gap-5 sm:min-w-[300px] bg-[var(--bg)]">
 
         <!-- pages list card -->
         <ul class="list-none p-4 bg-white border border-solid border-[#D9D9D9] rounded-xl shadow-lg">
@@ -33,7 +28,7 @@ const grabSelected = (selectedName, selectedId, selectedType, isLeaf) => {
         </ul>
 
         <!-- building tree card -->
-        <VTreeMenu @selected="grabSelected" :buildingsArray="buildingObjects" />
+        <VTreeMenu :buildingsArray="buildingObjects" />
     </div>
 </template>
 

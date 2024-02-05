@@ -4,7 +4,6 @@ import { useRoute } from 'vue-router'
 import { onMounted, ref } from 'vue'
 import VActions from '../components/projectData/VActions.vue'
 import VAreas from '../components/projectData/VAreas.vue'
-import VSpots from '../components/projectData/VSpots.vue'
 
 const route = useRoute()
 const menuKey = ref(0)
@@ -35,11 +34,13 @@ onMounted(() => {
                     <VActions @buildingsModified="refreshMenu" />
                     <!-- Center menu and diagram area -->
                     <div class="flex gap-5 mt-4 flex flex-col lg:flex-row">
+                        <!-- Areas -->
+                        <VAreas />
                         <!-- Diagram area -->
-                        <!-- <div class="flex w-full min-h-fit items-center justify-center mt-10 lg:mt-0">
+                        <div class="flex w-full min-h-fit items-center justify-center mt-10 lg:mt-0">
                             <div class="if-empty">No drawings or diagrams have been added yet
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                 </section>
             </div>

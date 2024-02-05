@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { mainApi } from '../../api/main'
 import VModalAddBuilding from '../modals/VModalAddBuilding.vue'
@@ -9,7 +9,6 @@ import VModalEditBuilding from '../modals/VModalEditBuilding.vue'
 const route = useRoute()
 const router = useRouter()
 const selectedBuilding = ref({})
-const passed = defineProps(['selected'])
 const emits = defineEmits(['buildingsModified'])
 const addBuildingModal = ref(false)
 const editObject = ref(false)
@@ -24,7 +23,7 @@ const deleteBuilding = async (id) => {
     }
     emits('buildingsModified')
     router.push({
-        name: 'projectdata', path: `/projects/${route.params.project_id}`
+        name: 'projectdata', params: { project_id: `${route.params.project_id}` }
     })
 }
 const addBuilding = async (newBuilding) => {
@@ -32,7 +31,7 @@ const addBuilding = async (newBuilding) => {
     if (!route.params.building_id) {
         await mainApi.fetchData("POST", 'buildings', newBuilding)
         router.push({
-            name: 'projectdata', params: { project_id: `${route.params.project_id}` }
+            name: 'projectdata', params: { project_id: route.params.project_id }
         })
         emits('buildingsModified')
         addBuildingModal.value = false
@@ -57,45 +56,47 @@ const fetchBuilding = async () => {
         selectedBuilding.value = response.data
     }
 }
-watch(() => passed.selected.name, (newValue, oldValue) => {
-    console.log(oldValue)
-    console.log(newValue)
+fetchBuilding()
+watch(() => route.params.building_id, () => {
+    fetchBuilding()
 })
-onMounted(() => {
+watch(() => route.params.building_object_id, () => {
     fetchBuilding()
 })
 </script>
 
 <template>
-    <div v-if="route.params.building_object_id" class="flex pr-4 gap-20">
-        <h1 v-if="selectedBuilding.name !== ''" class="text-2xl font-semibold">
-            {{ passed.selected.name !== '' ? passed.selected.name : '' }}
-        </h1>
-        <!-- Actions -->
-        <div class="flex gap-1 items-center">
-            <!-- Test button -->
-            <button @click="">test</button>
-            <!-- Delete object -->
-            <img v-if="!route.params.building_id" @click="deleteObject(passed.selected.name)" class="cursor-pointer w-5 h-5"
-                src="../../assets/icons/trash.svg" alt="delete" title="delete">
-            <!-- Delete building -->
-            <img v-if="route.params.building_id" @click="deleteBuilding(passed.selected.id)" class="cursor-pointer w-5 h-5"
-                src="../../assets/icons/trash.svg" alt="delete" title="delete">
-            <!-- Edit object -->
-            <img v-if="!route.params.building_id" @click="editObject = true" class="cursor-pointer w-5 h-5"
-                src="../../assets/edit.svg" alt="edit" title="edit">
-            <!-- Edit building -->
-            <img v-if="route.params.building_id" @click="editBuilding = true" class="cursor-pointer w-5 h-5"
-                src="../../assets/edit.svg" alt="edit" title="edit">
-            <!-- Add monitoring spot -->
-            <img v-if="route.params.building_id" class="cursor-pointer w-5 h-5 self-center"
-                src="../../assets/icons/sensor.png" alt="add monitoring spot" title="add monitoring spot">
-            <!-- Add child -->
-            <img @click="addBuildingModal = true" class="cursor-pointer w-5 h-5 self-center"
-                src="../../assets/icons/add.png" alt="add child" title="add child">
-            <img src="../../assets/icons/addArea.svg" alt="add area" class="cursor-pointer w-5 h-5" title="add area">
+    <transition name="fade" mode="out-in">
+        <div v-if="selectedBuilding.name" class="flex pr-4 gap-20">
+            <h1 class="text-2xl font-semibold">
+                {{ selectedBuilding.name }}
+            </h1>
+            <!-- Actions -->
+            <div class="flex gap-1 items-center">
+                <!-- Test button -->
+                <button @click="">test</button>
+                <!-- Delete object -->
+                <img v-if="!route.params.building_id" @click="deleteObject(passed.selected.name)"
+                    class="cursor-pointer w-5 h-5" src="../../assets/icons/trash.svg" alt="delete" title="delete">
+                <!-- Delete building -->
+                <img v-if="route.params.building_id" @click="deleteBuilding(passed.selected.id)"
+                    class="cursor-pointer w-5 h-5" src="../../assets/icons/trash.svg" alt="delete" title="delete">
+                <!-- Edit object -->
+                <img v-if="!route.params.building_id" @click="editObject = true" class="cursor-pointer w-5 h-5"
+                    src="../../assets/edit.svg" alt="edit" title="edit">
+                <!-- Edit building -->
+                <img v-if="route.params.building_id" @click="editBuilding = true" class="cursor-pointer w-5 h-5"
+                    src="../../assets/edit.svg" alt="edit" title="edit">
+                <!-- Add monitoring spot -->
+                <img v-if="route.params.building_id" class="cursor-pointer w-5 h-5 self-center"
+                    src="../../assets/icons/sensor.png" alt="add monitoring spot" title="add monitoring spot">
+                <!-- Add child -->
+                <img @click="addBuildingModal = true" class="cursor-pointer w-5 h-5 self-center"
+                    src="../../assets/icons/add.png" alt="add child" title="add child">
+                <img src="../../assets/icons/addArea.svg" alt="add area" class="cursor-pointer w-5 h-5" title="add area">
+            </div>
         </div>
-    </div>
+    </transition>
     <VModalAddBuilding v-if="addBuildingModal" @close="addBuildingModal = false" @newBuilding="addBuilding" />
     <VModalEditObject v-if="editObject" @close="editObject = false" />
     <VModalEditBuilding v-if="editBuilding" @close="editBuilding = false" @addBuilding="" />

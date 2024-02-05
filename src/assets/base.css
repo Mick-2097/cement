@@ -20,13 +20,14 @@
   display: flex;
   flex-direction: column;
 }
-/* Transition */
 
+/* Transitions */
+
+/* fade out-in */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease-in;
 }
-
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
@@ -35,8 +36,21 @@
 .fade-leave-active .child {
   transition: opacity 0.3s ease-in;
 }
-
 .fade-enter-from .child,
 .fade-leave-to .child {
+  opacity: 0;
+}
+
+/* fade in */
+.fade-in-enter-active {
+  transition: opacity 0.3s ease-in 0.3s;
+}
+.fade-in-enter-from {
+  opacity: 0;
+}
+.fade-in-enter-active .child {
+  transition: opacity 0.3s ease-in 0.3s;
+}
+.fade-in-enter-from .child {
   opacity: 0;
 }

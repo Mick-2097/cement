@@ -3,6 +3,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Projects from '../views/Projects.vue'
 import Create from '../views/CreateProject.vue'
 import ProjectData from '../views/ProjectData.vue'
+import ObjectData from '../views/ObjectData.vue'
+import BuildingData from '../views/BuildingData.vue'
+import TestRoute from '../views/TestRoute.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,16 +42,24 @@ const router = createRouter({
     },
     {
       path: '/projects/:project_id/building_objects/:building_object_id',
-      name: 'projectdata.object',
-      component: ProjectData,
+      name: 'objectdata',
+      component: ObjectData,
       meta: {
         title: 'Project data'
       }
     },
     {
       path: '/projects/:project_id/building_objects/:building_object_id/buildings/:building_id',
-      name: 'projectdata.building',
-      component: ProjectData,
+      name: 'buildingdata',
+      component: BuildingData,
+      meta: {
+        title: 'Project data'
+      }
+    },
+    {
+      path: '/:route_id',
+      name: 'testroute',
+      component: TestRoute,
       meta: {
         title: 'Project data'
       }

@@ -7,12 +7,10 @@ export const mainApi = {
     const headers = new Headers({
       Authorization: `Bearer ${auth.token}`
     })
-
     const options = {
       method, 
       headers
     }
-
     if (method !== 'GET') {
       options.body = body
     }
@@ -20,7 +18,6 @@ export const mainApi = {
       uri = uri + '?' + new URLSearchParams(body).toString()
     }
     const response = await fetch('https://api.smc.dev.nlplay.ru/api/' + uri, options)
-
     return await response.json()
   },
   get: async function(uri, body = {}) {
