@@ -1,31 +1,13 @@
 <script setup>
-import { mainApi } from '../api/main'
-import { useRoute } from 'vue-router'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import VActions from '../components/projectData/VActions.vue'
 import VSpots from '../components/projectData/VSpots.vue'
 
-const route = useRoute()
 const menuKey = ref(0)
-const project = ref({})
-const selected = ref({
-    id: 0,
-    name: '',
-    type: '',
-    isLeaf: true
-})
+
 const refreshMenu = () => {
     menuKey.value++
 }
-const fetchProject = async () => {
-    const response = await mainApi.fetchData("GET", `projects/${route.params.project_id}`)
-    project.value = response.data
-}
-
-onMounted(() => {
-    fetchProject()
-})
-
 </script>
 
 <template>
@@ -40,9 +22,10 @@ onMounted(() => {
                     <!-- Center menu and diagram area -->
                     <div class="flex gap-5 mt-4 flex flex-col lg:flex-row">
                         <!-- Monitoring spots -->
-                        <VSpots v-if="route.params.building_id" />
+                        <VSpots />
                         <!-- Diagram area -->
-                        <div class="flex w-full min-h-fit items-center justify-center mt-10 lg:mt-0">
+                        <div
+                            class="flex w-full min-h-fit items-center justify-center mt-10 lg:mt-0 border border-black border-opacity-20 rounded">
                             <div class="if-empty">No drawings or diagrams have been added yet
                             </div>
                         </div>

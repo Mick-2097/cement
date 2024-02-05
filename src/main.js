@@ -1,7 +1,7 @@
 import './assets/main.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { handleAuth } from "@/auth";
+import { handleAuth } from "@/auth"
 
 import App from './App.vue'
 import router from './router'

@@ -1,26 +1,13 @@
 <script setup>
-import { mainApi } from '../api/main'
-import { useRoute } from 'vue-router'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import VActions from '../components/projectData/VActions.vue'
 import VAreas from '../components/projectData/VAreas.vue'
 
-const route = useRoute()
 const menuKey = ref(0)
-const project = ref({})
 
 const refreshMenu = () => {
     menuKey.value++
 }
-const fetchProject = async () => {
-    const response = await mainApi.fetchData("GET", `projects/${route.params.project_id}`)
-    project.value = response.data
-}
-
-onMounted(() => {
-    fetchProject()
-})
-
 </script>
 
 <template>
@@ -37,7 +24,8 @@ onMounted(() => {
                         <!-- Areas -->
                         <VAreas />
                         <!-- Diagram area -->
-                        <div class="flex w-full min-h-fit items-center justify-center mt-10 lg:mt-0">
+                        <div
+                            class="flex w-full min-h-fit items-center justify-center mt-10 lg:mt-0 border border-black border-opacity-20 rounded">
                             <div class="if-empty">No drawings or diagrams have been added yet
                             </div>
                         </div>

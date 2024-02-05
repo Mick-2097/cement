@@ -32,6 +32,7 @@ const vFocus = {
                 crumbs.breadCrumbs.value.pop()
             }
             summary.focus()
+            crumbs.crumbsReady = true
         }
     }
 }

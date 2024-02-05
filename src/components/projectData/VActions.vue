@@ -57,10 +57,7 @@ const fetchBuilding = async () => {
     }
 }
 fetchBuilding()
-watch(() => route.params.building_id, () => {
-    fetchBuilding()
-})
-watch(() => route.params.building_object_id, () => {
+watch(() => [route.params.building_id, route.params.building_object_id], () => {
     fetchBuilding()
 })
 </script>

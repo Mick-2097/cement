@@ -54,6 +54,7 @@ const vFocus = {
                 details = details.parentElement
             }
             summary.focus()
+            crumbs.crumbsReady = true
         }
     }
 }
