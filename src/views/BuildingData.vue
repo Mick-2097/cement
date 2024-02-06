@@ -26,7 +26,7 @@ const refreshMenu = () => {
                         <!-- Diagram area -->
                         <div
                             class="flex w-full min-h-fit items-center justify-center mt-10 lg:mt-0 border border-black border-opacity-20 rounded">
-                            <div class="if-empty">No drawings or diagrams have been added yet
+                            <div class="if-empty p-4 text-center">No drawings or diagrams have been added yet
                             </div>
                         </div>
                     </div>

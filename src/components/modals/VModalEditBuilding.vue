@@ -15,6 +15,7 @@ const currentBuilding = ref({
 
 const editBuilding = async (name, description) => {
     const response = await mainApi.fetchData('PUT',)
+    emits('close')
 }
 </script>
 

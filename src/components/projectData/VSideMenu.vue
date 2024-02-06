@@ -14,14 +14,14 @@ const buildingObjects = ref(props.buildingsArray)
         <ul class="list-none p-4 bg-white border border-solid border-[#D9D9D9] rounded-xl shadow-lg">
 
             <li class="flex mb-[10px] gap-2 text-start cursor-pointer hover:bg-[var(--blue-focus)] items-center">
-                <div class="w-4">
-                    <img src="../../assets/filesearch.png" alt="">
+                <div class="h-6 w-6">
+                    <img src="../../assets/icons/Info_and_docs.svg" alt="document icon">
                 </div>
                 Reports
             </li>
             <li class="flex mb-[10px] gap-2 text-start cursor-pointer hover:bg-[var(--blue-focus)] items-center">
-                <div class="w-4">
-                    <img src="../../assets/truck.png" alt="">
+                <div class="h-6 w-6">
+                    <img src="../../assets/icons/Cement.svg" alt="cement truck icon">
                 </div>
                 Concrete composition
             </li>

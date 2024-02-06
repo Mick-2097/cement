@@ -5,18 +5,20 @@ export const mainApi = {
     const auth = authStore()
 
     const headers = new Headers({
-      Authorization: `Bearer ${auth.token}`
+      Authorization: `Bearer ${auth.token}`,
+      "Content-Type": "application/json"
     })
     const options = {
       method, 
       headers
     }
     if (method !== 'GET') {
-      options.body = body
+      options.body = JSON.stringify(body)
     }
     if (method === 'GET' && Object.keys(body).length) {
       uri = uri + '?' + new URLSearchParams(body).toString()
     }
+
     const response = await fetch('https://api.smc.dev.nlplay.ru/api/' + uri, options)
     return await response.json()
   },

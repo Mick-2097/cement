@@ -45,8 +45,8 @@ onMounted(async () => {
 </script>
 
 <template>
-    <VSpinner v-show="!dataReady" />
-    <main v-show="dataReady" class="shadow-lg flex w-full max-w-[1076px] mb-[40px] bg-white py-2 px-4 rounded-xl"
+    <VSpinner v-if="!dataReady" />
+    <main v-if="dataReady" class="shadow-lg flex w-full max-w-[1076px] mb-[40px] bg-white py-2 px-4 rounded-xl"
         v-for="(company, companyIndex) in companies" :key="company.id">
         <table class="w-full text-left h-fit border-collapse">
             <thead>
@@ -56,6 +56,7 @@ onMounted(async () => {
                             {{ company.name }},
                         </span>
                         organisation
+                        {{ company.id }}
                     </th>
                 </tr>
             </thead>

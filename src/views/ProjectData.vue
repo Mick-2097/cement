@@ -1,26 +1,4 @@
 <script setup>
-import { mainApi } from '../api/main'
-import { useRoute } from 'vue-router'
-import { onMounted, ref } from 'vue'
-import VActions from '../components/projectData/VActions.vue'
-import VAreas from '../components/projectData/VAreas.vue'
-import VSpots from '../components/projectData/VSpots.vue'
-
-const route = useRoute()
-const menuKey = ref(0)
-const project = ref({})
-
-const refreshMenu = () => {
-    menuKey.value++
-}
-const fetchProject = async () => {
-    const response = await mainApi.fetchData("GET", `projects/${route.params.project_id}`)
-    project.value = response.data
-}
-
-onMounted(() => {
-    fetchProject()
-})
 
 </script>
 
@@ -31,8 +9,7 @@ onMounted(() => {
             <div class="flex flex-col gap-[30px] md:flex-row">
                 <!-- Center menu -->
                 <section class="gap-4 w-full flex flex-col">
-                    <!-- Actions -->
-                    <VActions @buildingsModified="refreshMenu" />
+
                     <!-- Center menu and diagram area -->
                     <div class="flex gap-5 mt-4 flex flex-col lg:flex-row">
                         <!-- Diagram area -->

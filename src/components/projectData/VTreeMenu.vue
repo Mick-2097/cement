@@ -2,12 +2,10 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { mainApi } from '../../api/main'
-import { crumbStore } from '../../stores/crumbStore'
 import VSpinner from '../VSpinner.vue'
 import VBranch from './VBranch.vue'
 import VModalAddObject from '../modals/VModalAddObject.vue'
 
-const crumbs = crumbStore()
 const props = defineProps(['buildingsArray'])
 
 const route = useRoute()
@@ -48,13 +46,11 @@ const vFocus = {
             let details = summary.parentElement
             while (details.tagName !== 'DIV') {
                 if (details.tagName === 'DETAILS') {
-                    crumbs.breadCrumbs.value = details.innerText.split("\n")
                     details.open = true
                 }
                 details = details.parentElement
             }
             summary.focus()
-            crumbs.crumbsReady = true
         }
     }
 }
@@ -69,7 +65,7 @@ onMounted(async () => {
         <!-- buildings tree -->
         <div class="flex flex-col">
             <div class="flex p-2 border-b border-[#D9D9d9]">
-                <h2 class="text-base text-normal cursor-default mx-auto">All buildings on the map</h2>
+                <h2 class="text-base text-normal text-center cursor-default mx-auto">All buildings on the map</h2>
             </div>
             <VSpinner v-if="!objectsReady" class="self-center" />
 
@@ -79,7 +75,7 @@ onMounted(async () => {
                     <details class="flex w-full focus:bg-[var(--blue-focus)] focus:outline-none" tabindex="0">
                         <summary @click="selectObject(object.name, object.id)"
                             :class="!object.buildings.length ? `no-content` : ``"
-                            class="relative pl-6 py-2 flex items-center text-base cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none before:absolute before:h-[18px] before:w-[18px] before:left-[4px] before:top-[10px] before:-rotate-90 before:transition-all before:duration-150 justify-between text-nowrap"
+                            class="relative pl-6 py-2 flex items-center text-base font-bold tracking-wide cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none before:absolute before:h-[18px] before:w-[18px] before:left-[4px] before:top-[10px] before:-rotate-90 before:transition-all before:duration-150 justify-between"
                             v-focus="[object.name, object.id]">
                             {{ object.name }}
                         </summary>

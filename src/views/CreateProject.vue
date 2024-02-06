@@ -11,13 +11,15 @@ const companyID = ref('')
 const projectName = ref('')
 
 const createProject = async (selectedCompanyID, newProjectName) => {
+
     await mainApi.fetchData('POST', `projects?company_id=${selectedCompanyID}&name=${newProjectName}`)
+
     router.push({
         name: 'projects'
     })
 }
 onMounted(async () => {
-    companies.value = await mainApi.fetchData("GET", "companies")
+    companies.value = await mainApi.get("companies")
 })
 </script>
 
@@ -45,14 +47,6 @@ onMounted(async () => {
                         class="h-10 text-base px-4 self-center border border-solid border-black rounded border-opacity-40 min-w-[calc(100%-200px)]"
                         type="text" id="project-name" v-model="projectName" />
                 </div>
-                <!-- <div class="flex w-full items-center mb-2.5 flex-wrap">
-                    <label for="start">Start date</label>
-                    <input type="text" id="start" placeholder="You can leave it blank">
-                </div>
-                <div class="flex w-full items-center mb-2.5 flex-wrap">
-                    <label for="end-date">Completion date</label>
-                    <input type="text" id="end-date" placeholder="You can leave it blank">
-                </div> -->
                 <div class="flex pt-2 w-full justify-center gap-2">
                     <Vbutton @click="createProject(companyID, projectName)"
                         :buttonText="screenSize < 801 ? 'Create' : 'Create project'" />

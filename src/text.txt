@@ -1,4 +1,3 @@
 
-There are edge cases where a user can create a situation that causes the building object to be incorrect when adding a building. I understand it may be my logic that is flawed.
-    Possible solution, is for each building to carry it's corresponding building object index.
+What authorization is required to delete a building object?
 

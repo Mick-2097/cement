@@ -5,14 +5,15 @@ import { mainApi } from '../../api/main'
 import Vbutton from '../Vbutton.vue'
 
 const route = useRoute()
-const emits = defineEmits(['close', 'newBuilding'])
+const emits = defineEmits(['close', 'addBuilding'])
 const buildingTypes = ref([])
-const newBuilding = ref({
+let newBuilding = {
     building_object_id: route.params.building_object_id,
-    object_type_id: '',
+    parent_id: route.params.building_id,
+    building_type_id: '',
     name: '',
     description: ''
-})
+}
 
 const fetchTypes = async () => {
     const response = await mainApi.get('building_types')
@@ -33,7 +34,7 @@ onMounted(() => {
             <label class="cursor-pointer mt-4 mb-3" for="building-type">
                 Building type
             </label>
-            <select v-model="newBuilding.type" name="building-type"
+            <select v-model="newBuilding.building_type_id" name="building-type"
                 class="border border-solid border-black rounded border-opacity-40 h-10 min-w-[calc(100%-200px)] text-center focus:outline-none focus:border-[var(--blue)] focus:border-2">
                 <option class="text-center" disabled selected value> -- select building type -- </option>
                 <option v-for="buildingType in buildingTypes" :key="buildingType.id" :value="buildingType.id">
@@ -48,7 +49,7 @@ onMounted(() => {
             <input v-model="newBuilding.description"
                 class="border border-black border-opacity-50 rounded mt-2 h-10 px-2 focus:outline-none focus:border-[var(--blue)] focus:border-2"
                 type="text" id="description" autocomplete="off">
-            <Vbutton @click="emits('newBuilding', newBuilding)" class="self-center my-8" buttonText="save" />
+            <Vbutton @click="emits('addBuilding', newBuilding)" class="self-center my-8" buttonText="save" />
         </section>
     </main>
 </template>
