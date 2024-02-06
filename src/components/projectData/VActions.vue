@@ -82,19 +82,19 @@ watch(() => [route.params.building_id, route.params.building_object_id], () => {
 
                 <!-- Delete object -->
                 <img v-if="!route.params.building_id" @click="deleteObject" class="cursor-pointer w-5 h-5"
-                    src="../../assets/icons/trash.svg" alt="delete" title="delete">
+                    src="../../assets/icons/trash.svg" alt="delete building object" title="delete building object">
 
                 <!-- Delete building -->
                 <img v-if="route.params.building_id" @click="deleteAttempt = true" class="cursor-pointer w-5 h-5"
-                    src="../../assets/icons/trash.svg" alt="delete" title="delete">
+                    src="../../assets/icons/trash.svg" alt="delete building" title="delete building">
 
                 <!-- Edit object -->
                 <img v-if="!route.params.building_id" @click="editObject = true" class="cursor-pointer w-5 h-5"
-                    src="../../assets/edit.svg" alt="edit" title="edit">
+                    src="../../assets/edit.svg" alt="edit building object" title="edit building object">
 
                 <!-- Edit building -->
                 <img v-if="route.params.building_id" @click="editBuilding = true" class="cursor-pointer w-5 h-5"
-                    src="../../assets/edit.svg" alt="edit" title="edit">
+                    src="../../assets/edit.svg" alt="eedit building" title="edit building">
 
                 <!-- Add monitoring spot -->
                 <img v-if="route.params.building_id" class="cursor-pointer w-5 h-5 self-center"

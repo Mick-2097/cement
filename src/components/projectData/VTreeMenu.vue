@@ -75,7 +75,7 @@ onMounted(async () => {
                     <details class="flex w-full focus:bg-[var(--blue-focus)] focus:outline-none" tabindex="0">
                         <summary @click="selectObject(object.name, object.id)"
                             :class="!object.buildings.length ? `no-content` : ``"
-                            class="relative pl-6 py-2 flex items-center text-base font-bold tracking-wide cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none before:absolute before:h-[18px] before:w-[18px] before:left-[4px] before:top-[10px] before:-rotate-90 before:transition-all before:duration-150 justify-between"
+                            class="relative pl-6 py-2 flex items-center text-base font-bold opacity-70 tracking-wide cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none before:absolute before:h-[18px] before:w-[18px] before:left-[4px] before:top-[10px] before:-rotate-90 before:transition-all before:duration-150 justify-between"
                             v-focus="[object.name, object.id]">
                             {{ object.name }}
                         </summary>

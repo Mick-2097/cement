@@ -16,8 +16,10 @@ const fetchSpots = async () => {
 fetchSpots()
 
 watch(() => route.params.building_id, () => {
-    spotsReady.value = false
-    fetchSpots()
+    if (route.params.building_id) {
+        spotsReady.value = false
+        fetchSpots()
+    }
 })
 </script>
 

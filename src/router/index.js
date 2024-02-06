@@ -21,7 +21,7 @@ const router = createRouter({
       name: 'projects',
       component: Projects,
       meta: {
-        title: 'Projects'
+        title: 'Lezzetli solutions | Projects'
       }
     },
     {
@@ -29,7 +29,7 @@ const router = createRouter({
       name: 'create',
       component: Create,
       meta: {
-        title: 'Create project'
+        title: 'Lezzetli solutions | Create project'
       }
     },
     {
@@ -37,7 +37,7 @@ const router = createRouter({
       name: 'projectdata',
       component: ProjectData,
       meta: {
-        title: 'Project data'
+        title: 'Lezzetli solutions | Project data'
       }
     },
     {
@@ -45,7 +45,7 @@ const router = createRouter({
       name: 'objectdata',
       component: ObjectData,
       meta: {
-        title: 'Project data'
+        title: 'Lezzetli solutions | Object data'
       }
     },
     {
@@ -53,15 +53,7 @@ const router = createRouter({
       name: 'buildingdata',
       component: BuildingData,
       meta: {
-        title: 'Project data'
-      }
-    },
-    {
-      path: '/:route_id',
-      name: 'testroute',
-      component: TestRoute,
-      meta: {
-        title: 'Project data'
+        title: 'Lezzetli solutions | Building data'
       }
     }
   ]
