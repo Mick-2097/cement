@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue'
 import { useRoute, RouterView } from 'vue-router'
 import Vheader from './components/Vheader.vue'
-import VSideMenu from './components/projectData/VSideMenu.vue'
+import VSideMenu from './components/VSideMenu.vue'
 import VBreadCrumbs from './components/VBreadCrumbs.vue'
 
 const route = useRoute()

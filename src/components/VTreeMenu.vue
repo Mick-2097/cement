@@ -1,20 +1,18 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { mainApi } from '../../api/main'
-import VSpinner from '../VSpinner.vue'
+import { mainApi } from '../api/main.js'
+import VSpinner from '../components/VSpinner.vue'
 import VBranch from './VBranch.vue'
-import VModalAddObject from '../modals/VModalAddObject.vue'
-
-const props = defineProps(['buildingsArray'])
+import VModalAddObject from '../components/modals/VModalAddObject.vue'
 
 const route = useRoute()
 const router = useRouter()
-const buildingObjects = ref(props.buildingsArray)
+const buildingObjects = ref([])
 const addObject = ref(false)
 const objectsReady = ref(false)
 
-const selectObject = (name, id) => {
+const selectObject = (id) => {
     router.push({
         name: 'objectdata',
         params: {
@@ -73,9 +71,8 @@ onMounted(async () => {
                 <li v-for="object in buildingObjects" :key="object.id" tabindex="0">
 
                     <details class="flex w-full focus:bg-[var(--blue-focus)] focus:outline-none" tabindex="0">
-                        <summary @click="selectObject(object.name, object.id)"
-                            :class="!object.buildings.length ? `no-content` : ``"
-                            class="relative pl-6 py-2 flex items-center text-base font-bold opacity-70 tracking-wide cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none before:absolute before:h-[18px] before:w-[18px] before:left-[4px] before:top-[10px] before:-rotate-90 before:transition-all before:duration-150 justify-between"
+                        <summary @click="selectObject(object.id)" :class="!object.buildings.length ? `no-content` : ``"
+                            class="relative pl-6 py-2 flex items-center text-base font-bold tracking-wide cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none before:absolute before:h-[18px] before:w-[18px] before:left-[4px] before:top-[10px] before:-rotate-90 before:transition-all before:duration-150 before:content-[url('../assets/icons/Arrow-sm.svg')] justify-between"
                             v-focus="[object.name, object.id]">
                             {{ object.name }}
                         </summary>
@@ -96,10 +93,6 @@ onMounted(async () => {
 <style scoped>
 .no-content::before {
     content: '';
-}
-
-summary::before {
-    content: url('../../assets/icons/Arrow-sm.svg');
 }
 
 details[open]>summary::before {

@@ -12,7 +12,7 @@ const refreshMenu = () => {
 
 <template>
     <div>
-        <main class="pr-8 bg-[var(--bg)] p-4 min-h-[calc(100vh-68px)] lg:flex-col lg:justify-center lg:items-center">
+        <main class="bg-[var(--bg)] p-4 min-h-[calc(100vh-68px)] lg:flex-col lg:justify-center lg:items-center">
 
             <div class="flex flex-col gap-[30px] md:flex-row">
                 <!-- Center menu -->

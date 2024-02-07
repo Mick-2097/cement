@@ -1,121 +1,80 @@
 <script setup>
-import { ref } from "vue"
+import { ref, watch, onMounted } from "vue"
 import { authStore } from "@/stores/auth"
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const auth = authStore()
 
-const isSmallScreen = ref(window.innerWidth <= 800)
-const isShowSearch = ref(false)
-
-let showSearch = () => {
-    isShowSearch.value = !isShowSearch.value
+const isSmallScreen = ref(0)
+const showMobileSearch = ref(false)
+const hideSearchIcon = ref(false)
+const watchScreenWidth = () => {
+    isSmallScreen.value = window.innerWidth
 }
+let showSearch = () => {
+    if (isSmallScreen.value < 768) {
+        hideSearchIcon.value = true
+        showMobileSearch.value = true
+    }
+}
+onMounted(() => {
+    window.addEventListener('resize', watchScreenWidth)
+})
 </script>
 
 <template>
-    <header class="flex-wrap max-w-full pr-3">
-        <div class="top-row flex bg-white justify-between">
-            <div class="left-side flex bg-white max-w-1/2 py-0 px-4 justify-start items-center gap-3">
+    <header class="flex-wrap max-w-full">
+        <div class="md:justify-between min-h-[68px] flex bg-white justify-between">
+            <div class="flex bg-white max-w-1/2 py-0 px-4 justify-start items-center gap-3">
                 <img class="icon-small" src="../assets/icon-small.png" alt="">
                 <div class="flex flex-wrap">
 
                     <RouterLink :to="{ name: 'projects' }" class="flex-grow">
                         <button class="border-none text-base"
-                            :class="route.path !== '/projects' ? ['text-[var(--blue)]', 'cursor-pointer'] : ['cursor-default']">
-                            {{ route.path !== '/projects' ? 'Projects' : 'All projects' }} &nbsp;
+                            :class="route.path !== '/projects' ? ['text-[var(--blue)]', 'cursor-pointer'] : ['cursor-default']"
+                            tabindex="0">
+                            Projects
                         </button>
                     </RouterLink>
                     <p v-if="route.path !== '/projects'" class="text-base flex-grow"></p>
 
                 </div>
             </div>
-            <div class="right-side flex bg-white max-w-1/2 py-0 px-4 items-center justify-end gap-3">
+            <div class="flex bg-white max-w-1/2 py-0 px-4 items-center justify-end gap-3">
                 <div class="flex max-w-sm bg-white">
-                    <input class="w-full h-10 border rounded border-gray-400 pt-0 pr-8 pb-0 pl-4 text-base" type="search"
-                        name="" id="search-input" placeholder="Search...">
-                    <img v-if="!isShowSearch" @click="showSearch"
-                        :class="{ '-translate-x-8': !isSmallScreen, 'cursor-pointer': true }" src="../assets/search.svg"
-                        alt="">
+                    <input
+                        class="hidden md:flex w-full h-10 border rounded border-gray-400 pt-0 pr-8 pb-0 pl-4 text-base  focus:outline-none focus:border-[var(--blue)] focus:border-2"
+                        type="search" id="search-input" placeholder="Search...">
+                    <img v-if="!hideSearchIcon" @click="showSearch" class="md:flex cursor-pointer md:-translate-x-8"
+                        src="../assets/search.svg" alt="">
                 </div>
                 <div class="flex items-center gap-3.5">
-                    <div class="user flex shrink-0 gap-2">
-                        <img src="../assets/user.png" alt="">
-                        <p class="user-name">{{ auth.user.name }}</p>
+                    <div class="flex shrink-0 gap-2">
+                        <img class="h-5 self-center" src="../assets/user.png" alt="">
+                        <p class="hidden md:flex">{{ auth.user.name }}</p>
                     </div>
-                    <div class="notifications relative cursor-pointer">
-                        <img src="../assets/bell.png" alt="">
+                    <div
+                        class="shrink-0 relative cursor-pointer translate-y-0.5 after:absolute after:flex after:justify-center after:items-center after:h-4 after:w-4 after:text-white after:bg-red-500 after:rounded-[50%] after:text-[10px] after:top-[-3px] after:right-[-3px] after:content-['99']">
+                        <img src="../assets/icons/Notification.svg" alt="" class="h-7 w-7">
                     </div>
                     <a
-                        class="querry flex w-5 h-5 text-sm font-bold justify-center items-center border-2 border-black rounded-xl cursor-pointer">?</a>
+                        class="shrink-0 flex w-5 h-5 text-sm font-bold justify-center items-center border-2 border-black rounded-xl cursor-pointer">?</a>
                 </div>
             </div>
         </div>
-        <div class="bottom-row flex justify-center items-center overflow-hidden"
-            :style="{ height: isSmallScreen && isShowSearch ? '68px' : '0' }">
-            <input v-if="isShowSearch" type="search" name=""
-                class="h-10 border border-gray-400 rounded pt-0 pr-8 pb-0 pl-4 text-base absolute" id="mobile-search-input"
-                placeholder="Search...">
-            <img class="mobile-search-icon relative" src="../assets/search.svg" alt="">
+        <div class="flex justify-center items-center overflow-hidden bg-white transition duration-300 ease-linear"
+            :style="{ height: isSmallScreen < 768 && showMobileSearch ? '68px' : '0' }">
+            <transition name="fade-in">
+                <input v-if="showMobileSearch" type="search"
+                    class="h-10 border border-gray-400 rounded pt-0 pr-8 pb-0 pl-4 text-base absolute md:hidden"
+                    id="mobile-search-input" placeholder="Search...">
+            </transition>
+            <transition name="fade-in">
+                <img v-if="showMobileSearch" class="relative translate-x-[110px]" src="../assets/search.svg" alt="">
+            </transition>
         </div>
     </header>
 </template>
 
-<style scoped>
-.top-row {
-    min-height: 68px;
-}
-
-.bottom-row {
-    transition: height 150ms linear;
-}
-
-.mobile-search-icon {
-    transform: translateX(110px) translateY(2px);
-}
-
-.notifications {
-    transform: translateY(2px);
-}
-
-.notifications::after {
-    position: absolute;
-    top: -7px;
-    right: -7px;
-    content: '2';
-    font-size: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 15px;
-    height: 15px;
-    color: white;
-    background-color: var(--red);
-    border-radius: 50%;
-}
-
-.user>img {
-    height: 20px;
-    align-self: center;
-}
-
-.querry,
-.notifications {
-    flex-shrink: 0;
-}
-
-@media(max-width: 801px) {
-    .top-row {
-        justify-content: space-between;
-    }
-
-    #search-input {
-        display: none;
-    }
-
-    .user-name {
-        display: none;
-    }
-}
-</style>
+<style scoped></style>

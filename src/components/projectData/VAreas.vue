@@ -15,8 +15,10 @@ const fetchAreas = async () => {
 fetchAreas()
 
 watch(() => route.params.building_object_id, () => {
-    areasReady.value = false
-    fetchAreas()
+    if (route.params.building_object_id) {
+        areasReady.value = false
+        fetchAreas()
+    }
 })
 </script>
 
