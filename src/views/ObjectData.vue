@@ -1,13 +1,9 @@
 <script setup>
-import { ref } from 'vue'
 import VActions from '../components/projectData/VActions.vue'
 import VAreas from '../components/projectData/VAreas.vue'
 
-const menuKey = ref(0)
+const emits = defineEmits('refreshSideMenu')
 
-const refreshMenu = () => {
-    menuKey.value++
-}
 </script>
 
 <template>
@@ -18,7 +14,7 @@ const refreshMenu = () => {
                 <!-- Center menu -->
                 <section class="gap-4 w-full flex flex-col">
                     <!-- Actions -->
-                    <VActions @buildingsModified="refreshMenu" />
+                    <VActions @buildingsModified="emits('refreshSideMenu')" />
                     <!-- Center menu and diagram area -->
                     <div class="flex gap-5 mt-4 flex flex-col lg:flex-row">
                         <!-- Areas -->

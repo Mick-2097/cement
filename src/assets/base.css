@@ -39,10 +39,16 @@
 .fade-leave-to {
   opacity: 0;
 }
-/* fade in */
-.fade-in-enter-active {
-  transition: opacity 0.5s ease-in 0.5s;
+/* slide in-out for breadcrumbs */
+.slide-in-enter-active {
+  transition: transform 1.5s linear 0.3s
 }
-.fade-in-enter-from {
+.slide-in-leave-active {
+  transition: opacity 0.3s linear
+}
+.slide-in-enter-from {
+  transform: translateX(-100%);
+}
+.slide-in-leave-to {
   opacity: 0;
 }

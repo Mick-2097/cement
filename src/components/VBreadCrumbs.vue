@@ -15,20 +15,23 @@ const setProject = async () => {
     projectName.value = response.data.name
 }
 setProject()
-
-watch(() => [route.params.building_object_id, route.params.building_id], async () => {
-    crumbsReady.value = false
+watch(() => route.params.building_object_id, async () => {
     if (!route.params.building_id && route.params.building_object_id) {
+        crumbsReady.value = false
         objectName.value = ''
         const response = await mainApi.get(`building_objects/${route.params.building_object_id}`)
         objectName.value = response.data.name
+        crumbsReady.value = true
     }
+})
+watch(() => route.params.building_id, async () => {
     if (route.params.building_id) {
+        crumbsReady.value = false
         buildingName.value = ''
         const response = await mainApi.get(`buildings/${route.params.building_id}`)
         buildingName.value = response.data.name
+        crumbsReady.value = true
     }
-    crumbsReady.value = true
 })
 onMounted(async () => {
     crumbsReady.value = false

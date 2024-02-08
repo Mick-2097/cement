@@ -1,13 +1,9 @@
 <script setup>
-import { ref } from 'vue'
 import VActions from '../components/projectData/VActions.vue'
 import VSpots from '../components/projectData/VSpots.vue'
 
-const menuKey = ref(0)
+const emits = defineEmits('refreshSideMenu')
 
-const refreshMenu = () => {
-    menuKey.value++
-}
 </script>
 
 <template>
@@ -18,14 +14,14 @@ const refreshMenu = () => {
                 <!-- Center menu -->
                 <section class="gap-4 w-full flex flex-col">
                     <!-- Actions -->
-                    <VActions @buildingsModified="refreshMenu" />
+                    <VActions @buildingsModified="emits('refreshSideMenu')" />
                     <!-- Center menu and diagram area -->
                     <div class="flex gap-5 mt-4 flex flex-col lg:flex-row">
                         <!-- Monitoring spots -->
                         <VSpots />
                         <!-- Diagram area -->
                         <div
-                            class="flex w-full min-h-fit items-center justify-center mt-10 lg:mt-0 border border-black border-opacity-20 rounded">
+                            class="flex w-full min-h-fit items-center justify-center mt-10 lg:mt-0 border border-black border-opacity-20 rounded text-center">
                             <div class="if-empty p-4 text-center">No drawings or diagrams have been added yet
                             </div>
                         </div>

@@ -1,20 +1,23 @@
 <script setup>
 import { ref } from 'vue'
+import { useRoute } from 'vue-router'
 import { mainApi } from '../../api/main'
 import Vbutton from '../Vbutton.vue'
+
+const route = useRoute()
 const passed = defineProps(['props'])
 const emits = defineEmits(['close'])
 const closeModal = () => {
     emits('close')
 }
-const currentBuilding = ref({
-    id: '',
+const newBuilding = ref({
+    id: route.params.building_id,
     name: '',
     description: ''
 })
 
-const editBuilding = async (name, description) => {
-    const response = await mainApi.fetchData('PUT',)
+const editBuilding = async () => {
+    await mainApi.put(`buildings/${route.params.building_id}`, newBuilding.value)
     emits('close')
 }
 </script>
@@ -26,14 +29,14 @@ const editBuilding = async (name, description) => {
 
             <h2 class="text-xl font-bold text-center">Edit building</h2>
             <label for="building-name" class="cursor-pointer">Name</label>
-            <input type="text" id="building-name"
+            <input v-model="newBuilding.name" type="text" id="building-name"
                 class="border border-black border-opacity-50 rounded mt-2 h-10 px-2 focus:outline-none focus:border-[var(--blue)] focus:border-2">
 
             <label for="building-descriptiion" class="cursor-pointer">Descriptiion</label>
-            <input type="text" id="building-descriptiion"
+            <input v-model="newBuilding.description" type="text" id="building-descriptiion"
                 class="border border-black border-opacity-50 rounded mt-2 h-10 px-2 focus:outline-none focus:border-[var(--blue)] focus:border-2">
 
-            <Vbutton buttonText="save" class="w-1/2 self-center mt-4" />
+            <Vbutton @click="editBuilding" buttonText="save" class="w-1/2 self-center mt-4" />
         </section>
     </main>
 </template>

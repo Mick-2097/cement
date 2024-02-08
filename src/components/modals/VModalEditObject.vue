@@ -1,11 +1,10 @@
 <script setup>
 import { mainApi } from '../../api/main'
 import { ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import Vbutton from '../Vbutton.vue'
 
 const route = useRoute()
-const router = useRouter()
 const passed = defineProps(['props'])
 const emits = defineEmits(['close'])
 const newObject = ref({
@@ -14,9 +13,7 @@ const newObject = ref({
 })
 const editObject = async () => {
     await mainApi.put(`building_objects/${route.params.building_object_id}`, newObject.value)
-    router.push({
-        name: 'projectdata', params: { project_id: route.params.project_id }
-    })
+    emits('close')
 }
 </script>
 
