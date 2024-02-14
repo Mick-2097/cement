@@ -1,22 +1,22 @@
 <script setup>
-import VActions from '../components/projectData/VActions.vue'
-import VSpots from '../components/projectData/VSpots.vue'
+import VBuildingActions from '../components/buildingData/VBuildingActions.vue'
+import VSpots from '../components/buildingData/VSpots.vue'
 
 const emits = defineEmits('refreshSideMenu')
 
 </script>
 
 <template>
-    <div>
-        <main class="bg-[var(--bg)] p-4 min-h-[calc(100vh-68px)] lg:flex-col lg:justify-center lg:items-center">
+    <section>
+        <div class="bg-[var(--bg)] p-4 min-h-[calc(100vh-68px)] lg:flex-col lg:justify-center lg:items-center">
 
             <div class="flex flex-col gap-[30px] md:flex-row">
                 <!-- Center menu -->
-                <section class="gap-4 w-full flex flex-col">
+                <div class="gap-4 w-full flex flex-col">
                     <!-- Actions -->
-                    <VActions @buildingsModified="emits('refreshSideMenu')" />
+                    <VBuildingActions @buildingsModified="emits('refreshSideMenu')" />
                     <!-- Center menu and diagram area -->
-                    <div class="flex gap-5 mt-4 flex flex-col lg:flex-row">
+                    <div class="flex gap-5 mt-4 flex-col lg:flex-row">
                         <!-- Monitoring spots -->
                         <VSpots />
                         <!-- Diagram area -->
@@ -26,10 +26,10 @@ const emits = defineEmits('refreshSideMenu')
                             </div>
                         </div>
                     </div>
-                </section>
+                </div>
             </div>
-        </main>
-    </div>
+        </div>
+    </section>
 </template>
 
 <style scoped></style>

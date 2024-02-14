@@ -1,3 +1,7 @@
 
-What authorization is required to delete a building object?
 
+Add monitoring spots -
+
+    type internal = 1
+    type external = 2
+    axes format = 0.00

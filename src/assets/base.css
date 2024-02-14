@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --red: #FF0000;
-  --green: #2DD23D;
-  --blue: #2BCBC1;
-  --blue-focus: #BEF6F2;
-  --bg: #F2F7FF;
-  --beige: #FFF0CA;
+  --red: #ff0000;
+  --green: #2dd23d;
+  --blue: #2bcbc1;
+  --blue-focus: #bef6f2;
+  --bg: #f2f7ff;
+  --beige: #fff0ca;
 }
 
 ::-webkit-scrollbar {
@@ -18,7 +18,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 #app {
@@ -39,16 +39,9 @@
 .fade-leave-to {
   opacity: 0;
 }
-/* slide in-out for breadcrumbs */
-.slide-in-enter-active {
-  transition: transform 1.5s linear 0.3s
+.fade-in-enter-active {
+  transition: opacity 0.3s ease-in;
 }
-.slide-in-leave-active {
-  transition: opacity 0.3s linear
-}
-.slide-in-enter-from {
-  transform: translateX(-100%);
-}
-.slide-in-leave-to {
+.fade-in-enter-from {
   opacity: 0;
 }

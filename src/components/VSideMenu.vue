@@ -1,22 +1,34 @@
 <script setup>
 import VTreeMenu from '../components/VTreeMenu.vue'
-
+import { useRoute, useRouter } from 'vue-router'
+const route = useRoute()
+const router = useRouter()
+const emits = defineEmits()
+const goToReports = () => {
+    if (route.params.area_id) {
+        router.push({
+            path: `${route.path}/reports`
+        })
+        emits('closeTree')
+    }
+}
 </script>
 
 <template>
-    <div class="flex flex-col p-4 gap-5 sm:min-w-[300px] bg-[var(--bg)]">
+    <section class="flex flex-col p-4 gap-5 min-w-[300px] bg-[var(--bg)]">
 
         <!-- pages list card -->
-        <ul class="list-none p-4 bg-white border border-solid border-[#D9D9D9] rounded-xl shadow-lg">
+        <ul class="list-none py-2 flex flex-col bg-white border rounded-xl shadow-lg">
 
-            <li class="flex mb-[10px] gap-2 text-start cursor-pointer hover:bg-[var(--blue-focus)] items-center"
+            <li @click="goToReports"
+                class="flex px-4 py-2 gap-2 text-start cursor-pointer hover:bg-[var(--blue-focus)] items-center focus:bg-[var(--blue-focus)]"
                 tabindex="0">
                 <div class="h-6 w-6">
                     <img src="../assets/icons/Info_and_docs.svg" alt="document icon">
                 </div>
                 Reports
             </li>
-            <li class="flex mb-[10px] gap-2 text-start cursor-pointer hover:bg-[var(--blue-focus)] items-center"
+            <li class="flex px-4 py-2 gap-2 text-start cursor-pointer hover:bg-[var(--blue-focus)] items-center"
                 tabindex="0">
                 <div class="h-6 w-6">
                     <img src="../assets/icons/Cement.svg" alt="cement truck icon">
@@ -27,7 +39,7 @@ import VTreeMenu from '../components/VTreeMenu.vue'
 
         <!-- building tree card -->
         <VTreeMenu />
-    </div>
+    </section>
 </template>
 
 <style scoped></style>

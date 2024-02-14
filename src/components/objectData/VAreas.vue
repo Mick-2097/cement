@@ -1,10 +1,11 @@
 <script setup>
 import { ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { mainApi } from '../../api/main'
 import VSpinner from '../VSpinner.vue'
 
 const route = useRoute()
+const router = useRouter()
 const areas = ref([])
 const areasReady = ref(false)
 const fetchAreas = async () => {
@@ -34,7 +35,9 @@ watch(() => route.params.building_object_id, () => {
                 <p v-if="!areas.length" class="text-center py-8">- Empty -</p>
                 <ul v-for="area in areas" class="list-none border-t border-t-black border-opacity-20 p-4">
                     <li>
-                        <p>{{ area.name }}</p>
+                        <RouterLink
+                            :to="{ name: 'areadata', params: { building_object_id: route.params.building_id, area_id: area.id } }"
+                            class="cursor-pointer">{{ area.name }}</RouterLink>
                     </li>
                 </ul>
             </div>

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, onMounted } from "vue"
+import { ref, onMounted } from "vue"
 import { authStore } from "@/stores/auth"
 import { useRoute } from 'vue-router'
 
@@ -44,7 +44,7 @@ onMounted(() => {
             <div class="flex bg-white max-w-1/2 py-0 px-4 items-center justify-end gap-3">
                 <div class="flex max-w-sm bg-white">
                     <input
-                        class="hidden md:flex w-full h-10 border rounded border-gray-400 pt-0 pr-8 pb-0 pl-4 text-base  focus:outline-none focus:border-[var(--blue)] focus:border-2"
+                        class="hidden md:flex w-full h-10 border rounded border-gray-400 pt-0 pr-8 pb-0 pl-4 text-base focus:outline-none focus:border-[var(--blue)] focus:border-2"
                         type="search" id="search-input" placeholder="Search...">
                     <img v-if="!hideSearchIcon" @click="showSearch" class="md:flex cursor-pointer md:-translate-x-8"
                         src="../assets/search.svg" alt="">

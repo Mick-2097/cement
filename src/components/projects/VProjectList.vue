@@ -16,7 +16,7 @@ const indices = ref({
 })
 
 const fetchProjects = async (companyID) => {
-    const response = await mainApi.fetchData("GET", `projects?company_id=${companyID}`)
+    const response = await mainApi.get(`projects?company_id=${companyID}`)
     return response.data.list
 }
 const openEditModal = (companyIndex, projectIndex) => {
@@ -26,7 +26,7 @@ const openEditModal = (companyIndex, projectIndex) => {
 }
 const deleteProject = async (companyIndex, projectId) => {
     deleteAttempt.value = false
-    await mainApi.fetchData('DELETE', `projects/${projectId}`)
+    await mainApi.delete(`projects/${projectId}`)
     companies.value[companyIndex].projects = companies.value[companyIndex].projects.filter(project => project.id !== projectId)
 }
 const areYouSure = (companyIndex, projectId) => {
@@ -35,7 +35,7 @@ const areYouSure = (companyIndex, projectId) => {
     deleteAttempt.value = true
 }
 onMounted(async () => {
-    const response = await mainApi.fetchData("GET", "companies")
+    const response = await mainApi.get("companies")
     for (let i = 0; i < response.data.length; i++) {
         response.data[i].projects = await fetchProjects(response.data[i].id)
     }
@@ -46,7 +46,7 @@ onMounted(async () => {
 
 <template>
     <VSpinner v-if="!dataReady" />
-    <main v-if="dataReady" class="shadow-lg flex w-full max-w-[1076px] mb-[40px] bg-white py-2 px-4 rounded-xl"
+    <section v-if="dataReady" class="shadow-lg flex w-full max-w-[1076px] mb-[40px] bg-white py-2 px-4 rounded-xl"
         v-for="(company, companyIndex) in companies" :key="company.id">
         <table class="w-full text-left h-fit border-collapse">
             <thead>
@@ -97,13 +97,13 @@ onMounted(async () => {
                 </tr>
             </tbody>
         </table>
-    </main>
+    </section>
     <!-- If there is no data -->
-    <div v-if="!companies.length && dataReady"
+    <section v-if="!companies.length && dataReady"
         class="flex flex-col w-[394px] max-w-[90%] text-xl text-center gap-4 opacity-40 my-[100px] mx-auto">
         <p>You don't have any projects yet.</p>
         <p>You can create a project or you can be added to a project.</p>
-    </div>
+    </section>
     <VModalEditProject @close="isEdit = false" v-if="isEdit" :isEdit="isEdit" :indices="indices" :companies="companies" />
     <VAreYouSure v-if="deleteAttempt" @cancel="deleteAttempt = false"
         @delete="deleteProject(indices.companyIndex, indices.projectId)" />
