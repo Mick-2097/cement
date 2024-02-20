@@ -1,10 +1,10 @@
 <script setup>
 import { ref } from 'vue'
-import VObjectActions from '../components/objectData/VObjectActions.vue'
-import VAreas from '../components/objectData/VAreas.vue'
+import VBuildingActions from '../components/buildingData/VBuildingActions.vue'
+import VSpots from '../components/buildingData/VSpots.vue'
 
 const emits = defineEmits('refreshSideMenu')
-const areaMenuKey = ref(0)
+const spotsMenuKey = ref(0)
 </script>
 
 <template>
@@ -14,12 +14,12 @@ const areaMenuKey = ref(0)
             <!-- Center menu -->
             <section class="gap-4 w-full flex flex-col">
 
-                <VObjectActions @buildingsModified="emits('refreshSideMenu')" @areaAdded="areaMenuKey++" />
+                <VBuildingActions @buildingsModified="emits('refreshSideMenu')" @refreshSpots="spotsMenuKey++" />
                 <!-- Center menu and diagram area -->
                 <div class="flex gap-5 mt-4 flex-col lg:flex-row">
                     <!-- Areas -->
                     <div class="flex flex-col gap-8">
-                        <VAreas :key="areaMenuKey" @refreshAreaMenu="areaMenuKey++" />
+                        <VSpots :key="spotsMenuKey" @refreshSpots="spotsMenuKey++" />
                     </div>
                 </div>
             </section>

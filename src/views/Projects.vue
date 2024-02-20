@@ -14,22 +14,20 @@ const screenSize = ref(window.innerWidth)
 </script>
 
 <template>
-  <div>
-    <main class="p-4 flex flex-col items-center min-h-[calc(100vh-68px)] bg-[var(--bg)]">
-      <div class="wrapper w-full max-w-[1076px] h-[80px] flex items-center justify-between">
-        <div class="flex flex-col sm:flex-row sm:gap-20">
-          <h1 class="text-2xl sm:text-4xl sm:text-normal">Projects</h1>
-          <a class="hidden text-2xl text-[var(--blue)] sm:text-4xl sm:text-normal" href="#">Pay</a>
-        </div>
-
-        <RouterLink :to="{ name: 'create' }">
-          <Vbutton :buttonText="screenSize < 801 ? 'Create' : 'Create project'" />
-        </RouterLink>
-
+  <section class="p-4 flex flex-col items-center min-h-[calc(100vh-68px)] bg-[var(--bg)]">
+    <div class="wrapper w-full max-w-[1076px] h-[80px] flex items-center justify-between">
+      <div class="flex flex-col sm:flex-row sm:gap-20">
+        <h1 class="text-2xl sm:text-4xl sm:text-normal">Projects</h1>
+        <a class="hidden text-2xl text-[var(--blue)] sm:text-4xl sm:text-normal" href="#">Pay</a>
       </div>
-      <VProjectList />
-    </main>
-  </div>
+
+      <RouterLink :to="{ name: 'create' }">
+        <Vbutton :buttonText="screenSize < 801 ? 'Create' : 'Create project'" />
+      </RouterLink>
+
+    </div>
+    <VProjectList />
+  </section>
 </template>
 
 <style scoped>

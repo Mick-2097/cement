@@ -7,6 +7,9 @@ import ObjectData from "../views/ObjectData.vue"
 import BuildingData from "../views/BuildingData.vue"
 import AreaData from "../views/AreaData.vue"
 import Reports from "../views/Reports.vue"
+import Compositions from "../views/ConcreteCompositions.vue"
+import SpotData from "../views/SpotData.vue"
+import Test from "../views/Test.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,6 +19,11 @@ const router = createRouter({
       name: "none",
       redirect: "/projects",
       component: Projects,
+    },
+    {
+      path: "/test",
+      name: "test",
+      component: Test,
     },
     {
       path: "/projects",
@@ -34,7 +42,7 @@ const router = createRouter({
       },
     },
     {
-      path: "/projects/:project_id",
+      path: "/companies/:company_id/projects/:project_id",
       name: "projectdata",
       component: ProjectData,
       meta: {
@@ -42,7 +50,7 @@ const router = createRouter({
       },
     },
     {
-      path: "/projects/:project_id/building_objects/:building_object_id",
+      path: "/companies/:company_id/projects/:project_id/building_objects/:building_object_id",
       name: "objectdata",
       component: ObjectData,
       meta: {
@@ -50,7 +58,7 @@ const router = createRouter({
       },
     },
     {
-      path: "/projects/:project_id/building_objects/:building_object_id/buildings/:building_id",
+      path: "/companies/:company_id/projects/:project_id/building_objects/:building_object_id/buildings/:building_id",
       name: "buildingdata",
       component: BuildingData,
       meta: {
@@ -58,7 +66,7 @@ const router = createRouter({
       },
     },
     {
-      path: "/projects/:project_id/building_objects/:building_object_id/areas/:area_id",
+      path: "/companies/:company_id/projects/:project_id/building_objects/:building_object_id/areas/:area_id",
       name: "areadata",
       component: AreaData,
       meta: {
@@ -66,11 +74,27 @@ const router = createRouter({
       },
     },
     {
-      path: "/projects/:project_id/building_objects/:building_object_id/areas/:area_id/reports",
+      path: "/companies/:company_id/projects/:project_id/building_objects/:building_object_id/buildings/:building_id/spots/:spot_id",
+      name: "spotdata",
+      component: SpotData,
+      meta: {
+        title: "Monitoring spot data",
+      },
+    },
+    {
+      path: "/companies/:company_id/projects/:project_id/building_objects/:building_object_id/areas/:area_id/reports",
       name: "reports",
       component: Reports,
       meta: {
         title: "Reports",
+      },
+    },
+    {
+      path: "/companies/:company_id/compositions",
+      name: "compositions",
+      component: Compositions,
+      meta: {
+        title: "Concrete compositions",
       },
     },
   ],

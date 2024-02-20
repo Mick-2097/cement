@@ -1,7 +1,7 @@
 
 
-Add monitoring spots -
+    Todo -
 
-    type internal = 1
-    type external = 2
-    axes format = 0.00
+        site wide error handling
+        chart zoom
+        modal transitions

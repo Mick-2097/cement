@@ -6,6 +6,7 @@ import VSpinner from '../components/VSpinner.vue'
 import VBranch from './VBranch.vue'
 import VModalAddObject from '../components/modals/VModalAddObject.vue'
 
+const emits = defineEmits(['refreshTreeMenu'])
 const route = useRoute()
 const router = useRouter()
 const buildingObjects = ref([])
@@ -87,7 +88,9 @@ onMounted(async () => {
             </p>
         </div>
     </div>
-    <VModalAddObject v-if="addObject" @close="addObject = false" />
+    <Transition name="modal">
+        <VModalAddObject v-if="addObject" @close="addObject = false" @refreshTreeMenu="emits('refreshTreeMenu')" />
+    </Transition>
 </template>
 
 <style scoped>

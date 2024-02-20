@@ -39,9 +39,23 @@
 .fade-leave-to {
   opacity: 0;
 }
+/* fade in */
 .fade-in-enter-active {
   transition: opacity 0.3s ease-in;
 }
 .fade-in-enter-from {
   opacity: 0;
+}
+/* modal */
+.modal-enter-active {
+  transition: opacity 0.5s ease-in;
+}
+.modal-enter-from {
+  opacity: 0;
+}
+.modal-enter-active > div {
+  transition: scale 0.5s ease-in;
+}
+.modal-enter-from > div {
+  scale: 0;
 }

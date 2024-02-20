@@ -1,8 +1,10 @@
 <script setup>
+import { ref } from 'vue'
 import VBuildingActions from '../components/buildingData/VBuildingActions.vue'
 import VSpots from '../components/buildingData/VSpots.vue'
 
-const emits = defineEmits('refreshSideMenu')
+const emits = defineEmits(['refreshSideMenu'])
+const spotsMenuKey = ref(0)
 
 </script>
 
@@ -14,11 +16,11 @@ const emits = defineEmits('refreshSideMenu')
                 <!-- Center menu -->
                 <div class="gap-4 w-full flex flex-col">
                     <!-- Actions -->
-                    <VBuildingActions @buildingsModified="emits('refreshSideMenu')" />
+                    <VBuildingActions @buildingsModified="emits('refreshSideMenu')" @refreshSpots="spotsMenuKey++" />
                     <!-- Center menu and diagram area -->
                     <div class="flex gap-5 mt-4 flex-col lg:flex-row">
                         <!-- Monitoring spots -->
-                        <VSpots />
+                        <VSpots :key="spotsMenuKey" @refreshSpots="spotsMenuKey++" />
                         <!-- Diagram area -->
                         <div
                             class="flex w-full min-h-fit items-center justify-center mt-10 lg:mt-0 border border-black border-opacity-20 rounded text-center">

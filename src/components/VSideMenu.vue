@@ -1,9 +1,13 @@
 <script setup>
-import VTreeMenu from '../components/VTreeMenu.vue'
+import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import VTreeMenu from '../components/VTreeMenu.vue'
+
+const emits = defineEmits()
 const route = useRoute()
 const router = useRouter()
-const emits = defineEmits()
+const treeMenuKey = ref(0)
+
 const goToReports = () => {
     if (route.params.area_id) {
         router.push({
@@ -11,6 +15,14 @@ const goToReports = () => {
         })
         emits('closeTree')
     }
+}
+const goToCompositions = () => {
+    router.push({
+        name: 'compositions',
+        params: {
+            company_id: route.params.company_id
+        }
+    })
 }
 </script>
 
@@ -28,7 +40,8 @@ const goToReports = () => {
                 </div>
                 Reports
             </li>
-            <li class="flex px-4 py-2 gap-2 text-start cursor-pointer hover:bg-[var(--blue-focus)] items-center"
+            <li @click="goToCompositions"
+                class="flex px-4 py-2 gap-2 text-start cursor-pointer hover:bg-[var(--blue-focus)] items-center"
                 tabindex="0">
                 <div class="h-6 w-6">
                     <img src="../assets/icons/Cement.svg" alt="cement truck icon">
@@ -38,7 +51,7 @@ const goToReports = () => {
         </ul>
 
         <!-- building tree card -->
-        <VTreeMenu />
+        <VTreeMenu :key="treeMenuKey" @refreshTreeMenu="treeMenuKey++" />
     </section>
 </template>
 

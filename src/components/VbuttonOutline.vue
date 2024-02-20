@@ -14,7 +14,7 @@ const props = defineProps({
 
 <template>
     <button :class="[textColor, borderColor]"
-        class="cursor-pointer font-base font-bold h-10 bg-transparent border border-2 rounded min-w-[120px]">{{
+        class="cursor-pointer font-base font-bold h-10 bg-transparent border-2 rounded min-w-[120px]">{{
             buttonText }}</button>
 </template>
 

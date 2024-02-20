@@ -1,18 +1,8 @@
 export const data = {
-  datasets: [
-    {
-      borderRadius: "16px",
-      padding: "12px",
-    },
-    {
-      borderRadius: "16px",
-      padding: "12px",
-    },
-    {
-      borderRadius: "16px",
-      padding: "12px",
-    },
-  ],
+  datasets: {
+    borderRadius: "16px",
+    padding: "12px",
+  },
 }
 
 export const options = [
@@ -44,18 +34,13 @@ export const options = [
     },
     plugins: {
       zoom: {
-        limits: {
-          x: {min: 0, max: 0},
-          y: {min: 0, max: 0},
-        },
         pan: {
           enabled: true,
-          mode: "xy",
+          mode: "x",
         },
         zoom: {
-          wheel: {
+          drag: {
             enabled: true,
-            speed: 0.01,
           },
           mode: "x",
         },
@@ -97,15 +82,15 @@ export const options = [
     },
     plugins: {
       zoom: {
-        limits: {},
         pan: {
           enabled: true,
         },
         zoom: {
-          wheel: {
+          limits: {},
+          drag: {
             enabled: true,
           },
-          mode: "xy",
+          mode: "x",
         },
       },
       legend: {
@@ -150,10 +135,10 @@ export const options = [
           enabled: true,
         },
         zoom: {
-          wheel: {
+          drag: {
             enabled: true,
           },
-          mode: "xy",
+          mode: "x",
         },
       },
       legend: {

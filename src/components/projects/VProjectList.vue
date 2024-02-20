@@ -46,11 +46,11 @@ onMounted(async () => {
 
 <template>
     <VSpinner v-if="!dataReady" />
-    <section v-if="dataReady" class="shadow-lg flex w-full max-w-[1076px] mb-[40px] bg-white py-2 px-4 rounded-xl"
+    <section v-if="dataReady" class="flex w-full max-w-[1076px] mb-[40px] bg-white py-2 px-4 rounded-xl shadow-lg"
         v-for="(company, companyIndex) in companies" :key="company.id">
         <table class="w-full text-left h-fit border-collapse">
             <thead>
-                <tr class="h-[60px]">
+                <tr class="h-[60px] w-full">
                     <th class="opacity-70">
                         <span class="text-xl font-bold">
                             {{ company.name }},
@@ -60,12 +60,17 @@ onMounted(async () => {
                     </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="pb-10">
                 <tr class="sm:hidden block h-5"></tr>
                 <tr v-for="(project, projectIndex) in company.projects" :key="project.id"
                     class="h-10 hover:bg-[#bef6f2] cursor-pointer">
                     <td class="px-2">
-                        <RouterLink :to="{ name: 'projectdata', params: { project_id: project.id } }">
+                        <RouterLink :to="{
+                            name: 'projectdata', params: {
+                                company_id: company.id,
+                                project_id: project.id
+                            }
+                        }">
                             <p class="min-w-[50%] h-full flex items-center">
                                 {{ project.name }}
                             </p>

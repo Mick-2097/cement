@@ -1,5 +1,30 @@
 <script setup>
+import { useRoute } from 'vue-router'
+import { mainApi } from '../../api/main'
 import Vbutton from '../Vbutton.vue'
+
+const route = useRoute()
+
+let newDocument = {
+    area_id: route.params.area_id,
+    performer: '',
+    heating_type: '',
+    heating_start: '',
+    heating_start_temperature: '',
+    heating_end: '',
+    heating_end_temperature: '',
+    theoretical_strength: '',
+    samples_age: '',
+    samples_strength: '',
+    sketch_number: ''
+}
+
+const postNewDocument = async () => {
+    let postBody = new URLSearchParams(newDocument).toString()
+    console.log(postBody)
+    await mainApi.fetchData.post('documents', postBody)
+}
+
 </script>
 
 <template>
@@ -10,65 +35,65 @@ import Vbutton from '../Vbutton.vue'
             <div class="flex justify-between flex-wrap items-center">
                 <label class="min-w-[230px] pb-2" for="producer-name">Work producer (full
                     name)</label>
-                <input
+                <input v-model="newDocument.performer"
                     class="border border-black border-opacity-30 px-2 min-w-[230px] flex-grow max-w-[600px] h-10 rounded focus:outline-none focus:border-[var(--blue)] focus:border-2"
                     type="text" id="producer-name">
             </div>
             <div class="flex justify-between flex-wrap items-center">
                 <label class="min-w-[230px] pb-2" for="warm-up-type">Warm-up type</label>
-                <input
+                <input v-model="newDocument.heating_type"
                     class="border border-black border-opacity-30 px-2 min-w-[230px] flex-grow max-w-[600px] h-10 rounded focus:outline-none focus:border-[var(--blue)] focus:border-2"
                     type="text" id="warm-up-type">
             </div>
             <div class="flex justify-between flex-wrap items-center">
                 <label class="min-w-[230px] pb-2" for="start-date">Warm-up start
                     date/time</label>
-                <input
+                <input v-model="newDocument.heating_start"
                     class="border border-black border-opacity-30 px-2 min-w-[230px] flex-grow max-w-[600px] h-10 rounded focus:outline-none focus:border-[var(--blue)] focus:border-2"
                     type="datetime-local" id="start-date">
             </div>
             <div class="flex justify-between flex-wrap items-center">
                 <label class="min-w-[230px] pb-2" for="end-date">Warm-up end date/time</label>
-                <input
+                <input v-model="newDocument.heating_end"
                     class="border border-black border-opacity-30 px-2 min-w-[230px] flex-grow max-w-[600px] h-10 rounded focus:outline-none focus:border-[var(--blue)] focus:border-2"
                     type="datetime-local" id="end-date">
             </div>
             <div class="flex justify-between flex-wrap items-center">
                 <label class="min-w-[230px] pb-2" for="start-temperature">Start
                     temperature</label>
-                <input
+                <input v-model="newDocument.heating_start_temperature"
                     class="border border-black border-opacity-30 px-2 min-w-[230px] flex-grow max-w-[600px] h-10 rounded focus:outline-none focus:border-[var(--blue)] focus:border-2"
                     type="number" id="start-temperature">
             </div>
             <div class="flex justify-between flex-wrap items-center">
                 <label class="min-w-[230px] pb-2" for="end-warm-up-temperature">End warm-up
                     temperature</label>
-                <input
+                <input v-model="newDocument.heating_end_temperature"
                     class="border border-black border-opacity-30 px-2 min-w-[230px] flex-grow max-w-[600px] h-10 rounded focus:outline-none focus:border-[var(--blue)] focus:border-2"
                     type="number" id="end-warm-up-temperature">
             </div>
             <div class="flex justify-between flex-wrap items-center">
                 <label class="min-w-[230px] pb-2" for="strength-percent">Theoretical strength
                     %</label>
-                <input
+                <input v-model="newDocument.theoretical_strength"
                     class="border border-black border-opacity-30 px-2 min-w-[230px] flex-grow max-w-[600px] h-10 rounded focus:outline-none focus:border-[var(--blue)] focus:border-2"
                     type="number" id="strength-percent" min="0" max="100">
             </div>
             <div class="flex justify-between flex-wrap items-center">
                 <label class="min-w-[230px] pb-2" for="sample-age">Age of samples,
                     days</label>
-                <input
+                <input v-model="newDocument.samples_age"
                     class="border border-black border-opacity-30 px-2 min-w-[230px] flex-grow max-w-[600px] h-10 rounded focus:outline-none focus:border-[var(--blue)] focus:border-2"
                     type="number" id="sample-age">
             </div>
             <div class="flex justify-between flex-wrap items-center">
                 <label class="min-w-[230px] pb-2" for="sample-strength">Strength of samples,
                     kg/cm</label>
-                <input
+                <input v-model="newDocument.samples_strength"
                     class="border border-black border-opacity-30 px-2 min-w-[230px] flex-grow max-w-[600px] h-10 rounded focus:outline-none focus:border-[var(--blue)] focus:border-2"
                     type="number" id="sample-strength">
             </div>
-            <Vbutton class="w-fit self-center mt-4" buttonText="Create document" />
+            <Vbutton @click="postNewDocument" class="w-fit self-center mt-4" buttonText="Create document" />
         </div>
     </section>
 </template>
