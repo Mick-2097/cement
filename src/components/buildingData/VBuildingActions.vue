@@ -60,7 +60,6 @@ const addBuilding = async (newBuilding) => {
 const editBuilding = () => {
     fetchBuilding()
     emits('buildingsModified')
-    editBuildingModal.value = false
 }
 
 watch(() => [route.params.building_id], () => {
@@ -106,7 +105,7 @@ watch(() => [route.params.building_id], () => {
         <VModalAddBuilding v-if="addBuildingModal" @close="addBuildingModal = false" @addBuilding="addBuilding" />
     </Transition>
     <Transition name="modal">
-        <VModalEditBuilding v-if="editBuildingModal" @close="editBuilding" />
+        <VModalEditBuilding v-if="editBuildingModal" @close="editBuildingModal = false" @buildingsModified="editBuilding" />
     </Transition>
     <Transition name="modal">
         <VModalAddMonitoringSpot v-if="addSpotModal" @close="addSpotModal = false" @refreshSpots="emits('refreshSpots')" />

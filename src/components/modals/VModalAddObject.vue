@@ -4,9 +4,6 @@ import { useRoute } from 'vue-router'
 import { mainApi } from "../../api/main"
 import Vbutton from '../Vbutton.vue'
 
-let name = ''
-let description = ''
-
 const route = useRoute()
 const passed = defineProps(['props'])
 const emits = defineEmits(['close', 'refreshTreeMenu'])
@@ -15,9 +12,18 @@ const newObject = ref({
     name: '',
     description: ''
 })
+const invalidName = ref(false)
+const invalidDescription = ref(false)
 
-const addObject = async (name, description) => {
-    const response = await mainApi.post(`building_objects?project_id=${route.params.project_id}&name=${name}&description=${description}`)
+const validateAddObjectInputs = () => {
+    if (newObject.value.name === '') invalidName.value = true
+    if (newObject.value.description === '') invalidDescription.value = true
+    if (invalidName.value === true || invalidDescription.value === true) return
+    else addObject()
+}
+
+const addObject = async () => {
+    const response = await mainApi.post(`building_objects?`, newObject.value)
     response.data.buildings = []
     emits('refreshTreeMenu')
     closeModal()
@@ -34,14 +40,16 @@ const closeModal = () => {
             <h2 class="text-xl font-bold text-center">Add building object</h2>
 
             <label for="name">Name</label>
-            <input v-model="name"
+            <input @focus="invalidName = false" v-model="newObject.name"
+                :class="invalidName ? 'border-2 border-red-500 border-opacity-100 bg-pink-100' : ''"
                 class="border border-black border-opacity-50 rounded mt-2 h-10 px-2 focus:outline-none focus:border-[var(--blue)] focus:border-2"
                 type="text" id="name" autocomplete="off">
             <label for="description">Description</label>
-            <input v-model="description"
+            <input @focus="invalidDescription = false" v-model="newObject.description"
+                :class="invalidDescription ? 'border-2 border-red-500 border-opacity-100 bg-pink-100' : ''"
                 class="border border-black border-opacity-50 rounded mt-2 h-10 px-2 focus:outline-none focus:border-[var(--blue)] focus:border-2"
                 type="text" id="description">
-            <Vbutton buttonText="create" class="mt-8 w-[92px] self-center" @click="addObject(name, description)" />
+            <Vbutton buttonText="create" class="mt-8 w-[92px] self-center" @click="validateAddObjectInputs" />
         </div>
     </section>
 </template>

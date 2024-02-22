@@ -38,6 +38,166 @@ ChartJS.register(
 const route = useRoute()
 const historiesReady = ref(false)
 const histories = ref([])
+const options = ref([
+    // 0
+    {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            x: {
+                display: true,
+                title: {
+                    display: true,
+                    text: "Date & time",
+                    font: {
+                        size: "16px",
+                    },
+                },
+            },
+            y: {
+                display: true,
+                title: {
+                    display: true,
+                    text: "Value",
+                    font: {
+                        size: "16px",
+                    },
+                },
+            },
+        },
+        plugins: {
+            zoom: {
+                pan: {
+                    enabled: true,
+                    mode: "x",
+                },
+                zoom: {
+                    limits: {
+                        x: { max: null, min: null },
+                        y: { max: null, min: null },
+                    },
+                    wheel: {
+                        enabled: true,
+                        speed: 0.01
+                    },
+                    mode: "x",
+                },
+            },
+            legend: {
+                labels: {
+                    font: {
+                        size: "20px",
+                    },
+                },
+            },
+        },
+    },
+    // 1
+    {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            x: {
+                display: true,
+                title: {
+                    display: true,
+                    text: "Date & time",
+                    font: {
+                        size: "16px",
+                    },
+                },
+            },
+            y: {
+                display: true,
+                title: {
+                    display: true,
+                    text: "Value",
+                    font: {
+                        size: "16px",
+                    },
+                },
+            },
+        },
+        plugins: {
+            zoom: {
+                pan: {
+                    enabled: true,
+                },
+                zoom: {
+                    limits: {
+                        x: { max: null, min: null },
+                        y: { max: null, min: null },
+                    },
+                    wheel: {
+                        enabled: true,
+                    },
+                    mode: "x",
+                },
+            },
+            legend: {
+                labels: {
+                    font: {
+                        size: "20px",
+                    },
+                },
+            },
+        },
+    },
+    // 2
+    {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            x: {
+                display: true,
+                title: {
+                    display: true,
+                    text: "Date & time",
+                    font: {
+                        size: "16px",
+                    },
+                },
+            },
+            y: {
+                display: true,
+                title: {
+                    display: true,
+                    text: "Value",
+                    font: {
+                        size: "16px",
+                    },
+                },
+            },
+        },
+        plugins: {
+            zoom: {
+
+                pan: {
+                    enabled: true,
+                },
+                zoom: {
+                    limits: {
+                        x: { max: null, min: null },
+                        y: { max: null, min: null },
+                    },
+                    wheel: {
+                        enabled: true,
+                    },
+                    mode: "x",
+                },
+            },
+            legend: {
+                labels: {
+                    font: {
+                        size: "20px",
+                    },
+                },
+            },
+        },
+    },
+])
+
+
 const clearHistories = () => histories.value = []
 const setHistories = async () => {
     clearHistories()
@@ -54,15 +214,15 @@ const setHistories = async () => {
         histories.value[1].datasets[0].label = 'Strength'
         histories.value[2].datasets[0].label = 'Maturity'
     }
-
-    // Setting max and min limits on first chart
-
-    // chartConfig.options[0].plugins.zoom.zoom.limits.x.max = histories.value[0].maxX
-    // chartConfig.options[0].plugins.zoom.zoom.limits.x.min = histories.value[0].minX
-    // chartConfig.options[0].plugins.zoom.zoom.limits.y.max = histories.value[0].maxY
-    // chartConfig.options[0].plugins.zoom.zoom.limits.y.min = histories.value[0].minY
-    // console.log(histories.value[0].maxX)
-    // console.log(chartConfig.options[0].plugins.zoom.zoom.limits.x.min)
+    // Set max and min limits
+    for (let i = 0; i < histories.value.length; i++) {
+        console.log(options.value[i].plugins.zoom.zoom.limits.x)
+        options.value[i].plugins.zoom.zoom.limits.x.max = histories.value[i].maxX
+        options.value[i].plugins.zoom.zoom.limits.x.min = histories.value[i].minX
+        options.value[i].plugins.zoom.zoom.limits.y.max = histories.value[i].maxY
+        options.value[i].plugins.zoom.zoom.limits.y.min = histories.value[i].minY
+        console.log(options.value[i].plugins.zoom.zoom.limits.x)
+    }
 
     historiesReady.value = true
 }
@@ -74,14 +234,14 @@ watch(() => route.params.area_id, () => {
 </script>
 
 <template>
-    <div class="flex flex-col py-6 px-12 mb-8">
+    <div class="flex flex-col mb-8 w-full">
         <div class="flex items-center justify-center py-12 rounded-lg shadow-lg w-full bg-white" v-if="!historiesReady">
             <VSpinner />
         </div>
         <ul v-else class="flex flex-col gap-8 w-full pb-8">
             <li v-for="(chart, index) in histories" :key="chart.id"
-                class="flex flex-grow p-2 bg-white rounded-2xl shadow-lg justify-center h-[550px]">
-                <Line :data="chart" :options="chartConfig.options[index]" :style="chartConfig.data.datasets[index]" />
+                class="flex flex-grow p-2 bg-white rounded-2xl shadow-lg justify-center min-h-96">
+                <Line :data="chart" :options="options[index]" :style="chartConfig.data.datasets[index]" />
             </li>
         </ul>
         <p v-if="historiesReady && !histories.length"

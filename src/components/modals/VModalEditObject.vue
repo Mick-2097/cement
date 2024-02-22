@@ -11,6 +11,16 @@ const newObject = ref({
     name: '',
     description: ''
 })
+const invalidName = ref(false)
+const invalidDescription = ref(false)
+
+const validateEditObjectInputs = () => {
+    if (newObject.value.name === '') invalidName.value = true
+    if (newObject.value.description === '') invalidDescription.value = true
+    if (invalidName.value === true || invalidDescription.value === true) return
+    else editObject()
+}
+
 const editObject = async () => {
     await mainApi.put(`building_objects/${route.params.building_object_id}`, newObject.value)
     emits('close')
@@ -24,14 +34,16 @@ const editObject = async () => {
 
             <h2 class="text-xl font-bold text-center">Edit building object</h2>
             <label for="object-name" class="cursor-pointer">Name</label>
-            <input v-model="newObject.name" type="text" id="object-name"
+            <input @focus="invalidName = false" v-model="newObject.name" type="text" id="object-name"
+                :class="invalidName ? 'border-2 border-red-500 border-opacity-100 bg-pink-100' : ''"
                 class="border border-black border-opacity-50 rounded mt-2 h-10 px-2 focus:outline-none focus:border-[var(--blue)] focus:border-2">
 
             <label for="object-descriptiion" class="cursor-pointer">Descriptiion</label>
-            <input v-model="newObject.description" type="text" id="object-descriptiion"
+            <input @focus="invalidDescription = false" v-model="newObject.description" type="text" id="object-descriptiion"
+                :class="invalidDescription ? 'border-2 border-red-500 border-opacity-100 bg-pink-100' : ''"
                 class="border border-black border-opacity-50 rounded mt-2 h-10 px-2 focus:outline-none focus:border-[var(--blue)] focus:border-2">
 
-            <Vbutton @click="editObject" buttonText="save" class="w-1/2 self-center mt-4" />
+            <Vbutton @click="validateEditObjectInputs" buttonText="save" class="w-1/2 self-center mt-4" />
         </div>
     </section>
 </template>

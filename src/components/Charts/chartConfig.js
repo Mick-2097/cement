@@ -39,7 +39,11 @@ export const options = [
           mode: "x",
         },
         zoom: {
-          drag: {
+          limits: {
+            x: {max: undefined, min: undefined},
+            y: {max: undefined, min: undefined},
+          },
+          wheel: {
             enabled: true,
           },
           mode: "x",
@@ -86,8 +90,8 @@ export const options = [
           enabled: true,
         },
         zoom: {
-          limits: {},
-          drag: {
+          limits: {x: "", y: ""},
+          wheel: {
             enabled: true,
           },
           mode: "x",
@@ -130,12 +134,12 @@ export const options = [
     },
     plugins: {
       zoom: {
-        limits: {},
+        limits: {x: "", y: ""},
         pan: {
           enabled: true,
         },
         zoom: {
-          drag: {
+          wheel: {
             enabled: true,
           },
           mode: "x",

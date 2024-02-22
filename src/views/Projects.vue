@@ -7,6 +7,7 @@ import VProjectList from "../components/projects/VProjectList.vue"
 
 
 const auth = authStore()
+const projectsKey = ref(0)
 // console.log(auth.token)
 
 const screenSize = ref(window.innerWidth)
@@ -26,7 +27,7 @@ const screenSize = ref(window.innerWidth)
       </RouterLink>
 
     </div>
-    <VProjectList />
+    <VProjectList :key="projectsKey" @refreshProjects="projectsKey++" />
   </section>
 </template>
 

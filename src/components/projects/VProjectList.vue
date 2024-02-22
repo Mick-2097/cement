@@ -5,23 +5,31 @@ import VSpinner from '../VSpinner.vue'
 import VModalEditProject from '../modals/VModalEditProject.vue'
 import VAreYouSure from '../modals/VAreYouSure.vue'
 
+const emits = defineEmits(['refreshProjects'])
 const companies = ref([])
 const dataReady = ref(false)
 const isEdit = ref(false)
 const deleteAttempt = ref(false)
+const projectsKey = ref(0)
 const indices = ref({
-    projectIndex: 0,
-    companyIndex: 0,
     projectId: 0
 })
+
+const fetchCompanies = async () => {
+    const response = await mainApi.get("companies")
+    for (let i = 0; i < response.data.length; i++) {
+        response.data[i].projects = await fetchProjects(response.data[i].id)
+    }
+    companies.value = response.data
+    dataReady.value = true
+}
 
 const fetchProjects = async (companyID) => {
     const response = await mainApi.get(`projects?company_id=${companyID}`)
     return response.data.list
 }
-const openEditModal = (companyIndex, projectIndex) => {
-    indices.value.companyIndex = companyIndex
-    indices.value.projectIndex = projectIndex
+const openEditModal = (id) => {
+    indices.value.projectId = id
     isEdit.value = true
 }
 const deleteProject = async (companyIndex, projectId) => {
@@ -34,13 +42,8 @@ const areYouSure = (companyIndex, projectId) => {
     indices.value.projectId = projectId
     deleteAttempt.value = true
 }
-onMounted(async () => {
-    const response = await mainApi.get("companies")
-    for (let i = 0; i < response.data.length; i++) {
-        response.data[i].projects = await fetchProjects(response.data[i].id)
-    }
-    companies.value = response.data
-    dataReady.value = true
+onMounted(() => {
+    fetchCompanies()
 })
 </script>
 
@@ -48,7 +51,7 @@ onMounted(async () => {
     <VSpinner v-if="!dataReady" />
     <section v-if="dataReady" class="flex w-full max-w-[1076px] mb-[40px] bg-white py-2 px-4 rounded-xl shadow-lg"
         v-for="(company, companyIndex) in companies" :key="company.id">
-        <table class="w-full text-left h-fit border-collapse">
+        <table class="w-full text-left h-fit border-collapse" :key="projectsKey">
             <thead>
                 <tr class="h-[60px] w-full">
                     <th class="opacity-70">
@@ -78,8 +81,8 @@ onMounted(async () => {
                     </td>
                     <td class="flex justify-end items-center h-full pr-2">
                         <div class="flex shrink-0 my-2 gap-2">
-                            <img @click="openEditModal(companyIndex, projectIndex, project.id)" class="align-center pl-4"
-                                src="../../assets/edit.svg" alt="edit" title="edit">
+                            <img @click="openEditModal(project.id)" class="align-center pl-4" src="../../assets/edit.svg"
+                                alt="edit" title="edit">
                             <img @click="areYouSure(companyIndex, project.id)" class="cursor-pointer"
                                 src="../../assets/icons/trash.svg" alt="delete" title="delete">
                         </div>
@@ -109,7 +112,10 @@ onMounted(async () => {
         <p>You don't have any projects yet.</p>
         <p>You can create a project or you can be added to a project.</p>
     </section>
-    <VModalEditProject @close="isEdit = false" v-if="isEdit" :isEdit="isEdit" :indices="indices" :companies="companies" />
+
+    <VModalEditProject v-if="isEdit" @close="isEdit = false" @refreshProjects="emits('refreshProjects')"
+        :indices="indices" />
+
     <VAreYouSure v-if="deleteAttempt" @cancel="deleteAttempt = false"
         @delete="deleteProject(indices.companyIndex, indices.projectId)" />
 </template>

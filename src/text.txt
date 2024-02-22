@@ -2,6 +2,21 @@
 
     Todo -
 
-        site wide error handling
+        reports - 
+            add objects list
+            add areas list with searchable select
+            https://vue-select.org/guide/install.html#yarn-npm
+            
+        site wide error handling -
+            set error handling in mainApi
+            use state management to hold error message and boolean
+            render error popup in app.vue
+
         chart zoom
-        modal transitions
+
+
+        concrete composition -
+            add crumbs
+
+        form validation -
+            extract form elements to reusable components and check for valid values

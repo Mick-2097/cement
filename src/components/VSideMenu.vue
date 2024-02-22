@@ -9,30 +9,31 @@ const router = useRouter()
 const treeMenuKey = ref(0)
 
 const goToReports = () => {
-    if (route.params.area_id) {
-        router.push({
-            path: `${route.path}/reports`
-        })
-        emits('closeTree')
-    }
+    router.push({
+        name: 'reports',
+    })
+    emits('closeTree')
 }
 const goToCompositions = () => {
     router.push({
         name: 'compositions',
         params: {
-            company_id: route.params.company_id
+            company_id: route.params.company_id,
+            project_id: route.params.project_id,
+            building_object_id: route.params.building_object_id,
+            building_id: route.params.building_id
         }
     })
 }
 </script>
 
 <template>
-    <section class="flex flex-col p-4 gap-5 min-w-[300px] bg-[var(--bg)]">
+    <section class="flex flex-col p-4 gap-5 min-w-[300px]">
 
         <!-- pages list card -->
         <ul class="list-none py-2 flex flex-col bg-white border rounded-xl shadow-lg">
 
-            <li @click="goToReports"
+            <li @click="goToReports" title="Select area"
                 class="flex px-4 py-2 gap-2 text-start cursor-pointer hover:bg-[var(--blue-focus)] items-center focus:bg-[var(--blue-focus)]"
                 tabindex="0">
                 <div class="h-6 w-6">

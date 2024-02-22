@@ -16,6 +16,22 @@ const editedArea = ref({
     description: '',
     filling_time: '',
 })
+const invalidID = ref(false)
+const invalidName = ref(false)
+const invalidDescription = ref(false)
+const invalidFill = ref(false)
+
+const validateEditAreaInputs = () => {
+    if (editedArea.value.concrete_composition_id === '') invalidID.value = true
+    if (editedArea.value.name === '') invalidName.value = true
+    if (editedArea.value.description === '') invalidDescription.value = true
+    if (editedArea.value.filling_time === '') invalidFill.value = true
+    if (invalidID.value === true ||
+        invalidName.value === true ||
+        invalidDescription.value === true ||
+        invalidFill.value === true) return
+    else editArea()
+}
 
 const editArea = async () => {
     await mainApi.put(`areas/${route.params.area_id}`, editedArea.value)
@@ -36,7 +52,8 @@ getConcreteCompositions()
             <h2 class="text-xl font-bold text-center">Add area</h2>
 
             <label class="cursor-pointer mt-4 mb-3" for="concrete-composition">Concrete compostition</label>
-            <select v-model="editedArea.concrete_composition_id"
+            <select @focus="invalidID = false" v-model="editedArea.concrete_composition_id"
+                :class="invalidID ? 'border-2 border-red-500 border-opacity-100 bg-pink-100' : ''"
                 class="border border-solid border-black rounded border-opacity-40 h-10 min-w-[calc(100%-200px)] text-center focus:outline-none focus:border-[var(--blue)] focus:border-2"
                 name="" id="concrete-composition">
                 <option disabled selected value>-- Select concrete composition --</option>
@@ -45,18 +62,21 @@ getConcreteCompositions()
                 </option>
             </select>
             <label class="cursor-pointer mt-4" for="area-name">Name</label>
-            <input v-model="editedArea.name"
+            <input @focus="invalidName = false" v-model="editedArea.name"
+                :class="invalidName ? 'border-2 border-red-500 border-opacity-100 bg-pink-100' : ''"
                 class="border border-black border-opacity-50 rounded mt-2 h-10 px-2 focus:outline-none focus:border-[var(--blue)] focus:border-2"
                 type="text" id="area-name">
             <label class="cursor-pointer mt-4" for="area-description">Description</label>
-            <input v-model="editedArea.description"
+            <input @focus="invalidDescription = false" v-model="editedArea.description"
+                :class="invalidDescription ? 'border-2 border-red-500 border-opacity-100 bg-pink-100' : ''"
                 class="border border-black border-opacity-50 rounded mt-2 h-10 px-2 focus:outline-none focus:border-[var(--blue)] focus:border-2"
                 type="text" id="area-description">
             <label class="cursor-pointer mt-4" for="fill-time">Fill time</label>
-            <input
+            <input @focus="invalidFill = false"
+                :class="invalidFill ? 'border-2 border-red-500 border-opacity-100 bg-pink-100' : ''"
                 class="border border-black border-opacity-50 rounded mt-2 h-10 px-2 focus:outline-none focus:border-[var(--blue)] focus:border-2"
                 type="datetime-local" id="fill-time">
-            <Vbutton @click="editArea" class="mt-8 mb-4 w-fit self-center" buttonText="Edit area" />
+            <Vbutton @click="validateEditAreaInputs" class="mt-8 mb-4 w-fit self-center" buttonText="Edit area" />
         </div>
     </section>
 </template>

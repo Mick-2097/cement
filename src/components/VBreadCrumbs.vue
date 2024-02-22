@@ -3,6 +3,7 @@ import { ref, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { mainApi } from '../api/main'
 
+const emits = defineEmits(['refreshSideMenu'])
 const route = useRoute()
 const projectName = ref('')
 const objectName = ref('')
@@ -82,8 +83,8 @@ onMounted(async () => {
                 project_id: route.params.project_id
             }
         }">
-            <h1 class="text-xl text-normal"
-                :class="route.params.building_object_id ? 'cursor-pointer text-[var(--blue)]' : ''">
+            <h1 @click="emits('refreshSideMenu')" class="text-xl text-normal cursor-default"
+                :class="route.params.building_object_id ? 'cursor-pointer text-[var(--blue)] hover:underline' : ''">
                 {{ projectName }}
             </h1>
         </RouterLink>
@@ -94,9 +95,9 @@ onMounted(async () => {
                 building_object_id: route.params.building_object_id
             }
         }">
-            <h1 class="text-xl text-normal">/ &nbsp</h1>
-            <h1 class="text-xl text-normal"
-                :class="route.params.building_id || route.params.area_id ? 'cursor-pointer text-[var(--blue)]' : ''">
+            <h1 class="text-xl text-normal cursor-default">/ &nbsp</h1>
+            <h1 class="text-xl text-normal cursor-default"
+                :class="route.params.building_id || route.params.area_id ? 'cursor-pointer text-[var(--blue)] hover:underline' : ''">
                 {{ objectName }}
             </h1>
         </RouterLink>
@@ -107,8 +108,9 @@ onMounted(async () => {
                 building_id: route.params.building_id
             }
         }">
-            <h1 class="text-xl text-normal">/ &nbsp</h1>
-            <h1 class="text-xl text-normal" :class="route.params.spot_id ? 'cursor-pointer text-[var(--blue)]' : ''">
+            <h1 class="text-xl text-normal cursor-default">/ &nbsp</h1>
+            <h1 class="text-xl text-normal cursor-default"
+                :class="route.params.spot_id ? 'cursor-pointer text-[var(--blue)] hover:underline' : ''">
                 {{ buildingName }}
             </h1>
         </RouterLink>
@@ -118,8 +120,8 @@ onMounted(async () => {
                 area_id: route.params.area_id
             }
         }">
-            <h1 class="text-xl text-normal">/ &nbsp</h1>
-            <h1 class="text-xl text-normal">
+            <h1 class="text-xl text-normal cursor-default">/ &nbsp</h1>
+            <h1 class="text-xl text-normal cursor-default">
                 {{ areaName }}
             </h1>
         </RouterLink>
@@ -129,8 +131,8 @@ onMounted(async () => {
                 spot_id: route.params.spot_id
             }
         }">
-            <h1 class="text-xl text-normal">/ &nbsp</h1>
-            <h1 class="text-xl text-normal">
+            <h1 class="text-xl text-normal cursor-default">/ &nbsp</h1>
+            <h1 class="text-xl text-normal cursor-default">
                 {{ spotName }}
             </h1>
         </RouterLink>

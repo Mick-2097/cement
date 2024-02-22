@@ -4,7 +4,6 @@ import { useRoute, RouterView } from 'vue-router'
 import Vheader from './components/Vheader.vue'
 import VSideMenu from './components/VSideMenu.vue'
 import VBreadCrumbs from './components/VBreadCrumbs.vue'
-import VChart from './components/Charts/VChart.vue'
 
 const route = useRoute()
 const menuKey = ref(0)
@@ -27,11 +26,10 @@ watch(() => route.path, () => {
   } else {
     hideComponents()
   }
-})
-watch(() => route.path, () => {
   if (route.name === 'reports') {
     hideComponents()
   }
+
 })
 onMounted(() => {
   if (route.params.project_id && route.name !== 'reports') {
@@ -48,7 +46,7 @@ onMounted(() => {
 
   <div class="flex-col">
     <transition name="fade">
-      <VBreadCrumbs v-if="renderCrumbs" />
+      <VBreadCrumbs v-if="renderCrumbs" @refreshSideMenu="menuKey++" />
     </transition>
 
     <div :class="!$route.params.project_id ? 'md:flex-col' : 'md:flex-row'" class="flex flex-col w-full">
@@ -65,7 +63,6 @@ onMounted(() => {
 
       </RouterView>
     </div>
-    <VChart v-if="route.name === 'areadata'" />
 
   </div>
 </template>

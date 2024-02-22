@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import VBuildingActions from '../components/buildingData/VBuildingActions.vue'
 import VSpots from '../components/buildingData/VSpots.vue'
 
-const emits = defineEmits('refreshSideMenu')
+const emits = defineEmits(['refreshSideMenu'])
 const spotsMenuKey = ref(0)
 </script>
 

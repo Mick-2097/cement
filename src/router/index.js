@@ -82,8 +82,24 @@ const router = createRouter({
       },
     },
     {
-      path: "/companies/:company_id/projects/:project_id/building_objects/:building_object_id/areas/:area_id/reports",
+      path: "/companies/:company_id/projects/:project_id/reports",
       name: "reports",
+      component: Reports,
+      meta: {
+        title: "Reports",
+      },
+    },
+    {
+      path: "/companies/:company_id/projects/:project_id/reports/object/:object_id",
+      name: "reportsobject",
+      component: Reports,
+      meta: {
+        title: "Reports",
+      },
+    },
+    {
+      path: "/companies/:company_id/projects/:project_id/reports/object/:object_id/area/:area_id",
+      name: "reportsobjectarea",
       component: Reports,
       meta: {
         title: "Reports",
