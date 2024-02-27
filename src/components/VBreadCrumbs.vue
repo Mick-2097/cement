@@ -77,10 +77,10 @@ onMounted(async () => {
 <template>
     <div class="flex flex-wrap gap-2 px-4 pt-5 pb-2 bg-[var(--bg)] min-h-14">
 
-        <RouterLink v-if="crumbsReady && route.params.project_id" :to="{
+        <RouterLink v-if="crumbsReady && route.params.building_object_id" :to="{
             name: 'projectdata',
             params: {
-                project_id: route.params.project_id
+                project_id: +route.params.project_id
             }
         }">
             <h1 @click="emits('refreshSideMenu')" class="text-xl text-normal cursor-default"
@@ -88,6 +88,7 @@ onMounted(async () => {
                 {{ projectName }}
             </h1>
         </RouterLink>
+        <h1 v-else class="text-xl text-normal cursor-default"> {{ projectName }}</h1>
 
         <RouterLink v-if="crumbsReady && route.params.building_object_id" class="flex" :to="{
             name: 'objectdata',

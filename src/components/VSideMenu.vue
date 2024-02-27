@@ -19,9 +19,7 @@ const goToCompositions = () => {
         name: 'compositions',
         params: {
             company_id: route.params.company_id,
-            project_id: route.params.project_id,
-            building_object_id: route.params.building_object_id,
-            building_id: route.params.building_id
+            project_id: route.params.project_id
         }
     })
 }

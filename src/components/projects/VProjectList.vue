@@ -90,11 +90,11 @@ onMounted(() => {
                     <!-- Hidden -->
                     <td class="hidden date">02.03.2022 – 20.12.2023 (still <span>312 d.</span>)</td>
                     <td class="hidden text-center">
-                        <p class="hidden w-fit py-0.5 px-1 bg-[#eee] rounded m-auto">159</p>
+                        <p class="hidden w-fit py-0.5 px-1 bg-white rounded m-auto">159</p>
                     </td>
                     <td class="hidden text-center">
                         <p
-                            class="hidden w-fit py-0.5 px-1 bg-[#eee] rounded m-auto border border-solid border-[var(--green)]">
+                            class="hidden w-fit py-0.5 px-1 bg-white rounded m-auto border border-solid border-[var(--green)]">
                             15
                         </p>
                     </td>

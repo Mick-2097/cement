@@ -25,7 +25,7 @@ export const options = [
         display: true,
         title: {
           display: true,
-          text: "Value",
+          text: "°c",
           font: {
             size: "16px",
           },
@@ -38,11 +38,11 @@ export const options = [
           enabled: true,
           mode: "x",
         },
+        limits: {
+          x: {max: "", min: ""},
+          y: {max: "", min: ""},
+        },
         zoom: {
-          limits: {
-            x: {max: undefined, min: undefined},
-            y: {max: undefined, min: undefined},
-          },
           wheel: {
             enabled: true,
           },
@@ -89,8 +89,11 @@ export const options = [
         pan: {
           enabled: true,
         },
+        limits: {
+          x: {max: "", min: ""},
+          y: {max: "", min: ""},
+        },
         zoom: {
-          limits: {x: "", y: ""},
           wheel: {
             enabled: true,
           },
@@ -134,9 +137,12 @@ export const options = [
     },
     plugins: {
       zoom: {
-        limits: {x: "", y: ""},
         pan: {
           enabled: true,
+        },
+        limits: {
+          x: {max: "", min: ""},
+          y: {max: "", min: ""},
         },
         zoom: {
           wheel: {

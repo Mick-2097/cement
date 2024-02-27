@@ -90,7 +90,7 @@ const router = createRouter({
       },
     },
     {
-      path: "/companies/:company_id/projects/:project_id/reports/object/:object_id",
+      path: "/companies/:company_id/projects/:project_id/reports/object/:building_object_id",
       name: "reportsobject",
       component: Reports,
       meta: {
@@ -98,15 +98,15 @@ const router = createRouter({
       },
     },
     {
-      path: "/companies/:company_id/projects/:project_id/reports/object/:object_id/area/:area_id",
-      name: "reportsobjectarea",
+      path: "/companies/:company_id/projects/:project_id/reports/object/:building_object_id/area/:area_id",
+      name: "reportsarea",
       component: Reports,
       meta: {
         title: "Reports",
       },
     },
     {
-      path: "/companies/:company_id/compositions",
+      path: "/companies/:company_id/projects/:project_id/compositions",
       name: "compositions",
       component: Compositions,
       meta: {

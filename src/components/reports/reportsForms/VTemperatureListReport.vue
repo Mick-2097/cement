@@ -1,9 +1,10 @@
 <script setup>
 import { useRoute } from 'vue-router'
-import { mainApi } from '../../api/main'
-import Vbutton from '../Vbutton.vue'
+import { mainApi } from '../../../api/main'
+import Vbutton from '../../Vbutton.vue'
 
 const route = useRoute()
+const emits = defineEmits(['close'])
 
 let newDocument = {
     area_id: route.params.area_id,
@@ -21,16 +22,17 @@ let newDocument = {
 
 const postNewDocument = async () => {
     let postBody = new URLSearchParams(newDocument).toString()
-    console.log(postBody)
+    emits('close')
     await mainApi.fetchData.post('documents', postBody)
 }
 
 </script>
 
 <template>
-    <section class="flex justify-center min-w-[300px] w-full">
+    <section class="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-80 z-10">
         <div
-            class="flex flex-col min-w-[280px] flex-grow max-w-[900px] gap-2 justify-between bg-white border rounded-xl p-6 shadow-lg">
+            class="flex flex-col min-w-[280px] max-w-[600px] gap-2 justify-between bg-white border rounded-xl p-6 shadow-lg m-auto mt-[5vh]">
+            <img @click="emits('close')" class="self-end cursor-pointer" src="../../../assets/icons/close.svg" />
             <h3 class="text-center font-bold text-xl py-2">Temperature list</h3>
             <div class="flex justify-between flex-wrap items-center">
                 <label class="min-w-[230px] pb-2" for="producer-name">Work producer (full

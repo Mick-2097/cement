@@ -6,7 +6,6 @@ import VModalAddBuilding from '../modals/VModalAddBuilding.vue'
 import VModalEditBuilding from '../modals/VModalEditBuilding.vue'
 import VModalAddMonitoringSpot from '../modals/VModalAddMonitoringSpot.vue'
 import VAreYouSure from '../modals/VAreYouSure.vue'
-import ErrorPopUp from '../modals/ErrorPopUp.vue'
 
 
 const emits = defineEmits(['buildingsModified', 'refreshSpots'])
@@ -17,8 +16,7 @@ const addBuildingModal = ref(false)
 const addSpotModal = ref(false)
 const editBuildingModal = ref(false)
 const deleteAttempt = ref(false)
-const errorPopUp = ref(false)
-const errorMessage = ref('')
+
 
 const fetchBuilding = async () => {
     if (!route.params.building_id) {
@@ -33,23 +31,15 @@ const fetchBuilding = async () => {
 fetchBuilding()
 
 const deleteBuilding = async () => {
+    deleteAttempt.value = false
     const response = await mainApi.delete(`buildings/${route.params.building_id}`)
-    console.log(response.message)
-    if (response.status) {
-        emits('buildingsModified')
-        deleteAttempt.value = false
-        router.push({
-            name: 'objectdata',
-            params: {
-                building_object_id: route.params.building_object_id
-            }
-        })
-    }
-    else {
-        deleteAttempt.value = false
-        errorMessage.value = response.message
-        errorPopUp.value = true
-    }
+    emits('buildingsModified')
+    router.push({
+        name: 'objectdata',
+        params: {
+            building_object_id: route.params.building_object_id
+        }
+    })
 }
 
 const addBuilding = async (newBuilding) => {
@@ -109,9 +99,6 @@ watch(() => [route.params.building_id], () => {
     </Transition>
     <Transition name="modal">
         <VModalAddMonitoringSpot v-if="addSpotModal" @close="addSpotModal = false" @refreshSpots="emits('refreshSpots')" />
-    </Transition>
-    <Transition name="modal">
-        <ErrorPopUp v-if="errorPopUp" @close="errorPopUp = false" :errorMessage="errorMessage" />
     </Transition>
 </template>
 

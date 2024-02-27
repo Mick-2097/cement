@@ -6,7 +6,6 @@ import { Line } from 'vue-chartjs'
 import VSpinner from '../../components/VSpinner.vue'
 
 import * as chartConfig from './chartConfig.js'
-
 // zoom //
 
 import { Chart } from 'chart.js'
@@ -36,195 +35,36 @@ ChartJS.register(
 )
 
 const route = useRoute()
-const historiesReady = ref(false)
 const histories = ref([])
-const options = ref([
-    // 0
-    {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            x: {
-                display: true,
-                title: {
-                    display: true,
-                    text: "Date & time",
-                    font: {
-                        size: "16px",
-                    },
-                },
-            },
-            y: {
-                display: true,
-                title: {
-                    display: true,
-                    text: "Value",
-                    font: {
-                        size: "16px",
-                    },
-                },
-            },
-        },
-        plugins: {
-            zoom: {
-                pan: {
-                    enabled: true,
-                    mode: "x",
-                },
-                zoom: {
-                    limits: {
-                        x: { max: null, min: null },
-                        y: { max: null, min: null },
-                    },
-                    wheel: {
-                        enabled: true,
-                        speed: 0.01
-                    },
-                    mode: "x",
-                },
-            },
-            legend: {
-                labels: {
-                    font: {
-                        size: "20px",
-                    },
-                },
-            },
-        },
-    },
-    // 1
-    {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            x: {
-                display: true,
-                title: {
-                    display: true,
-                    text: "Date & time",
-                    font: {
-                        size: "16px",
-                    },
-                },
-            },
-            y: {
-                display: true,
-                title: {
-                    display: true,
-                    text: "Value",
-                    font: {
-                        size: "16px",
-                    },
-                },
-            },
-        },
-        plugins: {
-            zoom: {
-                pan: {
-                    enabled: true,
-                },
-                zoom: {
-                    limits: {
-                        x: { max: null, min: null },
-                        y: { max: null, min: null },
-                    },
-                    wheel: {
-                        enabled: true,
-                    },
-                    mode: "x",
-                },
-            },
-            legend: {
-                labels: {
-                    font: {
-                        size: "20px",
-                    },
-                },
-            },
-        },
-    },
-    // 2
-    {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            x: {
-                display: true,
-                title: {
-                    display: true,
-                    text: "Date & time",
-                    font: {
-                        size: "16px",
-                    },
-                },
-            },
-            y: {
-                display: true,
-                title: {
-                    display: true,
-                    text: "Value",
-                    font: {
-                        size: "16px",
-                    },
-                },
-            },
-        },
-        plugins: {
-            zoom: {
+const historiesReady = ref(false)
+const options = ref(chartConfig.options)
 
-                pan: {
-                    enabled: true,
-                },
-                zoom: {
-                    limits: {
-                        x: { max: null, min: null },
-                        y: { max: null, min: null },
-                    },
-                    wheel: {
-                        enabled: true,
-                    },
-                    mode: "x",
-                },
-            },
-            legend: {
-                labels: {
-                    font: {
-                        size: "20px",
-                    },
-                },
-            },
-        },
-    },
-])
-
-
-const clearHistories = () => histories.value = []
 const setHistories = async () => {
-    clearHistories()
+    histories.value = []
     historiesReady.value = false
-    const response = await mainApi.get(`sensor_histories?area_id=${route.params.area_id}`)
-    if (response.data.temperature.datasets.length) {
-        histories.value[0] = response.data.temperature
-        histories.value[1] = response.data.strength
-        histories.value[2] = response.data.maturity
-        for (let i = 0; i < histories.value.length; i++) {
-            histories.value[i].datasets[0].backgroundColor = '#bef6f2'
-        }
-        histories.value[0].datasets[0].label = 'Temperature'
-        histories.value[1].datasets[0].label = 'Strength'
-        histories.value[2].datasets[0].label = 'Maturity'
-    }
-    // Set max and min limits
-    for (let i = 0; i < histories.value.length; i++) {
-        console.log(options.value[i].plugins.zoom.zoom.limits.x)
-        options.value[i].plugins.zoom.zoom.limits.x.max = histories.value[i].maxX
-        options.value[i].plugins.zoom.zoom.limits.x.min = histories.value[i].minX
-        options.value[i].plugins.zoom.zoom.limits.y.max = histories.value[i].maxY
-        options.value[i].plugins.zoom.zoom.limits.y.min = histories.value[i].minY
-        console.log(options.value[i].plugins.zoom.zoom.limits.x)
-    }
 
-    historiesReady.value = true
+    if (route.params.area_id) {
+        const response = await mainApi.get(`sensor_histories?area_id=${route.params.area_id}`)
+        if (response.data.temperature.datasets.length) {
+            histories.value = Object.values(response.data)
+
+            for (let i = 0; i < histories.value.length; i++) {
+                histories.value[i].datasets[0].backgroundColor = '#bef6f2'
+                let labels = ['Temperature', 'Maturity', 'Strength']
+                histories.value[i].datasets[0].label = labels[i]
+            }
+        }
+        console.log(histories.value)
+
+        // Set max and min limits to options
+        for (let i = 0; i < histories.value.length; i++) {
+            options.value[i].plugins.zoom.limits.x.max = histories.value[i].maxX
+            options.value[i].plugins.zoom.limits.x.min = histories.value[i].minX
+            options.value[i].plugins.zoom.limits.y.max = histories.value[i].maxY
+            options.value[i].plugins.zoom.limits.y.min = histories.value[i].minY
+        }
+        historiesReady.value = true
+    }
 }
 setHistories()
 
@@ -239,9 +79,9 @@ watch(() => route.params.area_id, () => {
             <VSpinner />
         </div>
         <ul v-else class="flex flex-col gap-8 w-full pb-8">
-            <li v-for="(chart, index) in histories" :key="chart.id"
+            <li v-for="(chart, index) in histories" :key="index" :id="index"
                 class="flex flex-grow p-2 bg-white rounded-2xl shadow-lg justify-center min-h-96">
-                <Line :data="chart" :options="options[index]" :style="chartConfig.data.datasets[index]" />
+                <Line :data="chart" :style="chartConfig.data.datasets" :options="chartConfig.options[index]" />
             </li>
         </ul>
         <p v-if="historiesReady && !histories.length"

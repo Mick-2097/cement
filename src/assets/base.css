@@ -47,15 +47,19 @@
   opacity: 0;
 }
 /* modal */
-.modal-enter-active {
-  transition: opacity 0.5s ease-in;
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.3s ease-in;
 }
-.modal-enter-from {
+.modal-enter-from,
+.modal-leave-to {
   opacity: 0;
 }
-.modal-enter-active > div {
-  transition: scale 0.5s ease-in;
+.modal-enter-active > div,
+.modal-leave-active > div {
+  transition: scale 0.3s ease-in;
 }
-.modal-enter-from > div {
+.modal-enter-from > div,
+.modal-leave-to > div {
   scale: 0;
 }

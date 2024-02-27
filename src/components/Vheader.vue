@@ -6,26 +6,36 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 const auth = authStore()
 
-const isSmallScreen = ref(0)
+const searchInput = ref(null)
+const mobileSearchInput = ref(null)
+const isSmallScreen = ref(false)
 const showMobileSearch = ref(false)
 const hideSearchIcon = ref(false)
 const watchScreenWidth = () => {
-    isSmallScreen.value = window.innerWidth
+    isSmallScreen.value = window.innerWidth < 768
 }
-let showSearch = () => {
-    if (isSmallScreen.value < 768) {
+let focusInput = () => {
+    if (isSmallScreen.value) {
         hideSearchIcon.value = true
         showMobileSearch.value = true
+        setTimeout(() => {
+            mobileSearchInput.value.focus()
+        }, 100)
+        return
     }
+    searchInput.value.focus()
 }
 onMounted(() => {
     window.addEventListener('resize', watchScreenWidth)
+    isSmallScreen.value = window.innerWidth < 768
 })
 </script>
 
 <template>
     <header class="flex-wrap max-w-full">
         <div class="md:justify-between min-h-[68px] flex bg-white justify-between">
+
+            <!-- Left side icon and home link -->
             <div class="flex bg-white max-w-1/2 py-0 px-4 justify-start items-center gap-3">
                 <img class="icon-small" src="../assets/icon-small.png" alt="">
                 <div class="flex flex-wrap">
@@ -41,14 +51,19 @@ onMounted(() => {
 
                 </div>
             </div>
+
+            <!-- Search input -->
             <div class="flex bg-white max-w-1/2 py-0 px-4 items-center justify-end gap-3">
+
                 <div class="flex max-w-sm bg-white">
-                    <input
+                    <input ref="searchInput"
                         class="hidden md:flex w-full h-10 border rounded border-gray-400 pt-0 pr-8 pb-0 pl-4 text-base focus:outline-none focus:border-[var(--blue)] focus:border-2"
                         type="search" id="search-input" placeholder="Search...">
-                    <img v-if="!hideSearchIcon" @click="showSearch" class="md:flex cursor-pointer md:-translate-x-8"
+                    <img v-if="!hideSearchIcon" @click="focusInput" class="md:flex cursor-pointer md:-translate-x-8"
                         src="../assets/search.svg" alt="">
                 </div>
+
+                <!-- Right side name notifications and ? -->
                 <div class="flex items-center gap-3.5">
                     <div class="flex shrink-0 gap-2">
                         <img class="h-5 self-center" src="../assets/user.png" alt="">
@@ -63,11 +78,12 @@ onMounted(() => {
                 </div>
             </div>
         </div>
+        <!-- Bottom row mobile search -->
         <div class="flex justify-center items-center overflow-hidden bg-white transition duration-300 ease-linear"
-            :style="{ height: isSmallScreen < 768 && showMobileSearch ? '68px' : '0' }">
+            :style="{ height: isSmallScreen && showMobileSearch ? '68px' : '0' }">
             <transition name="fade-in">
-                <input v-if="showMobileSearch" type="search"
-                    class="h-10 border border-gray-400 rounded pt-0 pr-8 pb-0 pl-4 text-base absolute md:hidden"
+                <input v-if="showMobileSearch" type="search" ref="mobileSearchInput"
+                    class="h-10 border border-gray-400 rounded pt-0 pr-8 pb-0 pl-4 text-base absolute md:hidden focus:outline-none focus:border-[var(--blue)] focus:border-2"
                     id="mobile-search-input" placeholder="Search...">
             </transition>
             <transition name="fade-in">

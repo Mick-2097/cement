@@ -17,9 +17,7 @@ fetchCompositions()
 
 <template>
     <section class="p-4 flex flex-col items-center min-h-[calc(100vh-68px)] bg-[var(--bg)]">
-        <h1 @click="router.go(-1)" class="flex self-start text-xl text-[var(--blue)] hover:underline cursor-pointer">
-            &lt; Back
-        </h1>
+
         <div class="wrapper w-full max-w-[1076px] h-[80px] flex items-center justify-between">
             <div class="flex flex-col sm:flex-row sm:gap-20">
                 <h1 class="text-2xl sm:text-4xl sm:text-normal">Concrete compositions</h1>

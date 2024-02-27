@@ -50,13 +50,13 @@ watch(() => route.params.building_id, () => {
 <template>
     <transition name="fade-in" mode="out-in">
         <div class="flex flex-col py-2 bg-white rounded-xl shadow-xl min-h-[144px] min-w-[300px]">
-            <h3 class="py-2 w-full text-center opacity-60">
+            <h3 class="py-2 w-full text-center opacity-60 border-b border-b-black border-opacity-20">
                 Monitoring spots
             </h3>
             <VSpinner v-if="!spotsReady" class="self-center" />
             <div v-else>
                 <p v-if="!spots.length" class="text-center py-8">- Empty -</p>
-                <ul class="list-none border-t border-t-black border-opacity-20">
+                <ul class="list-none">
                     <li v-for="spot in spots" :key="spot.id" @click="goToSpots(spot.id)"
                         class="flex p-4 justify-between cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none text-wrap"
                         tabindex="0">

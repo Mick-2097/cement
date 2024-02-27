@@ -13,7 +13,7 @@ const areasReady = ref(false)
 const editArea = ref(false)
 
 const fetchAreas = async () => {
-    const response = await mainApi.fetchData("GET", `areas?building_object_id=${route.params.building_object_id}`)
+    const response = await mainApi.get(`areas?building_object_id=${route.params.building_object_id}`)
     areas.value = response.data.list
     areasReady.value = true
 }

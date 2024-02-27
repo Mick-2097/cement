@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { mainApi } from '../../api/main'
 import Vbutton from '../Vbutton.vue'
 

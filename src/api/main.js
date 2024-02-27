@@ -1,17 +1,21 @@
 import {authStore} from "@/stores/auth"
+import {errorStore} from "../stores/error"
 
 export const mainApi = {
   fetchData: async function (method, uri, body = {}) {
     const auth = authStore()
+    const error = errorStore()
 
     const headers = new Headers({
       Authorization: `Bearer ${auth.token}`,
       "Content-Type": "application/json",
     })
+
     const options = {
       method,
       headers,
     }
+
     if (method !== "GET") {
       options.body = JSON.stringify(body)
     }
@@ -23,14 +27,12 @@ export const mainApi = {
       "https://api.smc.dev.nlplay.ru/api/" + uri,
       options
     )
-    // Error handling //
-    if (method !== "GET") {
-      // console.log(response.status)
-      console.log(response.ok)
-    }
-    ///////////////////
 
-    return response.json()
+    const responseJSON = await response.json()
+    if (!responseJSON?.status) {
+      error.setError(responseJSON.message)
+    }
+    return responseJSON
   },
   get: async function (uri, body = {}) {
     return await this.fetchData("GET", uri, body)

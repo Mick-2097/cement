@@ -14,8 +14,7 @@ fetchReports()
 </script>
 
 <template>
-    <div v-if="reports.length"
-        class="flex flex-col min-w-[300px] w-[300px] border rounded-xl bg-white shadow-lg h-fit grow-0">
+    <div v-if="reports.length" class="flex flex-col min-w-[300px] w-full rounded-xl bg-white shadow-lg h-fit">
         <h3 class="text-center font-bold border-b border-black border-opacity-20 w-full py-4">Reports</h3>
         <ul class="flex flex-col">
             <li v-for="report in reports" :key="report.id"
@@ -24,8 +23,8 @@ fetchReports()
             </li>
         </ul>
     </div>
-    <div v-else class="flex flex-col min-w[300px] w-[300px] border rounded-xl bg-white p-4 shadow-lg">
-        <h3 class="text-center font-bold border-b border-black border-opacity-20 w-full py-4">No reports</h3>
+    <div v-else class="flex flex-col w-full min-w[300px] border rounded-xl bg-white p-4 shadow-lg">
+        <h3 class="text-center font-bold w-full py-4">No reports</h3>
     </div>
 </template>
 
