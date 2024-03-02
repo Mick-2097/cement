@@ -18,9 +18,9 @@ const selectedReport = ref('-- select report --')
 
             <VObjectList />
 
-            <div class="flex flex-col lg:flex-row gap-6 w-full">
+            <div class="flex flex-col lg:flex-row gap-6">
 
-                <div class="flex flex-col grow items-center gap-6 w-full">
+                <div class="flex flex-col grow items-center gap-6">
                     <VSearchSelect v-if="route.params.building_object_id" />
                     <select v-if="route.params.area_id" v-model="selectedReport"
                         class="h-10 w-full px-8 shadow-lg focus:outline-none focus:border focus:border-[var(--blue)]"

@@ -13,30 +13,25 @@ const menuKey = ref(0)
 const renderCrumbs = ref(false)
 const renderTree = ref(false)
 
-const mountComponents = () => {
-  renderCrumbs.value = true
-  renderTree.value = true
+if (route.path.includes('companies')) {
+  setTimeout(() => {
+    renderCrumbs.value = true
+    renderTree.value = true
+  }, 300)
 }
-const hideComponents = () => {
-  renderCrumbs.value = false
-  renderTree.value = false
-}
-watch(() => route.path, () => {
 
-  if (route.params.project_id) {
+watch(() => route.path, () => {
+  if (route.path.includes('companies')) {
     setTimeout(() => {
-      mountComponents()
+      renderCrumbs.value = true
+      renderTree.value = true
     }, 300)
     return
   }
-  hideComponents()
-
+  renderCrumbs.value = false
+  renderTree.value = false
 })
-if (route.params.project_id) {
-  setTimeout(() => {
-    mountComponents()
-  }, 300)
-}
+
 
 </script>
 
@@ -45,13 +40,13 @@ if (route.params.project_id) {
 
   <div class="flex-col">
     <transition name="fade" mode="out-in">
-      <VBreadCrumbs v-if="renderCrumbs" @refreshSideMenu="menuKey++" />
+      <VBreadCrumbs v-if="renderCrumbs" />
     </transition>
 
-    <div :class="!$route.params.project_id ? 'md:flex-col' : 'md:flex-row'" class="flex flex-col w-full">
+    <div class="flex flex-col md:flex-row w-full">
 
       <transition name="fade" mode="out-in">
-        <VSideMenu v-if="renderTree" @closeTree="renderTree = false" :key="menuKey" />
+        <VSideMenu v-if="renderTree" :key="menuKey" />
       </transition>
 
       <RouterView v-slot="{ Component }" class="bg-[var(--bg)] w-full p-4 lg:flex-col">

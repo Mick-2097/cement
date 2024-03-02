@@ -33,7 +33,6 @@ const validateEditSpotInpute = () => {
 }
 
 const editSpot = async () => {
-    console.log(editedSpot.value)
     await mainApi.put(`monitoring_spots/${route.params.spot_id}`, editedSpot.value)
     emits('refreshSpots', 'close')
 }

@@ -3,7 +3,6 @@ import { ref, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { mainApi } from '../api/main'
 
-const emits = defineEmits(['refreshSideMenu'])
 const route = useRoute()
 const projectName = ref('')
 const objectName = ref('')
@@ -54,7 +53,6 @@ watch(() => route.params.spot_id, async () => {
         spotName.value = response.data.name
         crumbsReady.value = true
     }
-
 })
 onMounted(async () => {
     crumbsReady.value = false
@@ -80,10 +78,10 @@ onMounted(async () => {
         <RouterLink v-if="crumbsReady && route.params.building_object_id" :to="{
             name: 'projectdata',
             params: {
-                project_id: +route.params.project_id
+                project_id: route.params.project_id
             }
         }">
-            <h1 @click="emits('refreshSideMenu')" class="text-xl text-normal cursor-default"
+            <h1 class="text-xl text-normal cursor-default"
                 :class="route.params.building_object_id ? 'cursor-pointer text-[var(--blue)] hover:underline' : ''">
                 {{ projectName }}
             </h1>

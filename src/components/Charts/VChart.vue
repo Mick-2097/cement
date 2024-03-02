@@ -8,9 +8,10 @@ import VSpinner from '../../components/VSpinner.vue'
 import * as chartConfig from './chartConfig.js'
 // zoom //
 
-import { Chart } from 'chart.js'
-import zoomPlugin from 'chartjs-plugin-zoom'
-Chart.register(zoomPlugin)
+// import { Chart } from 'chart.js'
+// import zoomPlugin from 'chartjs-plugin-zoom'
+// Chart.register(zoomPlugin)
+
 // zoom //
 
 import {
@@ -54,15 +55,15 @@ const setHistories = async () => {
                 histories.value[i].datasets[0].label = labels[i]
             }
         }
-        console.log(histories.value)
-
         // Set max and min limits to options
-        for (let i = 0; i < histories.value.length; i++) {
-            options.value[i].plugins.zoom.limits.x.max = histories.value[i].maxX
-            options.value[i].plugins.zoom.limits.x.min = histories.value[i].minX
-            options.value[i].plugins.zoom.limits.y.max = histories.value[i].maxY
-            options.value[i].plugins.zoom.limits.y.min = histories.value[i].minY
-        }
+
+        // for (let i = 0; i < histories.value.length; i++) {
+        //     options.value[i].plugins.zoom.limits.x.max = histories.value[i].maxX
+        //     options.value[i].plugins.zoom.limits.x.min = histories.value[i].minX
+        //     options.value[i].plugins.zoom.limits.y.max = histories.value[i].maxY
+        //     options.value[i].plugins.zoom.limits.y.min = histories.value[i].minY
+        // }
+
         historiesReady.value = true
     }
 }
@@ -79,9 +80,9 @@ watch(() => route.params.area_id, () => {
             <VSpinner />
         </div>
         <ul v-else class="flex flex-col gap-8 w-full pb-8">
-            <li v-for="(chart, index) in histories" :key="index" :id="index"
-                class="flex flex-grow p-2 bg-white rounded-2xl shadow-lg justify-center min-h-96">
-                <Line :data="chart" :style="chartConfig.data.datasets" :options="chartConfig.options[index]" />
+            <li @click="test(index)" v-for="(chart, index) in histories" :key="index" :id="index"
+                class="flex p-2 bg-white rounded-2xl shadow-lg justify-center min-h-fit">
+                <Line :data="chart" :style="chartConfig.data.datasets" :options="options[index]" />
             </li>
         </ul>
         <p v-if="historiesReady && !histories.length"

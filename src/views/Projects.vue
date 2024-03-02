@@ -8,7 +8,7 @@ import VProjectList from "../components/projects/VProjectList.vue"
 
 const auth = authStore()
 const projectsKey = ref(0)
-// console.log(auth.token)
+console.log(auth.token)
 
 const screenSize = ref(window.innerWidth)
 

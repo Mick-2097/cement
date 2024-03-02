@@ -14,7 +14,7 @@ const props = defineProps({
 <template>
     <section class="fixed top-0 left-0 flex h-screen w-screen justify-center backdrop-blur-sm z-10">
         <div
-            class="flex flex-col text-center w-fit max-w-[90%] border-2 p-2 bg-red-100 border-red-500 rounded self-center justify-self-center">
+            class="flex flex-col text-center min-w-[300px] w-fit max-w-[90%] border-2 p-2 bg-red-100 border-red-500 rounded self-center justify-self-center">
             <img @click="emits('close')" class="self-end h-4 cursor-pointer" src="../../assets/icons/close.svg"
                 alt="close-button">
             <p class="text-red-500 text-2xl -translate-y-4 font-bold w-fit self-center">Error</p>

@@ -8,7 +8,7 @@ const areaMenuKey = ref(0)
 </script>
 
 <template>
-    <section class="p-4 w-screen lg:flex-col">
+    <section class="flex p-4 w-full lg:flex-col">
 
         <div class="flex flex-col w-full gap-[30px] md:flex-row">
             <!-- Center menu -->

@@ -1,5 +1,29 @@
+tests - 
+    create project              good
+    edit project                good
+    delete project              good
+    add object                  good
+    edit object                 good
+    delete object               good
+    add building                good
+    edit building               good
+    delete building             good
+    add area                    good
+    edit area                   good
+    delete area                 good
+    add spot                    good
+    edit spot                   good
+    delete spot                 good
+    postDocument                bad //////////
+
+
 
     Todo -
 
         chart zoom
 
+heating_start = 2024-03-01%2000%3A00%3A01
+heating_end = 2024-03-09 %20 00 %3A 00 %3A 02
+              
+
+              2024-03-02 %20 14 %3A 53

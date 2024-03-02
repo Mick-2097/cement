@@ -42,7 +42,7 @@ fetchCompositions()
                         <td class="text-center">{{ composition.concrete.brand }}</td>
                         <td class="">
                             <!-- Delete-->
-                            <div class="flex justify-around">
+                            <div class="flex justify-center gap-2">
                                 <img class="cursor-pointer w-5 h-5 hover:scale-125" src="../assets/icons/trash.svg"
                                     alt="delete building" title="delete building" tabindex="0">
                                 <!-- Edit -->

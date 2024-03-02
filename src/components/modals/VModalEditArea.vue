@@ -25,6 +25,7 @@ const validateEditAreaInputs = () => {
     if (editedArea.value.concrete_composition_id === '') invalidID.value = true
     if (editedArea.value.name === '') invalidName.value = true
     if (editedArea.value.description === '') invalidDescription.value = true
+    console.log(editedArea.value.filling_time)
     if (editedArea.value.filling_time === '') invalidFill.value = true
     if (invalidID.value === true ||
         invalidName.value === true ||
@@ -49,7 +50,7 @@ getConcreteCompositions()
     <section class="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-80 z-10">
         <div class="flex flex-col w-72 sm:w-96 bg-white rounded-xl m-auto mt-[20vh] p-4">
             <img @click="emits('close')" class="self-end cursor-pointer" src="../../assets/icons/close.svg" />
-            <h2 class="text-xl font-bold text-center">Add area</h2>
+            <h2 class="text-xl font-bold text-center">Edit area</h2>
 
             <label class="cursor-pointer mt-4 mb-3" for="concrete-composition">Concrete compostition</label>
             <select @focus="invalidID = false" v-model="editedArea.concrete_composition_id"
@@ -72,7 +73,7 @@ getConcreteCompositions()
                 class="border border-black border-opacity-50 rounded mt-2 h-10 px-2 focus:outline-none focus:border-[var(--blue)] focus:border-2"
                 type="text" id="area-description">
             <label class="cursor-pointer mt-4" for="fill-time">Fill time</label>
-            <input @focus="invalidFill = false"
+            <input @focus="invalidFill = false" v-model="editedArea.filling_time"
                 :class="invalidFill ? 'border-2 border-red-500 border-opacity-100 bg-pink-100' : ''"
                 class="border border-black border-opacity-50 rounded mt-2 h-10 px-2 focus:outline-none focus:border-[var(--blue)] focus:border-2"
                 type="datetime-local" id="fill-time">

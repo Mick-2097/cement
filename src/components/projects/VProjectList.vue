@@ -34,8 +34,10 @@ const openEditModal = (id) => {
 }
 const deleteProject = async (companyIndex, projectId) => {
     deleteAttempt.value = false
-    await mainApi.delete(`projects/${projectId}`)
-    companies.value[companyIndex].projects = companies.value[companyIndex].projects.filter(project => project.id !== projectId)
+    const response = await mainApi.delete(`projects/${projectId}`)
+    if (response.status) {
+        companies.value[companyIndex].projects = companies.value[companyIndex].projects.filter(project => project.id !== projectId)
+    }
 }
 const areYouSure = (companyIndex, projectId) => {
     indices.value.companyIndex = companyIndex

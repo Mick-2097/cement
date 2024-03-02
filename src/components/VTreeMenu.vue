@@ -72,7 +72,8 @@ onMounted(async () => {
                 <li v-for="object in buildingObjects" :key="object.id" tabindex="0">
 
                     <details class="flex w-full focus:bg-[var(--blue-focus)] focus:outline-none" tabindex="0">
-                        <summary @click="selectObject(object.id)" :class="!object.buildings.length ? `no-content` : ``"
+                        <summary @click="selectObject(object.id)"
+                            :class="[!object.buildings.length ? `no-content` : ``, !route.path.includes('reports') && route.path.includes(object.id) && !route.params.building_id ? 'bg-[var(--blue-focus)]' : '']"
                             class="relative pl-6 py-2 flex items-center text-base text-black text-opacity-70 font-bold tracking-wide cursor-pointer hover:bg-[var(--blue-focus)] focus:bg-[var(--blue-focus)] focus:outline-none before:absolute before:h-[18px] before:w-[18px] before:left-[4px] before:top-[10px] before:-rotate-90 before:transition-all before:duration-150 before:content-[url('../assets/icons/Arrow-sm.svg')] justify-between"
                             v-focus="[object.name, object.id]">
                             {{ object.name }}

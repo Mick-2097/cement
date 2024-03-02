@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import VTreeMenu from '../components/VTreeMenu.vue'
 
-const emits = defineEmits()
 const route = useRoute()
 const router = useRouter()
 const treeMenuKey = ref(0)
@@ -12,7 +11,6 @@ const goToReports = () => {
     router.push({
         name: 'reports',
     })
-    emits('closeTree')
 }
 const goToCompositions = () => {
     router.push({
@@ -32,6 +30,7 @@ const goToCompositions = () => {
         <ul class="list-none py-2 flex flex-col bg-white border rounded-xl shadow-lg">
 
             <li @click="goToReports" title="Select area"
+                :class="route.path.includes('reports') ? 'bg-[var(--blue-focus)]' : ''"
                 class="flex px-4 py-2 gap-2 text-start cursor-pointer hover:bg-[var(--blue-focus)] items-center focus:bg-[var(--blue-focus)]"
                 tabindex="0">
                 <div class="h-6 w-6">
@@ -39,7 +38,7 @@ const goToCompositions = () => {
                 </div>
                 Reports
             </li>
-            <li @click="goToCompositions"
+            <li @click="goToCompositions" :class="route.path.includes('compositions') ? 'bg-[var(--blue-focus)]' : ''"
                 class="flex px-4 py-2 gap-2 text-start cursor-pointer hover:bg-[var(--blue-focus)] items-center"
                 tabindex="0">
                 <div class="h-6 w-6">

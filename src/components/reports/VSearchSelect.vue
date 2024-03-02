@@ -2,12 +2,14 @@
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { mainApi } from '../../api/main'
+import VSpinner from '../VSpinner.vue'
 
 const route = useRoute()
 const router = useRouter()
 const dataArray = ref([])
 const areaID = ref(0)
 const showAreaList = ref(false)
+const dataReady = ref(true)
 
 const buildingObject = ref({
     building_object_id: +route.params.building_object_id,
@@ -28,15 +30,18 @@ fetchAreas()
 const searchAreas = async () => {
     if (searchObject.value.search !== '') {
         const response = await mainApi.get('areas', searchObject.value)
+        dataReady.value = true
         dataArray.value = response.data.list
         return
     }
     const response = await mainApi.get('areas', buildingObject.value)
+    dataReady.value = true
     dataArray.value = response.data.list
 }
 let timeout = setTimeout(searchAreas, 500)
 
 const updateSearch = async () => {
+    dataReady.value = false
     clearTimeout(timeout)
     timeout = setTimeout(searchAreas, 500)
 }
@@ -62,14 +67,17 @@ watch(() => route.params.building_object_id, async () => {
             <input @input="updateSearch" @click="showAreaList = !showAreaList"
                 class="px-4 h-10 w-full border border-black border-opacity-20 rounded focus:outline-none focus:border-[var(--blue)] focus:border-2"
                 type="text" placeholder="Search" v-model="searchObject.search">
-            <ul :class="showAreaList ? 'scale-y-100' : 'scale-y-0'"
-                class=" w-full bg-white rounded-b shadow-lg transition-all duration-300 origin-top absolute">
-                <li v-if="!dataArray.length" class="flex p-4 items-center h-10 justify-center">-- No
+            <div>
+                <VSpinner v-if="!dataReady" />
+            </div>
+            <ul :class="showAreaList && dataReady ? 'scale-y-100' : 'scale-y-0'"
+                class=" w-full bg-white rounded-b shadow-lg transition-all duration-300 origin-top ease-out absolute">
+                <li v-if="dataReady && !dataArray.length" class="flex p-4 items-center h-10 justify-center">-- No
                     areas --</li>
                 <li v-else v-for="(item, index) in dataArray" :key="index" :value="item"
                     @click="areaID = item.id, showAreaList = false"
-                    class="flex p-4 items-center h-10 cursor-pointer hover:bg-[var(--blue-focus)]">{{
-                        item.name }}
+                    class="flex p-4 items-center h-10 cursor-pointer hover:bg-[var(--blue-focus)]">
+                    {{ item.name }}
                 </li>
             </ul>
         </div>
